@@ -45,7 +45,7 @@ describe('LessonEffects', () => {
           .subscribe(_result => result = _result);
         tick(299); // test de-bounce
         expect(result).toBe(null);
-        tick(300);
+        tick(1);
         expect(lessonService.getLessonList).toHaveBeenCalledTimes(1);
         expect(result).toEqual(expectedResult);
       })));
