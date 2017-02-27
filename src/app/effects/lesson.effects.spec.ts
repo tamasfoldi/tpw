@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import * as lesson from '../actions/lesson.actions';
 import { Lesson } from '../models/lessons/lesson';
 
-describe('BookEffects', () => {
+describe('LessonEffects', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [
       EffectsTestingModule

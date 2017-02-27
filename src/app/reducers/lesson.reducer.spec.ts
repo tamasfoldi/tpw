@@ -4,7 +4,7 @@ import * as lesson from '../actions/lesson.actions';
 import { Lesson } from '../models/lessons/lesson';
 import { Action } from '@ngrx/store';
 
-describe('BooksReducer', () => {
+describe('LessonReducer', () => {
   describe('undefined action', () => {
     it('should return the default state', () => {
       const action = {} as Action;
