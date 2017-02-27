@@ -2,7 +2,7 @@ import { RouterStateSnapshot, NavigationCancel, RoutesRecognized, NavigationErro
 import { Action } from '@ngrx/store';
 
 import { type } from './action-utils';
-import { AppState } from '../reducers/index';
+import { State } from '../reducers/index';
 
 export const ActionTypes = {
   NAVIGATION: type('[ROUTER] Navigation'),
@@ -45,13 +45,13 @@ export class NavigationAction implements Action {
 export class CancelAction implements Action {
   type = ActionTypes.CANCEL;
 
-  constructor(public payload: RouterCancelPayload<AppState>) { }
+  constructor(public payload: RouterCancelPayload<State>) { }
 }
 
 export class ErrorAction implements Action {
   type = ActionTypes.ERROR;
 
-  constructor(public payload: RouterErrorPayload<AppState>) { }
+  constructor(public payload: RouterErrorPayload<State>) { }
 }
 
 export type Actions
