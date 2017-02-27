@@ -20,8 +20,7 @@ describe('BooksReducer', () => {
         isLoading: true,
         lessonList: []
       };
-      const loadListSuccessAction = new lesson.LoadListAction();
-      const result = reducer(fromLessons.initialState, loadListSuccessAction);
+      const result = reducer(fromLessons.initialState, new lesson.LoadListAction());
 
       expect(result).toEqual(expectedResult);
     });
@@ -37,8 +36,23 @@ describe('BooksReducer', () => {
         isLoading: false,
         lessonList: [{ id: 'test_1', title: 'Test 1', isCompleted: false }]
       };
-      const loadListSuccessAction = new lesson.LoadListSuccessAction([{ id: 'test_1', title: 'Test 1', isCompleted: false }]);
-      const result = reducer(initialState, loadListSuccessAction);
+      const result = reducer(initialState, new lesson.LoadListSuccessAction([{ id: 'test_1', title: 'Test 1', isCompleted: false }]));
+
+      expect(result).toEqual(expectedResult);
+    });
+  });
+
+  describe('LOAD_LIST_FAIL', () => {
+    const initialState: fromLessons.State = {
+      isLoading: true,
+      lessonList: []
+    };
+    it('should set is loading false', () => {
+      const expectedResult = {
+        isLoading: false,
+        lessonList: []
+      };
+      const result = reducer(initialState, new lesson.LoadListFailAction('fail'));
 
       expect(result).toEqual(expectedResult);
     });
