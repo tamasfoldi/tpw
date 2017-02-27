@@ -12,12 +12,12 @@ export class LessonService {
       {
         id: '1',
         title: 'Lesson 1',
-        isCompleted: false
+        isCompleted: true
       },
       {
         id: '2',
         title: 'Lesson 2',
-        isCompleted: false
+        isCompleted: true
       },
       {
         id: '3',
