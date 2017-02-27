@@ -1,5 +1,5 @@
 export interface LessonListElement {
-  lessonId: string;
-  name: string;
+  id: string;
+  title: string;
   isCompleted: boolean;
 }

@@ -13,7 +13,7 @@ export const reducers = {
   lessons: fromLesson.reducer,
 };
 
-const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
+const developmentReducer: ActionReducer<State> = compose(combineReducers)(reducers);
 const productionReducer: ActionReducer<State> = combineReducers(reducers);
 
 export function reducer(state: State, action: Action) {

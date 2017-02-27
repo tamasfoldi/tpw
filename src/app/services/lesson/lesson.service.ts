@@ -8,7 +8,27 @@ export class LessonService {
   constructor() { }
 
   getLessonList(): Observable<LessonListElement[]> {
-    return Observable.of([]);
+    return Observable.of([
+      {
+        id: '1',
+        title: 'Lesson 1',
+        isCompleted: false
+      },
+      {
+        id: '2',
+        title: 'Lesson 2',
+        isCompleted: false
+      },
+      {
+        id: '3',
+        title: 'Lesson 3',
+        isCompleted: false
+      }, {
+        id: '4',
+        title: 'Lesson 4',
+        isCompleted: false
+      }
+    ]);
   }
 
 }
