@@ -26,6 +26,9 @@ export function reducer(state: State, action: Action) {
 
 export const isLoading = (state: State) => state.lessons.isLoading;
 export const getLessonsState = (state: State) => state.lessons;
+
 export const getLessonList = createSelector(getLessonsState, fromLesson.getLessonList);
 
 export const isLoadingLesson = createSelector(getLessonsState, fromLesson.isLoading);
+
+export const getSelectedLesson = createSelector(getLessonsState, fromLesson.getSelectedLesson);

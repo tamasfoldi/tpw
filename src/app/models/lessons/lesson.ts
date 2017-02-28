@@ -1,5 +1,5 @@
 export interface Lesson {
-  id: number;
-  name: string;
+  id: string;
+  title: string;
   text: string;
 }

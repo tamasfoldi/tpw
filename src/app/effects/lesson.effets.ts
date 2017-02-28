@@ -20,4 +20,14 @@ export class LessonEffects {
       .map(lessons => new lesson.LoadListSuccessAction(lessons))
       .catch(() => Observable.of(new lesson.LoadListFailAction('fail')))
     );
+
+  @Effect()
+  loadSelected$: Observable<Action> = this.actions$
+    .ofType(lesson.ActionTypes.LOAD)
+    .debounceTime(300)
+    .map(action => action.payload)
+    .switchMap(id => this.lessonService.getLesson(id)
+      .map(l => new lesson.LoadSuccessAction(l))
+      .catch(() => Observable.of(new lesson.LoadListFailAction('fail')))
+    );
 }
