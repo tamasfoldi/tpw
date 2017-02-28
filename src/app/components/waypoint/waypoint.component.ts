@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { LessonListElement } from "../../models/lessons/lesson-list-element";
+import { LessonListElement } from '../../models/lessons/lesson-list-element';
 
 @Component({
   selector: 'tpw-waypoint',

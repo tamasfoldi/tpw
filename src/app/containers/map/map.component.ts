@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { State } from '../../reducers/index';
 import { Observable } from 'rxjs/Rx';
@@ -14,20 +15,18 @@ import { Lesson } from '../../models/lessons/lesson';
 })
 export class MapComponent implements OnInit {
   lessons$: Observable<LessonListElement[]>;
-  selectedLesson$: Observable<Lesson>;
   isLoading$: Observable<boolean>;
-  constructor(private store: Store<State>) {
+  constructor(private store: Store<State>, private router: Router) {
     this.store.dispatch(new lesson.LoadListAction());
   }
 
   ngOnInit() {
     this.lessons$ = this.store.select(fromRoot.getLessonList);
     this.isLoading$ = this.store.select(fromRoot.isLoading);
-    this.selectedLesson$ = this.store.select(fromRoot.getSelectedLesson);
   }
 
   handleLessonSelect(id: string) {
-    this.store.dispatch(new lesson.LoadAction(id));
+    this.router.navigate(['/lesson', id]);
   }
 
 }

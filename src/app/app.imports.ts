@@ -9,9 +9,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 
 import { LessonEffects } from './effects/lesson.effets';
+import { RouterEffects } from './effects/router.effects';
 import { reducer } from './reducers/index';
 import { connectToStore, StoreConnectedToRouter } from './router-store';
 import { routes } from './app.routes';
+import { environment } from '../environments/environment';
 
 export const APP_IMPORTS = [
   BrowserModule,
@@ -21,7 +23,8 @@ export const APP_IMPORTS = [
   StoreConnectedToRouter.provideStore(reducer),
 
   StoreModule.provideStore(reducer),
-  StoreDevtoolsModule.instrumentOnlyWithExtension(),
+  !environment.production ? StoreDevtoolsModule.instrumentOnlyWithExtension() : [],
 
-  EffectsModule.run(LessonEffects)
+  EffectsModule.run(LessonEffects),
+  EffectsModule.run(RouterEffects)
 ];
