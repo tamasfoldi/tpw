@@ -1,2 +1,4 @@
-<div *ngIf="isLoading | async">Loading...</div>
-<tpw-waypoint *ngFor="let lesson of (lessons$ | async)" [lesson]="lesson"></tpw-waypoint>
+<div *ngIf="isLoading$ | async">Loading...</div>
+<tpw-waypoint *ngFor="let lesson of (lessons$ | async)" [lesson]="lesson" (click)="handleLessonSelect(lesson.id)"></tpw-waypoint>
+
+{{selectedLesson$ | async | json}}
