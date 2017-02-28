@@ -23,6 +23,5 @@ export const APP_IMPORTS = [
   StoreModule.provideStore(reducer),
   StoreDevtoolsModule.instrumentOnlyWithExtension(),
 
-
   EffectsModule.run(LessonEffects)
 ];

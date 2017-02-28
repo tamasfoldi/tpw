@@ -5,13 +5,12 @@ import { APP_IMPORTS } from './app.imports';
 import { APP_PROVIDERS } from './app.providers';
 
 import { AppComponent } from './app.component';
-import { WaypointComponent } from './components/waypoint/waypoint.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    APP_DECLRATATIONS,
-    WaypointComponent
+    APP_DECLRATATIONS
   ],
   imports: [
     APP_IMPORTS
