@@ -19,7 +19,8 @@ describe('LessonReducer', () => {
       const expectedResult: State = {
         isLoading: true,
         lessonList: [],
-        selectedLesson: null
+        selectedLesson: null,
+        lastCompletedIdx: 0
       };
       const result = reducer(initialState, new lesson.LoadListAction());
 
@@ -31,10 +32,11 @@ describe('LessonReducer', () => {
     it('should add the received list to the state and set loading false', () => {
       const expectedResult: State = {
         isLoading: false,
-        lessonList: [{ id: 'test_1', title: 'Test 1', isCompleted: false }],
-        selectedLesson: null
+        lessonList: [{ id: 'test_1', title: 'Test 1', isAvailable: false }],
+        selectedLesson: null,
+        lastCompletedIdx: 0
       };
-      const result = reducer(initialState, new lesson.LoadListSuccessAction([{ id: 'test_1', title: 'Test 1', isCompleted: false }]));
+      const result = reducer(initialState, new lesson.LoadListSuccessAction([{ id: 'test_1', title: 'Test 1', isAvailable: false }]));
 
       expect(result).toEqual(expectedResult);
     });
@@ -45,7 +47,8 @@ describe('LessonReducer', () => {
       const expectedResult: State = {
         isLoading: false,
         lessonList: [],
-        selectedLesson: null
+        selectedLesson: null,
+        lastCompletedIdx: 0
       };
       const result = reducer(initialState, new lesson.LoadListFailAction('fail'));
 
@@ -58,7 +61,8 @@ describe('LessonReducer', () => {
       const expectedResult: State = {
         isLoading: true,
         lessonList: [],
-        selectedLesson: null
+        selectedLesson: null,
+        lastCompletedIdx: 0
       };
       const result = reducer(initialState, new lesson.LoadAction('test_1'));
 
@@ -71,7 +75,8 @@ describe('LessonReducer', () => {
       const expectedResult: State = {
         isLoading: false,
         lessonList: [],
-        selectedLesson: { id: 'test_1', title: 'Test 1', text: 'Test1' }
+        selectedLesson: { id: 'test_1', title: 'Test 1', text: 'Test1' },
+        lastCompletedIdx: 0
       };
       const result = reducer(initialState, new lesson.LoadSuccessAction({ id: 'test_1', title: 'Test 1', text: 'Test1' }));
 
@@ -84,7 +89,8 @@ describe('LessonReducer', () => {
       const expectedResult: State = {
         isLoading: false,
         lessonList: [],
-        selectedLesson: null
+        selectedLesson: null,
+        lastCompletedIdx: 0
       };
       const result = reducer(initialState, new lesson.LoadListFailAction('fail'));
 

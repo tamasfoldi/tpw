@@ -35,21 +35,21 @@ export class LessonService {
       {
         id: '1',
         title: 'Lesson 1',
-        isCompleted: true
+        isAvailable: true
       },
       {
         id: '2',
         title: 'Lesson 2',
-        isCompleted: true
+        isAvailable: true
       },
       {
         id: '3',
         title: 'Lesson 3',
-        isCompleted: false
+        isAvailable: false
       }, {
         id: '4',
         title: 'Lesson 4',
-        isCompleted: false
+        isAvailable: false
       }
     ]);
   }

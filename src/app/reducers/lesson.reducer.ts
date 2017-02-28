@@ -7,12 +7,14 @@ export interface State {
   lessonList: LessonListElement[];
   isLoading: boolean;
   selectedLesson: Lesson;
+  lastCompletedIdx: number;
 };
 
 export const initialState: State = {
   lessonList: [],
   isLoading: false,
-  selectedLesson: null
+  selectedLesson: null,
+  lastCompletedIdx: 0
 };
 
 export function reducer(state = initialState, action: lesson.Actions): State {
@@ -50,3 +52,5 @@ export const getLessonList = (state: State) => state.lessonList;
 export const isLoading = (state: State) => state.isLoading;
 
 export const getSelectedLesson = (state: State) => state.selectedLesson;
+
+export const getLastCompletedIdx = (state: State) => state.lastCompletedIdx;

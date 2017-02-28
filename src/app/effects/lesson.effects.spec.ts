@@ -48,9 +48,9 @@ describe('LessonEffects', () => {
   describe('loadList$', () => {
     it('should return a new LoadListSuccessAction, with the lessons, on success, after the de-bounce', fakeAsync(
       inject([LessonService], (lessonService: LessonService) => {
-        spyOn(lessonService, 'getLessonList').and.returnValue(Observable.of([{ id: 'test_1', title: 'Test 1', isCompleted: true }]));
+        spyOn(lessonService, 'getLessonList').and.returnValue(Observable.of([{ id: 'test_1', title: 'Test 1', isAvailable: true }]));
 
-        const expectedResult = new lesson.LoadListSuccessAction([{ id: 'test_1', title: 'Test 1', isCompleted: true }]);
+        const expectedResult = new lesson.LoadListSuccessAction([{ id: 'test_1', title: 'Test 1', isAvailable: true }]);
         runner.queue(new lesson.LoadListAction());
 
         let result = null;
