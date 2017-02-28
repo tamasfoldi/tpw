@@ -16,7 +16,7 @@ export class LessonEffects {
   loadList$: Observable<Action> = this.actions$
     .ofType(lesson.ActionTypes.LOAD_LIST)
     .debounceTime(300)
-    .switchMapTo(this.lessonService.getLessonList()
+    .switchMap(() => this.lessonService.getLessonList()
       .map(lessons => new lesson.LoadListSuccessAction(lessons))
       .catch(() => Observable.of(new lesson.LoadListFailAction('fail')))
     );
