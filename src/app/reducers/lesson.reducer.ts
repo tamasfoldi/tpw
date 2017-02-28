@@ -14,7 +14,7 @@ export const initialState: State = {
   lessonList: [],
   isLoading: false,
   selectedLesson: null,
-  lastCompletedIdx: 0
+  lastCompletedIdx: -1
 };
 
 export function reducer(state = initialState, action: lesson.Actions): State {

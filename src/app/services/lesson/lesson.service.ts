@@ -40,7 +40,7 @@ export class LessonService {
       {
         id: '2',
         title: 'Lesson 2',
-        isAvailable: true
+        isAvailable: false
       },
       {
         id: '3',

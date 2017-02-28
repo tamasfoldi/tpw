@@ -20,7 +20,7 @@ describe('LessonReducer', () => {
         isLoading: true,
         lessonList: [],
         selectedLesson: null,
-        lastCompletedIdx: 0
+        lastCompletedIdx: -1
       };
       const result = reducer(initialState, new lesson.LoadListAction());
 
@@ -34,7 +34,7 @@ describe('LessonReducer', () => {
         isLoading: false,
         lessonList: [{ id: 'test_1', title: 'Test 1', isAvailable: false }],
         selectedLesson: null,
-        lastCompletedIdx: 0
+        lastCompletedIdx: -1
       };
       const result = reducer(initialState, new lesson.LoadListSuccessAction([{ id: 'test_1', title: 'Test 1', isAvailable: false }]));
 
@@ -48,7 +48,7 @@ describe('LessonReducer', () => {
         isLoading: false,
         lessonList: [],
         selectedLesson: null,
-        lastCompletedIdx: 0
+        lastCompletedIdx: -1
       };
       const result = reducer(initialState, new lesson.LoadListFailAction('fail'));
 
@@ -62,7 +62,7 @@ describe('LessonReducer', () => {
         isLoading: true,
         lessonList: [],
         selectedLesson: null,
-        lastCompletedIdx: 0
+        lastCompletedIdx: -1
       };
       const result = reducer(initialState, new lesson.LoadAction('test_1'));
 
@@ -76,7 +76,7 @@ describe('LessonReducer', () => {
         isLoading: false,
         lessonList: [],
         selectedLesson: { id: 'test_1', title: 'Test 1', text: 'Test1' },
-        lastCompletedIdx: 0
+        lastCompletedIdx: -1
       };
       const result = reducer(initialState, new lesson.LoadSuccessAction({ id: 'test_1', title: 'Test 1', text: 'Test1' }));
 
@@ -90,7 +90,7 @@ describe('LessonReducer', () => {
         isLoading: false,
         lessonList: [],
         selectedLesson: null,
-        lastCompletedIdx: 0
+        lastCompletedIdx: -1
       };
       const result = reducer(initialState, new lesson.LoadListFailAction('fail'));
 
