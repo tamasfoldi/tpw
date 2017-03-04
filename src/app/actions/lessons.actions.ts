@@ -21,13 +21,13 @@ export class LoadListAction implements Action {
 export class LoadListSuccessAction implements Action {
   type = ActionTypes.LOAD_LIST_SUCCESS;
 
-  constructor(public payload?: LessonListElement[]) { }
+  constructor(public payload: LessonListElement[]) { }
 }
 
 export class LoadListFailAction implements Action {
   type = ActionTypes.LOAD_LIST_FAIL;
 
-  constructor(public payload?: string) { }
+  constructor(public payload: string) { }
 }
 
 export class SelectAction implements Action {

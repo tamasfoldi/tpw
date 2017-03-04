@@ -1,6 +1,6 @@
 import { EffectsTestingModule, EffectsRunner } from '@ngrx/effects/testing';
 import { TestBed, fakeAsync, tick, inject } from '@angular/core/testing';
-import { LessonEffects } from './lessons.effects';
+import { LessonsEffects } from './lessons.effects';
 import { LessonService } from '../services/lesson/lesson.service';
 import { Observable } from 'rxjs/Observable';
 import * as lesson from '../actions/lessons.actions';
@@ -15,18 +15,18 @@ describe('LessonEffects', () => {
       EffectsTestingModule
     ],
     providers: [
-      LessonEffects,
+      LessonsEffects,
       LessonService
     ]
   }));
 
   beforeEach(() => {
     runner = TestBed.get(EffectsRunner);
-    lessonsEffects = TestBed.get(LessonEffects);
+    lessonsEffects = TestBed.get(LessonsEffects);
   });
 
   describe('loadList$', () => {
-    it('should return a new LoadListSuccessAction, with the lessons, on success, after the de-bounce', fakeAsync(
+    it('should return a new LoadListSuccessAction, with the lessons, on success', fakeAsync(
       inject([LessonService], (lessonService: LessonService) => {
         spyOn(lessonService, 'getLessonList').and.returnValue(Observable.of([{ id: 'test_1', title: 'Test 1', isAvailable: true }]));
 

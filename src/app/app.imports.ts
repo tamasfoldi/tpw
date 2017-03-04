@@ -8,7 +8,8 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 
-import { LessonEffects } from './effects/lessons.effects';
+import { LessonsEffects } from './effects/lessons.effects';
+import { LessonEffects } from './effects/lesson.effects';
 import { RouterEffects } from './effects/router.effects';
 import { reducer } from './reducers/index';
 import { connectToStore, StoreConnectedToRouter } from './router-store';
@@ -25,6 +26,7 @@ export const APP_IMPORTS = [
   StoreModule.provideStore(reducer),
   !environment.production ? StoreDevtoolsModule.instrumentOnlyWithExtension() : [],
 
+  EffectsModule.run(LessonsEffects),
   EffectsModule.run(LessonEffects),
   EffectsModule.run(RouterEffects)
 ];

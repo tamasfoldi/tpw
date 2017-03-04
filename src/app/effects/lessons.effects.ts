@@ -5,18 +5,17 @@ import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { LessonService } from '../services/lesson/lesson.service';
-import * as lesson from '../actions/lessons.actions';
+import * as lessons from '../actions/lessons.actions';
 
 @Injectable()
-export class LessonEffects {
+export class LessonsEffects {
   constructor(private actions$: Actions, private lessonService: LessonService) { }
 
 
   @Effect()
   loadList$: Observable<Action> = this.actions$
-    .ofType(lesson.ActionTypes.LOAD_LIST)
+    .ofType(lessons.ActionTypes.LOAD_LIST)
     .switchMap(() => this.lessonService.getLessonList()
-      .map(lessons => new lesson.LoadListSuccessAction(lessons))
-      .catch(() => Observable.of(new lesson.LoadListFailAction('fail')))
-    );
+      .map(ls => new lessons.LoadListSuccessAction(ls))
+      .catch(() => Observable.of(new lessons.LoadListFailAction('fail'))));
 }
