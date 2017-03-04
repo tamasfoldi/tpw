@@ -2,6 +2,9 @@
 import * as lesson from '../actions/lesson.actions';
 import { Lesson } from '../models/lessons/lesson';
 
+const KEYCODE_0 = 48;
+const KEYCODE_Z = 98;
+const KEYCODE_SPACE = 32;
 export interface State {
   currentLesson: Lesson;
   typedText: string;
@@ -18,8 +21,11 @@ export function reducer(state = initialState, action: lesson.Actions): State {
   switch (action.type) {
     case lesson.ActionTypes.NEW_KEY: {
       const key: KeyboardEvent = action.payload as KeyboardEvent;
-
-      return Object.assign({}, state, { typedText: state.typedText + key.key });
+      if ((key.keyCode >= KEYCODE_0 && key.keyCode <= KEYCODE_Z) || key.keyCode === KEYCODE_SPACE) {
+        return Object.assign({}, state, { typedText: state.typedText + key.key });
+      } else {
+        return state;
+      }
     }
 
     case lesson.ActionTypes.LOAD: {

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Rx';
 import { Lesson } from '../../models/lessons/lesson';
 import { State } from '../../reducers/index';
 import * as fromRoot from '../../reducers/index';
+import * as lesson from '../../actions/lesson.actions';
 
 @Component({
   selector: 'tpw-lesson-view',
@@ -14,11 +15,17 @@ import * as fromRoot from '../../reducers/index';
 export class LessonViewComponent implements OnInit {
 
   selectedLesson$: Observable<Lesson>;
+  typedText$: Observable<string>;
 
   constructor(private store: Store<State>) { }
 
   ngOnInit() {
     this.selectedLesson$ = this.store.select(fromRoot.getCurrentLesson);
+    this.typedText$ = this.store.select(fromRoot.getTypedText);
   }
 
+  handleKeyup(event: KeyboardEvent) {
+    this.store.dispatch(new lesson.NewKeyAction(event));
+  }
 }
+

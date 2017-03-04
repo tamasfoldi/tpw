@@ -1,1 +1,1 @@
-<tpw-lesson [lesson]="selectedLesson$ | async"></tpw-lesson>
+<tpw-lesson [lesson]="selectedLesson$ | async" [typedText]="typedText$ | async" (onKeyup)="handleKeyup($event)"></tpw-lesson>
