@@ -2,9 +2,22 @@
 import * as lesson from '../actions/lesson.actions';
 import { Lesson } from '../models/lessons/lesson';
 
-const KEYCODE_0 = 48;
-const KEYCODE_Z = 98;
-const KEYCODE_SPACE = 32;
+const isValidCharacter = (key: KeyboardEvent, state: State): boolean => {
+  const isItTheCorrectNextChar = (): boolean => {
+    const typedText = state.typedText;
+    return typedText + key.key === state.currentLesson.text.substr(0, typedText.length + 1);
+  };
+
+  const isItCharacter = (): boolean => {
+    const KEYCODE_0 = 48;
+    const KEYCODE_Z = 98;
+    const KEYCODE_SPACE = 32;
+    return (key.keyCode >= KEYCODE_0 && key.keyCode <= KEYCODE_Z) || key.keyCode === KEYCODE_SPACE
+  };
+
+  return isItTheCorrectNextChar() && isItCharacter();
+};
+
 export interface State {
   currentLesson: Lesson;
   typedText: string;
@@ -21,11 +34,10 @@ export function reducer(state = initialState, action: lesson.Actions): State {
   switch (action.type) {
     case lesson.ActionTypes.NEW_KEY: {
       const key: KeyboardEvent = action.payload as KeyboardEvent;
-      if ((key.keyCode >= KEYCODE_0 && key.keyCode <= KEYCODE_Z) || key.keyCode === KEYCODE_SPACE) {
-        return Object.assign({}, state, { typedText: state.typedText + key.key });
-      } else {
-        return state;
-      }
+
+      return isValidCharacter(key, state)
+        ? Object.assign({}, state, { typedText: state.typedText + key.key })
+        : state;
     }
 
     case lesson.ActionTypes.LOAD: {
@@ -45,6 +57,7 @@ export function reducer(state = initialState, action: lesson.Actions): State {
     }
   }
 }
+
 
 export const getLessonTitle = (state: State) => state.currentLesson.title;
 export const getLessonText = (state: State) => state.currentLesson.text;
