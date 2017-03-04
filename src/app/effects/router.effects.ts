@@ -12,4 +12,12 @@ import * as lessons from '../actions/lessons.actions';
 @Injectable()
 export class RouterEffects {
   constructor(private actions$: Actions, private route: ActivatedRoute) { }
+
+  @Effect()
+  loadSelected$: Observable<Action> = this.actions$
+    .ofType(router.ActionTypes.NAVIGATION)
+    .map(action => action.payload.routerState.root.firstChild.firstChild.params)
+    .select(params => params['id'])
+    .filter(id => !!id)
+    .map(id => new lessons.SelectAction(id));
 }

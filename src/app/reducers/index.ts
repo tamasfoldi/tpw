@@ -1,6 +1,6 @@
 import { ActionReducer, combineReducers, Action } from '@ngrx/store';
 import { compose } from '@ngrx/core';
-import { storeFreeze } from 'ngrx-store-freeze';
+import { storeLogger } from 'ngrx-store-logger';
 import { createSelector } from 'reselect';
 
 import * as fromLessons from './lessons.reducer';
@@ -13,7 +13,7 @@ export const reducers = {
   lessons: fromLessons.reducer,
 };
 
-const developmentReducer: ActionReducer<State> = compose(combineReducers)(reducers);
+const developmentReducer: ActionReducer<State> = compose(storeLogger(), combineReducers)(reducers);
 const productionReducer: ActionReducer<State> = combineReducers(reducers);
 
 export function reducer(state: State, action: Action) {

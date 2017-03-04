@@ -7,7 +7,9 @@ import { Lesson } from '../models/lessons/lesson';
 export const ActionTypes = {
   LOAD_LIST: type('[LESSONS] Load List'),
   LOAD_LIST_SUCCESS: type('[LESSONS] Load List Success'),
-  LOAD_LIST_FAIL: type('[LESSONSLESSON] Load List Fail'),
+  LOAD_LIST_FAIL: type('[LESSONS] Load List Fail'),
+
+  SELECT: type('[LESSONS] Select')
 };
 
 export class LoadListAction implements Action {
@@ -28,7 +30,14 @@ export class LoadListFailAction implements Action {
   constructor(public payload?: string) { }
 }
 
+export class SelectAction implements Action {
+  type = ActionTypes.SELECT;
+
+  constructor(public payload: string) { }
+}
+
 export type Actions
   = LoadListAction
   | LoadListSuccessAction
-  | LoadListFailAction;
+  | LoadListFailAction
+  | SelectAction;
