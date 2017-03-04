@@ -31,6 +31,4 @@ export const getLessonList = createSelector(getLessonsState, fromLessons.getLess
 
 export const isLoadingLesson = createSelector(getLessonsState, fromLessons.isLoading);
 
-export const getSelectedLesson = createSelector(getLessonsState, fromLessons.getSelectedLesson);
 
-export const getLastCompletedLessonIdx = createSelector(getLessonsState, fromLessons.getLastCompletedIdx);

@@ -18,7 +18,7 @@ export class LessonViewComponent implements OnInit {
   constructor(private store: Store<State>) { }
 
   ngOnInit() {
-    this.selectedLesson$ = this.store.select(fromRoot.getSelectedLesson);
+    // this.selectedLesson$ = this.store.select(fromRoot.getSelectedLesson);
   }
 
 }

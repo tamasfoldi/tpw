@@ -9,7 +9,7 @@ import { LessonListElement } from '../models/lessons/lesson-list-element';
 
 describe('LessonEffects', () => {
   let runner;
-  let lessonEffects;
+  let lessonsEffects;
   beforeEach(() => TestBed.configureTestingModule({
     imports: [
       EffectsTestingModule
@@ -22,27 +22,7 @@ describe('LessonEffects', () => {
 
   beforeEach(() => {
     runner = TestBed.get(EffectsRunner);
-    lessonEffects = TestBed.get(LessonEffects);
-  });
-
-  describe('loadSelected$', () => {
-    it('should return a new LoadSuccessAction, with the lesson, on success, after the de-bounce', fakeAsync(
-      inject([LessonService], (lessonService: LessonService) => {
-        spyOn(lessonService, 'getLesson').and.returnValue(Observable.of({ id: 'test_1', title: 'Test 1', text: 'Test 1' }));
-
-        const expectedResult = new lesson.LoadSuccessAction({ id: 'test_1', title: 'Test 1', text: 'Test 1' });
-        runner.queue(new lesson.LoadAction('test_1'));
-
-        let result = null;
-        lessonEffects.loadSelected$
-          .subscribe(_result => result = _result);
-        tick(299); // test de-bounce
-        expect(result).toBe(null);
-        tick(1);
-        expect(lessonService.getLesson).toHaveBeenCalledTimes(1);
-        expect(result).toEqual(expectedResult);
-      })));
-
+    lessonsEffects = TestBed.get(LessonEffects);
   });
 
   describe('loadList$', () => {
@@ -54,7 +34,7 @@ describe('LessonEffects', () => {
         runner.queue(new lesson.LoadListAction());
 
         let result = null;
-        lessonEffects.loadList$
+        lessonsEffects.loadList$
           .subscribe(_result => result = _result);
         tick(299); // test de-bounce
         expect(result).toBe(null);
@@ -64,6 +44,5 @@ describe('LessonEffects', () => {
       })));
 
   });
-
 
 });
