@@ -1,5 +1,5 @@
 // tslint:disable:no-switch-case-fall-through
-import * as lesson from '../actions/lesson.actions';
+import * as lessons from '../actions/lessons.actions';
 import { LessonListElement } from '../models/lessons/lesson-list-element';
 import { Lesson } from '../models/lessons/lesson';
 
@@ -17,27 +17,27 @@ export const initialState: State = {
   lastCompletedIdx: -1
 };
 
-export function reducer(state = initialState, action: lesson.Actions): State {
+export function reducer(state = initialState, action: lessons.Actions): State {
   switch (action.type) {
-    case lesson.ActionTypes.LOAD:
-    case lesson.ActionTypes.LOAD_LIST: {
+    case lessons.ActionTypes.LOAD:
+    case lessons.ActionTypes.LOAD_LIST: {
       return Object.assign({}, state, { isLoading: true });
     }
 
-    case lesson.ActionTypes.LOAD_LIST_SUCCESS: {
+    case lessons.ActionTypes.LOAD_LIST_SUCCESS: {
       const lessonList = action.payload;
 
       return Object.assign({}, state, { lessonList: [...lessonList], isLoading: false });
     }
 
-    case lesson.ActionTypes.LOAD_SUCCESS: {
+    case lessons.ActionTypes.LOAD_SUCCESS: {
       const lesson = action.payload;
 
       return Object.assign({}, state, { selectedLesson: lesson, isLoading: false });
     }
 
-    case lesson.ActionTypes.LOAD_FAIL:
-    case lesson.ActionTypes.LOAD_LIST_FAIL: {
+    case lessons.ActionTypes.LOAD_FAIL:
+    case lessons.ActionTypes.LOAD_LIST_FAIL: {
       return Object.assign({}, state, { isLoading: false });
     }
 

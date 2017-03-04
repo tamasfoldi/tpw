@@ -1,10 +1,9 @@
-import { reducer } from './lesson.reducer';
-import { State, initialState } from './lesson.reducer';
-import * as lesson from '../actions/lesson.actions';
+import { State, initialState, reducer } from './lessons.reducer';
+import * as lessons from '../actions/lessons.actions';
 import { Lesson } from '../models/lessons/lesson';
 import { Action } from '@ngrx/store';
 
-describe('LessonReducer', () => {
+describe('LessonsReducer', () => {
   describe('undefined action', () => {
     it('should return the default state', () => {
       const action = {} as Action;
@@ -22,7 +21,7 @@ describe('LessonReducer', () => {
         selectedLesson: null,
         lastCompletedIdx: -1
       };
-      const result = reducer(initialState, new lesson.LoadListAction());
+      const result = reducer(initialState, new lessons.LoadListAction());
 
       expect(result).toEqual(expectedResult);
     });
@@ -36,7 +35,7 @@ describe('LessonReducer', () => {
         selectedLesson: null,
         lastCompletedIdx: -1
       };
-      const result = reducer(initialState, new lesson.LoadListSuccessAction([{ id: 'test_1', title: 'Test 1', isAvailable: false }]));
+      const result = reducer(initialState, new lessons.LoadListSuccessAction([{ id: 'test_1', title: 'Test 1', isAvailable: false }]));
 
       expect(result).toEqual(expectedResult);
     });
@@ -50,7 +49,7 @@ describe('LessonReducer', () => {
         selectedLesson: null,
         lastCompletedIdx: -1
       };
-      const result = reducer(initialState, new lesson.LoadListFailAction('fail'));
+      const result = reducer(initialState, new lessons.LoadListFailAction('fail'));
 
       expect(result).toEqual(expectedResult);
     });
@@ -64,7 +63,7 @@ describe('LessonReducer', () => {
         selectedLesson: null,
         lastCompletedIdx: -1
       };
-      const result = reducer(initialState, new lesson.LoadAction('test_1'));
+      const result = reducer(initialState, new lessons.LoadAction('test_1'));
 
       expect(result).toEqual(expectedResult);
     });
@@ -78,7 +77,7 @@ describe('LessonReducer', () => {
         selectedLesson: { id: 'test_1', title: 'Test 1', text: 'Test1' },
         lastCompletedIdx: -1
       };
-      const result = reducer(initialState, new lesson.LoadSuccessAction({ id: 'test_1', title: 'Test 1', text: 'Test1' }));
+      const result = reducer(initialState, new lessons.LoadSuccessAction({ id: 'test_1', title: 'Test 1', text: 'Test1' }));
 
       expect(result).toEqual(expectedResult);
     });
@@ -92,7 +91,7 @@ describe('LessonReducer', () => {
         selectedLesson: null,
         lastCompletedIdx: -1
       };
-      const result = reducer(initialState, new lesson.LoadListFailAction('fail'));
+      const result = reducer(initialState, new lessons.LoadListFailAction('fail'));
 
       expect(result).toEqual(expectedResult);
     });

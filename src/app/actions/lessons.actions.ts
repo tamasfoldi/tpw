@@ -13,7 +13,9 @@ export const ActionTypes = {
 
   LOAD: type('[LESSON] Load'),
   LOAD_SUCCESS: type('[LESSON] Load Success'),
-  LOAD_FAIL: type('[LESSON] Load Fail')
+  LOAD_FAIL: type('[LESSON] Load Fail'),
+
+  NEW_KEY: type('[LESSON] New Key'),
 };
 
 export class LoadListAction implements Action {
@@ -52,10 +54,17 @@ export class LoadFailAction implements Action {
   constructor(public payload?: string) { }
 }
 
+export class NewKeyAction implements Action {
+  type = ActionTypes.NEW_KEY;
+
+  constructor(public payload: KeyboardEvent) { }
+}
+
 export type Actions
   = LoadListAction
   | LoadListSuccessAction
   | LoadListFailAction
   | LoadAction
   | LoadSuccessAction
-  | LoadFailAction;
+  | LoadFailAction
+  | NewKeyAction;

@@ -5,7 +5,7 @@ import { State } from '../../reducers/index';
 import { Observable } from 'rxjs/Rx';
 import { LessonListElement } from '../../models/lessons/lesson-list-element';
 import * as fromRoot from '../../reducers/index';
-import * as lesson from '../../actions/lesson.actions';
+import * as lessons from '../../actions/lessons.actions';
 import { Lesson } from '../../models/lessons/lesson';
 
 @Component({
@@ -17,7 +17,7 @@ export class MapComponent implements OnInit {
   lessons$: Observable<LessonListElement[]>;
   isLoading$: Observable<boolean>;
   constructor(private store: Store<State>, private router: Router) {
-    this.store.dispatch(new lesson.LoadListAction());
+    this.store.dispatch(new lessons.LoadListAction());
   }
 
   ngOnInit() {

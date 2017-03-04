@@ -7,7 +7,7 @@ import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import * as router from '../actions/router.actions';
-import * as lesson from '../actions/lesson.actions';
+import * as lessons from '../actions/lessons.actions';
 
 @Injectable()
 export class RouterEffects {
@@ -18,5 +18,5 @@ export class RouterEffects {
     .ofType(router.ActionTypes.NAVIGATION)
     .map(action => action.payload.routerState.root.firstChild.firstChild.params)
     .select(params => params['id'])
-    .map(id => new lesson.LoadAction(id));
+    .map(id => new lessons.LoadAction(id));
 }

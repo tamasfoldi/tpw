@@ -3,14 +3,14 @@ import { compose } from '@ngrx/core';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { createSelector } from 'reselect';
 
-import * as fromLesson from './lesson.reducer';
+import * as fromLessons from './lessons.reducer';
 import { environment } from '../../environments/environment';
 export interface State {
-  lessons: fromLesson.State;
+  lessons: fromLessons.State;
 }
 
 export const reducers = {
-  lessons: fromLesson.reducer,
+  lessons: fromLessons.reducer,
 };
 
 const developmentReducer: ActionReducer<State> = compose(combineReducers)(reducers);
@@ -27,10 +27,10 @@ export function reducer(state: State, action: Action) {
 export const isLoading = (state: State) => state.lessons.isLoading;
 export const getLessonsState = (state: State) => state.lessons;
 
-export const getLessonList = createSelector(getLessonsState, fromLesson.getLessonList);
+export const getLessonList = createSelector(getLessonsState, fromLessons.getLessonList);
 
-export const isLoadingLesson = createSelector(getLessonsState, fromLesson.isLoading);
+export const isLoadingLesson = createSelector(getLessonsState, fromLessons.isLoading);
 
-export const getSelectedLesson = createSelector(getLessonsState, fromLesson.getSelectedLesson);
+export const getSelectedLesson = createSelector(getLessonsState, fromLessons.getSelectedLesson);
 
-export const getLastCompletedLessonIdx = createSelector(getLessonsState, fromLesson.getLastCompletedIdx);
+export const getLastCompletedLessonIdx = createSelector(getLessonsState, fromLessons.getLastCompletedIdx);

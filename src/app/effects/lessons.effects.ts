@@ -5,7 +5,7 @@ import { Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { LessonService } from '../services/lesson/lesson.service';
-import * as lesson from '../actions/lesson.actions';
+import * as lesson from '../actions/lessons.actions';
 
 @Injectable()
 export class LessonEffects {
