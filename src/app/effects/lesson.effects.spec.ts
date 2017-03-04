@@ -1,6 +1,6 @@
 import { EffectsTestingModule, EffectsRunner } from '@ngrx/effects/testing';
 import { TestBed, fakeAsync, tick, inject } from '@angular/core/testing';
-import { LessonEffects } from './lesson.effets';
+import { LessonEffects } from './lesson.effects';
 import { LessonService } from '../services/lesson/lesson.service';
 import { Observable } from 'rxjs/Observable';
 import * as lesson from '../actions/lesson.actions';

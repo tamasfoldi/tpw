@@ -1,4 +1,5 @@
 import './polyfills';
+import './rxjs-imports';
 
 import 'zone.js/dist/long-stack-trace-zone';
 import 'zone.js/dist/proxy.js';
