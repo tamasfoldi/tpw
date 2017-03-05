@@ -1,33 +1,34 @@
 // tslint:disable:no-switch-case-fall-through
 import * as lesson from '../actions/lesson.actions';
 import { Lesson } from '../models/lessons/lesson';
+import { Statistic } from '../models/statistic/statistic';
 
-const isValidCharacter = (key: KeyboardEvent, state: State): boolean => {
-  const isItTheCorrectNextChar = (): boolean => {
-    const typedText = state.typedText;
-    return typedText + key.key === state.currentLesson.text.substr(0, typedText.length + 1);
-  };
 
-  const isItCharacter = (): boolean => {
-    const KEYCODE_0 = 48;
-    const KEYCODE_Z = 98;
-    const KEYCODE_SPACE = 32;
-    return (key.keyCode >= KEYCODE_0 && key.keyCode <= KEYCODE_Z) || key.keyCode === KEYCODE_SPACE
-  };
-
-  return isItTheCorrectNextChar() && isItCharacter();
+const isItTheCorrectNextChar = (char: string, state: State): boolean => {
+  const typedText = state.typedText;
+  return typedText + char === state.currentLesson.text.substr(0, typedText.length + 1);
 };
+
+const isItCharacter = (keyCode: number): boolean => {
+  const KEYCODE_0 = 48;
+  const KEYCODE_Z = 98;
+  const KEYCODE_SPACE = 32;
+  return (keyCode >= KEYCODE_0 && keyCode <= KEYCODE_Z) || keyCode === KEYCODE_SPACE;
+};
+
 
 export interface State {
   currentLesson: Lesson;
   typedText: string;
   isLoading: boolean;
+  statistic: Statistic;
 };
 
 export const initialState: State = {
   isLoading: false,
   currentLesson: null,
-  typedText: ''
+  typedText: '',
+  statistic: new Statistic()
 };
 
 export function reducer(state = initialState, action: lesson.Actions): State {
@@ -35,17 +36,27 @@ export function reducer(state = initialState, action: lesson.Actions): State {
     case lesson.ActionTypes.NEW_KEY: {
       const key: KeyboardEvent = action.payload as KeyboardEvent;
 
-      if (isValidCharacter(key, state)) {
-        let newState = Object.assign({}, state, { typedText: state.typedText + key.key });
+      if (isItCharacter(key.keyCode)) {
+        let newStat = Object.assign({}, state.statistic) as Statistic;
+        let newState = Object.assign({}, state) as State;
 
-        if (state.typedText.length === 0) {
-          newState = Object.assign(newState, { startTime: Date.now() });
-        } else if (newState.typedText === state.currentLesson.text) {
-          newState = Object.assign(newState, { endTime: Date.now() });
+        if (isItTheCorrectNextChar(key.key, state)) {
+          newState = Object.assign({}, state, { typedText: state.typedText + key.key });
+          newStat = Object.assign({}, newStat, { nofCorrectPress: newStat.nofCorrectPress + 1 });
+
+          if (state.typedText.length === 0) {
+            newStat = Object.assign({}, newStat, { startTime: Date.now() });
+          } else if (newState.typedText === state.currentLesson.text) {
+            newStat = Object.assign({}, newStat, { endTime: Date.now() });
+          }
+        } else if (state.typedText.length !== 0) {
+          newStat = Object.assign({}, newStat, { nofIncorrectPress: newStat.nofIncorrectPress + 1 });
         }
-
-        return newState;
+        return Object.assign(newState, { statistic: Object.assign({}, newStat) });
       }
+
+      return state;
+
     }
 
     case lesson.ActionTypes.LOAD: {
