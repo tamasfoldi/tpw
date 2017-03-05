@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild, Renderer, AfterViewInit } from '@angular/core';
 import { Lesson } from '../../models/lessons/lesson';
 
 @Component({
@@ -6,7 +6,7 @@ import { Lesson } from '../../models/lessons/lesson';
   templateUrl: './lesson.component.html',
   styleUrls: ['./lesson.component.scss']
 })
-export class LessonComponent implements OnInit {
+export class LessonComponent implements OnInit, AfterViewInit {
 
   @Input('lesson')
   lesson: Lesson;
@@ -20,9 +20,17 @@ export class LessonComponent implements OnInit {
   @Output('onKeyup')
   onKeyup = new EventEmitter<KeyboardEvent>();
 
-  constructor() { }
+  @ViewChild('lessonInput')
+  lessonInput: ElementRef;
+
+  constructor(private renderer: Renderer) { }
 
   ngOnInit() { }
+
+  ngAfterViewInit() {
+    this.renderer.invokeElementMethod(
+      this.lessonInput.nativeElement, 'focus', []);
+  }
 
   handleKeyup(event: KeyboardEvent) {
     event.preventDefault();
