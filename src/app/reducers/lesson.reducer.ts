@@ -83,4 +83,4 @@ export const getLessonText = (state: State) => state.currentLesson.text;
 export const getLessonId = (state: State) => state.currentLesson.id;
 export const getCurrentLesson = (state: State) => state.currentLesson;
 export const getTypedText = (state: State) => state.typedText;
-export const wasLessontyped = (state: State) => state.typedText === state.currentLesson.text;
+export const wasLessonTyped = (state: State) => state.typedText === state.currentLesson.text;

@@ -45,4 +45,4 @@ export const getCurrentLessonId = createSelector(getLessonState, fromLesson.getL
 export const getCurrentLessonText = createSelector(getLessonState, fromLesson.getLessonText);
 export const getCurrentLessonTitle = createSelector(getLessonState, fromLesson.getLessonTitle);
 export const getTypedText = createSelector(getLessonState, fromLesson.getTypedText);
-export const wasLessonTyped = createSelector(getLessonState, fromLesson.wasLessontyped);
+export const wasLessonTyped = createSelector(getLessonState, fromLesson.wasLessonTyped);
