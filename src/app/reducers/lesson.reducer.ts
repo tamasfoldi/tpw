@@ -39,7 +39,6 @@ export function reducer(state = initialState, action: lesson.Actions): State {
       if (isItCharacter(key.keyCode)) {
         let newStat = Object.assign({}, state.statistic) as Statistic;
         let newState = Object.assign({}, state) as State;
-        console.log(newStat);
 
         if (isItTheCorrectNextChar(key.key, state)) {
           newState = Object.assign({}, state, { typedText: state.typedText + key.key });

@@ -1,3 +1,2 @@
-<tpw-lesson [disableInput]="isInputDisabled$ | async" [lesson]="selectedLesson$ | async" [typedText]="typedText$ | async"
-  (onKeyup)="handleKeyup($event)"></tpw-lesson>
-<tpw-lesson-statistic [data]="statistic$ | async"></tpw-lesson-statistic>
+<tpw-lesson [disableInput]="isLessonEnded$ | async" [lesson]="selectedLesson$ | async" [typedText]="typedText$ | async" (onKeyup)="handleKeyup($event)"></tpw-lesson>
+<tpw-lesson-statistic *ngIf="isLessonEnded$ | async" [data]="statistic$ | async"></tpw-lesson-statistic>
