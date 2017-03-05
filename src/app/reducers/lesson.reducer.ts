@@ -35,9 +35,17 @@ export function reducer(state = initialState, action: lesson.Actions): State {
     case lesson.ActionTypes.NEW_KEY: {
       const key: KeyboardEvent = action.payload as KeyboardEvent;
 
-      return isValidCharacter(key, state)
-        ? Object.assign({}, state, { typedText: state.typedText + key.key })
-        : state;
+      if (isValidCharacter(key, state)) {
+        let newState = Object.assign({}, state, { typedText: state.typedText + key.key });
+
+        if (state.typedText.length === 0) {
+          newState = Object.assign(newState, { startTime: Date.now() });
+        } else if (newState.typedText === state.currentLesson.text) {
+          newState = Object.assign(newState, { endTime: Date.now() });
+        }
+
+        return newState;
+      }
     }
 
     case lesson.ActionTypes.LOAD: {
@@ -64,3 +72,4 @@ export const getLessonText = (state: State) => state.currentLesson.text;
 export const getLessonId = (state: State) => state.currentLesson.id;
 export const getCurrentLesson = (state: State) => state.currentLesson;
 export const getTypedText = (state: State) => state.typedText;
+export const wasLessontyped = (state: State) => state.typedText === state.currentLesson.text;

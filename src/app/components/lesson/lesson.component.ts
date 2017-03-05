@@ -14,6 +14,9 @@ export class LessonComponent implements OnInit {
   @Input('typedText')
   typedText: string;
 
+  @Input('disableInput')
+  disableInput: boolean;
+
   @Output('onKeyup')
   onKeyup = new EventEmitter<KeyboardEvent>();
 

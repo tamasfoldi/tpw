@@ -7,21 +7,21 @@ const LESSONS: Observable<Lesson[]> = Observable.of([
   {
     id: '1',
     title: 'Lesson 1',
-    text: 'Lesson 1 text'
+    text: 'Lesson one text'
   },
   {
     id: '2',
     title: 'Lesson 2',
-    text: 'Lesson 2 text'
+    text: 'Lesson two text'
   },
   {
     id: '3',
     title: 'Lesson 3',
-    text: 'Lesson 3 text'
+    text: 'Lesson three text'
   }, {
     id: '4',
     title: 'Lesson 4',
-    text: 'Lesson 4 text'
+    text: 'Lesson four text'
   }
 ]);
 

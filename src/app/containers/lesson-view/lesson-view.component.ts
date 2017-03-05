@@ -16,12 +16,14 @@ export class LessonViewComponent implements OnInit {
 
   selectedLesson$: Observable<Lesson>;
   typedText$: Observable<string>;
+  isInputDisabled$: Observable<boolean>;
 
   constructor(private store: Store<State>) { }
 
   ngOnInit() {
     this.selectedLesson$ = this.store.select(fromRoot.getCurrentLesson);
     this.typedText$ = this.store.select(fromRoot.getTypedText);
+    this.isInputDisabled$ = this.store.select(fromRoot.wasLessonTyped);
   }
 
   handleKeyup(event: KeyboardEvent) {
