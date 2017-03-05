@@ -6,6 +6,7 @@ import { Lesson } from '../../models/lessons/lesson';
 import { State } from '../../reducers/index';
 import * as fromRoot from '../../reducers/index';
 import * as lesson from '../../actions/lesson.actions';
+import { Statistic } from '../../models/statistic/statistic';
 
 @Component({
   selector: 'tpw-lesson-view',
@@ -17,6 +18,7 @@ export class LessonViewComponent implements OnInit {
   selectedLesson$: Observable<Lesson>;
   typedText$: Observable<string>;
   isInputDisabled$: Observable<boolean>;
+  statistic$: Observable<Statistic>;
 
   constructor(private store: Store<State>) { }
 
@@ -24,6 +26,7 @@ export class LessonViewComponent implements OnInit {
     this.selectedLesson$ = this.store.select(fromRoot.getCurrentLesson);
     this.typedText$ = this.store.select(fromRoot.getTypedText);
     this.isInputDisabled$ = this.store.select(fromRoot.wasLessonTyped);
+    this.statistic$ = this.store.select(fromRoot.getLessonStatistic);
   }
 
   handleKeyup(event: KeyboardEvent) {

@@ -1,7 +1,7 @@
 // tslint:disable:no-switch-case-fall-through
 import * as lesson from '../actions/lesson.actions';
 import { Lesson } from '../models/lessons/lesson';
-import { Statistic } from '../models/statistic/statistic';
+import { StatisticData, Statistic } from '../models/statistic/statistic';
 
 
 const isItTheCorrectNextChar = (char: string, state: State): boolean => {
@@ -21,7 +21,7 @@ export interface State {
   currentLesson: Lesson;
   typedText: string;
   isLoading: boolean;
-  statistic: Statistic;
+  statistic: StatisticData;
 };
 
 export const initialState: State = {
@@ -39,6 +39,7 @@ export function reducer(state = initialState, action: lesson.Actions): State {
       if (isItCharacter(key.keyCode)) {
         let newStat = Object.assign({}, state.statistic) as Statistic;
         let newState = Object.assign({}, state) as State;
+        console.log(newStat);
 
         if (isItTheCorrectNextChar(key.key, state)) {
           newState = Object.assign({}, state, { typedText: state.typedText + key.key });
@@ -84,3 +85,4 @@ export const getLessonId = (state: State) => state.currentLesson.id;
 export const getCurrentLesson = (state: State) => state.currentLesson;
 export const getTypedText = (state: State) => state.typedText;
 export const wasLessonTyped = (state: State) => state.typedText === state.currentLesson.text;
+export const getStatistic = (state: State) => new Statistic(state.statistic);
