@@ -1,26 +1,26 @@
 <table>
   <tr>
-    <td class="statisticName">Total keypresses:</td>
+    <td class="statistic-name">Total keypresses:</td>
     <td>{{data.nofTotalPress}}</td>
   </tr>
   <tr>
-    <td class="statisticName">Correct keypresses:</td>
+    <td class="statistic-name">Correct keypresses:</td>
     <td>{{data.nofCorrectPress}}</td>
   </tr>
   <tr>
-    <td class="statisticName">Incorrect keypresses:</td>
+    <td class="statistic-name">Incorrect keypresses:</td>
     <td>{{data.nofIncorrectPress}}</td>
   </tr>
   <tr>
-    <td class="statisticName">Typing speed:</td>
+    <td class="statistic-name">Typing speed:</td>
     <td>{{data.charPerMinute | number: '.0-0'}} cpm ({{data.wordPerMinute | number: '.0-0'}} wpm)</td>
   </tr>
   <tr>
-    <td class="statisticName">Accuracy:</td>
+    <td class="statistic-name">Accuracy:</td>
     <td>{{data.accuracy | percent: '.0-1'}}</td>
   </tr>
   <tr>
-    <td class="statisticName">Time to complete lesson:</td>
+    <td class="statistic-name">Time to complete lesson:</td>
     <td>{{data.durationInSecs | number: '.0-2'}} seconds</td>
   </tr>
 </table>
