@@ -28,8 +28,7 @@ export class LessonComponent implements OnInit, AfterViewInit {
   ngOnInit() { }
 
   ngAfterViewInit() {
-    this.renderer.invokeElementMethod(
-      this.lessonInput.nativeElement, 'focus', []);
+    this.renderer.invokeElementMethod(this.lessonInput.nativeElement, 'focus', []);
   }
 
   handleKeyup(event: KeyboardEvent) {

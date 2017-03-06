@@ -28,6 +28,10 @@ export class Statistic implements StatisticData {
     return this.hasEnded ? this.charPerMinute / 5 : -1;
   }
 
+  get accuracy(): number {
+    return this.nofCorrectPress / this.nofTotalPress;
+  }
+
   get charPerMinute(): number {
     return this.hasEnded ? (this.nofCorrectPress / this.durationInSecs) * 60 : -1;
   }
