@@ -16,11 +16,4 @@ export class WaypointComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  handleClick() {
-    if (this.lesson.isAvailable) {
-      this.onSelect.emit(this.lesson.id);
-    }
-  }
-
 }

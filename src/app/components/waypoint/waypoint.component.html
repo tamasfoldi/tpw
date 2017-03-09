@@ -1,1 +1,1 @@
-<div (click)='handleClick()' [ngClass]="{'available': lesson.isAvailable}"> {{lesson.title}} <span *ngIf="lesson.isAvailable">A</span></div>
+<div (click)='onSelect.emit(lesson.id)' [ngClass]="{'available': lesson.isAvailable}"> {{lesson.title}} <span *ngIf="lesson.isAvailable">A</span></div>
