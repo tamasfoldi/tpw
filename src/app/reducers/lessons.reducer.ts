@@ -3,6 +3,7 @@ import * as lessons from '../actions/lessons.actions';
 import * as lesson from '../actions/lesson.actions';
 import { LessonListElement } from '../models/lessons/lesson-list-element';
 import { Lesson } from '../models/lessons/lesson';
+import { Action } from '@ngrx/store';
 
 export interface State {
   lessonList: LessonListElement[];
@@ -14,7 +15,7 @@ export const initialState: State = {
   isLoading: false
 };
 
-export function reducer(state = initialState, action: lessons.Actions): State {
+export function reducer(state = initialState, action: Action): State {
   switch (action.type) {
     case lessons.ActionTypes.LOAD_LIST: {
       return Object.assign({}, state, { isLoading: true });

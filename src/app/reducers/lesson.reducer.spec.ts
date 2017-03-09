@@ -3,7 +3,7 @@ import * as lessons from '../actions/lessons.actions';
 import * as lesson from '../actions/lesson.actions';
 import { Lesson } from '../models/lessons/lesson';
 import { Action } from '@ngrx/store';
-import { Statistic } from "../models/statistic/statistic";
+import { Statistic } from '../models/statistic/statistic';
 
 describe('LessonsReducer', () => {
   describe('undefined action', () => {
@@ -23,7 +23,7 @@ describe('LessonsReducer', () => {
         typedText: '',
         statistic: new Statistic()
       };
-      const result = reducer(initialState, new lesson.LoadAction());
+      const result = reducer(initialState, new lesson.LoadAction('test'));
 
       expect(result).toEqual(expectedResult);
     });
@@ -138,6 +138,20 @@ describe('LessonsReducer', () => {
       expect(result.statistic.nofIncorrectPress).toEqual(0);
       expect(result.statistic.startTime).toEqual(-1);
       expect(result.statistic.endTime).not.toEqual(-1);
+    });
+
+    it('should return state on not char or space', () => {
+      const startingState: State = {
+        isLoading: false,
+        currentLesson: { id: 'test_1', text: 'test', title: 'Test' },
+        typedText: 'tes',
+        statistic: new Statistic()
+      };
+
+      const result = reducer(startingState, new lesson.NewKeyAction(new KeyboardEvent('t', { code: 'Digit1', key: 't' })));
+
+      expect(result).toEqual(startingState);
+
     });
   });
 

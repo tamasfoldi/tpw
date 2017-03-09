@@ -2,6 +2,7 @@
 import * as lesson from '../actions/lesson.actions';
 import { Lesson } from '../models/lessons/lesson';
 import { StatisticData, Statistic } from '../models/statistic/statistic';
+import { Action } from '@ngrx/store';
 
 
 const isItTheCorrectNextChar = (char: string, state: State): boolean => {
@@ -28,7 +29,7 @@ export const initialState: State = {
   statistic: new Statistic()
 };
 
-export function reducer(state = initialState, action: lesson.Actions): State {
+export function reducer(state = initialState, action: Action): State {
   switch (action.type) {
     case lesson.ActionTypes.NEW_KEY: {
       const key: KeyboardEvent = action.payload as KeyboardEvent;
