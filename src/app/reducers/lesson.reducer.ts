@@ -9,11 +9,8 @@ const isItTheCorrectNextChar = (char: string, state: State): boolean => {
   return typedText + char === state.currentLesson.text.substr(0, typedText.length + 1);
 };
 
-const isItCharacter = (keyCode: number): boolean => {
-  const KEYCODE_0 = 48;
-  const KEYCODE_Z = 98;
-  const KEYCODE_SPACE = 32;
-  return (keyCode >= KEYCODE_0 && keyCode <= KEYCODE_Z) || keyCode === KEYCODE_SPACE;
+const isItCharacterOrSpace = (code: string): boolean => {
+  return code.includes('Key') || code === 'Space';
 };
 
 
@@ -35,8 +32,7 @@ export function reducer(state = initialState, action: lesson.Actions): State {
   switch (action.type) {
     case lesson.ActionTypes.NEW_KEY: {
       const key: KeyboardEvent = action.payload as KeyboardEvent;
-
-      if (isItCharacter(key.keyCode)) {
+      if (isItCharacterOrSpace(key.code)) {
         let newStat = Object.assign({}, state.statistic) as Statistic;
         let newState = Object.assign({}, state) as State;
 
