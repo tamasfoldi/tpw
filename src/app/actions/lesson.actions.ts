@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { type } from './action-utils';
-import { Lesson } from "../models/lessons/lesson";
+import { Lesson } from '../models/lessons/lesson';
 
 export const ActionTypes = {
   NEW_KEY: type('[LESSON] New Key'),
@@ -9,6 +9,8 @@ export const ActionTypes = {
   LOAD: type('[LESSON] Load'),
   LOAD_SUCCESS: type('[LESSON] Load Success'),
   LOAD_FAIL: type('[LESSON] Load Fail'),
+
+  CLEAR: type('[LESSON] Clear')
 };
 
 export class NewKeyAction implements Action {
@@ -35,9 +37,16 @@ export class LoadFailAction implements Action {
   constructor(public payload: string) { }
 }
 
+export class ClearAction implements Action {
+  type = ActionTypes.CLEAR;
+
+  constructor(public payload?: void) { }
+}
+
 export type Actions
   = NewKeyAction
   | LoadAction
   | LoadSuccessAction
-  | LoadFailAction;
+  | LoadFailAction
+  | ClearAction;
 

@@ -71,6 +71,10 @@ export function reducer(state = initialState, action: lesson.Actions): State {
       return Object.assign({}, state, { isLoading: false });
     }
 
+    case lesson.ActionTypes.CLEAR: {
+      return Object.assign({}, initialState);
+    }
+
     default: {
       return state;
     }

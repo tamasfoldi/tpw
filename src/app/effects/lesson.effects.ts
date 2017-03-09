@@ -17,7 +17,10 @@ export class LessonEffects {
   selectLesson$: Observable<Action> = this.actions$
     .ofType(lessons.ActionTypes.SELECT)
     .map(action => action.payload)
-    .map(id => new lesson.LoadAction(id));
+    .mergeMap(id => [
+      new lesson.ClearAction(),
+      new lesson.LoadAction(id)
+    ]);
 
   @Effect()
   loadLesson$: Observable<Action> = this.actions$
