@@ -34,11 +34,23 @@ describe('LessonEffects', () => {
 
         let result = null;
         lessonsEffects.loadList$
-          .subscribe(_result => { console.log(1); result = _result });
+          .subscribe(_result => result = _result);
         expect(lessonService.getLessonList).toHaveBeenCalledTimes(1);
         expect(result).toEqual(expectedResult);
       })));
 
+    it('should return a new LoadListFailAction, with the fail', fakeAsync(
+      inject([LessonService], (lessonService: LessonService) => {
+        spyOn(lessonService, 'getLessonList').and.returnValue(Observable.throw('fail'));
+
+        const expectedResult = new lesson.LoadListFailAction('fail');
+
+        let result = null;
+        lessonsEffects.loadList$
+          .subscribe(_result => result = _result);
+        expect(lessonService.getLessonList).toHaveBeenCalledTimes(1);
+        expect(result).toEqual(expectedResult);
+      })));
   });
 
 });
