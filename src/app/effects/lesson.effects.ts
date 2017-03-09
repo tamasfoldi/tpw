@@ -1,16 +1,18 @@
 // tslint:disable:member-ordering
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { LessonService } from '../services/lesson/lesson.service';
 import * as lessons from '../actions/lessons.actions';
 import * as lesson from '../actions/lesson.actions';
+import { State } from '../reducers/index';
+import * as fromRoot from '../reducers/index';
 
 @Injectable()
 export class LessonEffects {
-  constructor(private actions$: Actions, private lessonService: LessonService) { }
+  constructor(private actions$: Actions, private lessonService: LessonService, private store: Store<State>) { }
 
 
   @Effect()
@@ -29,4 +31,11 @@ export class LessonEffects {
     .switchMap(id => this.lessonService.getLesson(id)
       .map(l => new lesson.LoadSuccessAction(l))
       .catch(() => Observable.of(new lesson.LoadFailAction('error'))));
+
+  @Effect()
+  lessonComplete$: Observable<Action> = this.store.select(fromRoot.wasLessonTyped)
+    .filter(typed => typed)
+    .switchMap(() => this.store.select(fromRoot.getCurrentLessonId)
+      .map(id => new lesson.CompleteAction(id))
+    );
 }

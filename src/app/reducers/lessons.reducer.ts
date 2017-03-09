@@ -1,5 +1,6 @@
 // tslint:disable:no-switch-case-fall-through
 import * as lessons from '../actions/lessons.actions';
+import * as lesson from '../actions/lesson.actions';
 import { LessonListElement } from '../models/lessons/lesson-list-element';
 import { Lesson } from '../models/lessons/lesson';
 
@@ -27,6 +28,17 @@ export function reducer(state = initialState, action: lessons.Actions): State {
 
     case lessons.ActionTypes.LOAD_LIST_FAIL: {
       return Object.assign({}, state, { isLoading: false });
+    }
+
+    case lesson.ActionTypes.COMPLETE: {
+      const lessonId = action.payload;
+      const lessonList = [...state.lessonList];
+      const nextListId = lessonList.findIndex(l => l.id === lessonId) + 1;
+      if (nextListId <= lessonList.length - 1) {
+        lessonList[nextListId] = Object.assign({}, lessonList[nextListId], { isAvailable: true });
+      }
+
+      return Object.assign({}, state, { lessonList: lessonList });
     }
 
     default: {

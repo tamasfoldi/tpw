@@ -10,7 +10,9 @@ export const ActionTypes = {
   LOAD_SUCCESS: type('[LESSON] Load Success'),
   LOAD_FAIL: type('[LESSON] Load Fail'),
 
-  CLEAR: type('[LESSON] Clear')
+  CLEAR: type('[LESSON] Clear'),
+
+  COMPLETE: type('[LESSON] Complete')
 };
 
 export class NewKeyAction implements Action {
@@ -43,10 +45,17 @@ export class ClearAction implements Action {
   constructor(public payload?: void) { }
 }
 
+export class CompleteAction implements Action {
+  type = ActionTypes.COMPLETE;
+
+  constructor(public payload: string) { }
+}
+
 export type Actions
   = NewKeyAction
   | LoadAction
   | LoadSuccessAction
   | LoadFailAction
-  | ClearAction;
+  | ClearAction
+  | CompleteAction;
 

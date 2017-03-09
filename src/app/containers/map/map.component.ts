@@ -16,9 +16,7 @@ import { Lesson } from '../../models/lessons/lesson';
 export class MapComponent implements OnInit {
   lessons$: Observable<LessonListElement[]>;
   isLoading$: Observable<boolean>;
-  constructor(private store: Store<State>, private router: Router) {
-    this.store.dispatch(new lessons.LoadListAction());
-  }
+  constructor(private store: Store<State>, private router: Router) { }
 
   ngOnInit() {
     this.lessons$ = this.store.select(fromRoot.getLessonList);

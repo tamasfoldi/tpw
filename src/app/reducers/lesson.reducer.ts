@@ -82,10 +82,10 @@ export function reducer(state = initialState, action: lesson.Actions): State {
 }
 
 
-export const getLessonTitle = (state: State) => state.currentLesson.title;
-export const getLessonText = (state: State) => state.currentLesson.text;
-export const getLessonId = (state: State) => state.currentLesson.id;
+export const getLessonTitle = (state: State) => state.currentLesson ? state.currentLesson.title : null;
+export const getLessonText = (state: State) => state.currentLesson ? state.currentLesson.text : null;
+export const getLessonId = (state: State) => state.currentLesson ? state.currentLesson.id : null;
 export const getCurrentLesson = (state: State) => state.currentLesson;
 export const getTypedText = (state: State) => state.typedText;
-export const wasLessonTyped = (state: State) => state.typedText === state.currentLesson.text;
+export const wasLessonTyped = (state: State) => state.currentLesson && state.typedText === state.currentLesson.text;
 export const getStatistic = (state: State) => new Statistic(state.statistic);

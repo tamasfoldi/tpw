@@ -15,6 +15,14 @@ export class LessonsEffects {
   @Effect()
   loadList$: Observable<Action> = this.actions$
     .ofType(lessons.ActionTypes.LOAD_LIST)
+    .startWith(new lessons.LoadListAction())
+    .switchMap(() => this.lessonService.getLessonList()
+      .map(ls => new lessons.LoadListSuccessAction(ls))
+      .catch(() => Observable.of(new lessons.LoadListFailAction('fail'))));
+
+  @Effect()
+  loaadList$: Observable<Action> = this.actions$
+    .ofType(lessons.ActionTypes.LOAD_LIST)
     .switchMap(() => this.lessonService.getLessonList()
       .map(ls => new lessons.LoadListSuccessAction(ls))
       .catch(() => Observable.of(new lessons.LoadListFailAction('fail'))));
