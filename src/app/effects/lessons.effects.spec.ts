@@ -31,11 +31,10 @@ describe('LessonEffects', () => {
         spyOn(lessonService, 'getLessonList').and.returnValue(Observable.of([{ id: 'test_1', title: 'Test 1', isAvailable: true }]));
 
         const expectedResult = new lesson.LoadListSuccessAction([{ id: 'test_1', title: 'Test 1', isAvailable: true }]);
-        runner.queue(new lesson.LoadListAction());
 
         let result = null;
         lessonsEffects.loadList$
-          .subscribe(_result => result = _result);
+          .subscribe(_result => { console.log(1); result = _result });
         expect(lessonService.getLessonList).toHaveBeenCalledTimes(1);
         expect(result).toEqual(expectedResult);
       })));

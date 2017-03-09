@@ -9,7 +9,4 @@ describe('LessonGuard', () => {
     });
   });
 
-  it('should ...', inject([LessonGuard], (guard: LessonGuard) => {
-    expect(guard).toBeTruthy();
-  }));
 });
