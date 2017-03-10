@@ -1,5 +1,6 @@
 // tslint:disable:no-switch-case-fall-through
 import * as lesson from '../actions/lesson.actions';
+import * as lessons from '../actions/lessons.actions';
 import { Lesson } from '../models/lessons/lesson';
 import { StatisticData, Statistic } from '../models/statistic/statistic';
 import { Action } from '@ngrx/store';
@@ -114,5 +115,6 @@ export const isStarted = (state: State) => state.isStarted;
 export const isEnded = (state: State) => state.isEnded;
 export const wasCompleted = (state: State) => state.currentLesson && state.typedText === state.currentLesson.text;
 export const getStatistic = (state: State) => new Statistic(state.statistic);
-export const getProgress = (state: State) => Math.floor((state.typedText.length) / state.currentLesson.text.length * 100);
+export const getProgress = (state: State) => state.currentLesson &&
+  Math.floor((state.typedText.length) / state.currentLesson.text.length * 100);
 export const getEnemiesProgress = (state: State) => state.enemiesProgress;

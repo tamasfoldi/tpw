@@ -36,6 +36,7 @@ export class LessonEffects {
   lessonComplete$: Observable<Action> = this.store.select(fromRoot.wasLessonCompleted)
     .filter(typed => typed)
     .switchMap(() => this.store.select(fromRoot.getCurrentLessonId)
+      .take(1)
       .mergeMap(id => [
         new lesson.EndAction(),
         new lesson.CompleteAction(id)

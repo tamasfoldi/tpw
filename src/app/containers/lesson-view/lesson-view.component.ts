@@ -8,6 +8,7 @@ import * as fromRoot from '../../reducers/index';
 import * as lesson from '../../actions/lesson.actions';
 import { Statistic } from '../../models/statistic/statistic';
 import { EnemyProgress } from '../../models/enemy-progress';
+import { Enemy } from '../../enemy/enemy';
 
 @Component({
   selector: 'tpw-lesson-view',
@@ -28,7 +29,7 @@ export class LessonViewComponent implements OnInit {
   startInterval;
   startInProgress = false;
 
-  constructor(private store: Store<State>) {
+  constructor(private store: Store<State>, private enemy: Enemy) {
   }
 
   ngOnInit() {
@@ -52,6 +53,7 @@ export class LessonViewComponent implements OnInit {
     this.statistic$ = this.store.select(fromRoot.getLessonStatistic);
     this.progress$ = this.store.select(fromRoot.getLessonProgress);
     this.enemiesProgress$ = this.store.select(fromRoot.getLessonEnemiesProgress);
+
   }
 
   startHandler() {
@@ -63,7 +65,7 @@ export class LessonViewComponent implements OnInit {
       .take(1)
       .subscribe(() => {
         clearInterval(this.startInterval);
-        this.startEnemy();
+        this.enemy.start();
       });
 
     this.startInterval = setInterval(() => {
@@ -75,18 +77,6 @@ export class LessonViewComponent implements OnInit {
         this.store.dispatch(new lesson.StartAction());
       }
     }, 1000);
-  }
-
-  startEnemy() {
-    Observable.interval(1000 / (500 / 60))
-      .timeInterval()
-      .take(15)
-      .subscribe(v => this.store.dispatch(new lesson.NewEnemyProgressAction({
-        id: `computer`,
-        progress: Math.floor(((v.value + 1) / 15) * 100)
-      })),
-      () => { },
-      () => this.store.dispatch(new lesson.EndAction()));
   }
 }
 

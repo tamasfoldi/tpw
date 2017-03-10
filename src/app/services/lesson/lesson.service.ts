@@ -7,23 +7,28 @@ const LESSONS: Observable<Lesson[]> = Observable.of([
   {
     id: '1',
     title: 'Lesson 1',
-    text: 'Lesson one text'
+    text: 'Lesson one text',
+    difficulty: 100
   },
   {
     id: '2',
     title: 'Lesson 2',
-    text: 'Lesson two text'
+    text: 'Lesson two text',
+    difficulty: 200
   },
   {
     id: '3',
     title: 'Lesson 3',
-    text: 'Lesson three text'
-  }, {
+    text: 'Lesson three text',
+    difficulty: 300
+  },
+  {
     id: '4',
     title: 'Lesson 4',
-    text: 'Lesson four text'
+    text: 'Lesson four text',
+    difficulty: 400
   }
-]);
+] as Lesson[]);
 
 @Injectable()
 export class LessonService {
