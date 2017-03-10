@@ -18,6 +18,8 @@ export const ActionTypes = {
 
   START: type('[LESSON] Start'),
 
+  END: type('[LESSON] End'),
+
   COMPLETE: type('[LESSON] Complete')
 };
 
@@ -71,6 +73,12 @@ export class NewEnemyProgressAction implements Action {
 
 export class StartAction implements Action {
   type = ActionTypes.START;
+
+  constructor(public payload?: void) { }
+}
+
+export class EndAction implements Action {
+  type = ActionTypes.END;
 
   constructor(public payload?: void) { }
 }

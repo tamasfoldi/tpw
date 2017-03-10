@@ -45,10 +45,6 @@ export function reducer(state = initialState, action: Action): State {
         if (isItTheCorrectNextChar(key.key, state)) {
           newState = Object.assign({}, state, { typedText: state.typedText + key.key });
           newStat = Object.assign({}, newStat, { nofCorrectPress: newStat.nofCorrectPress + 1 });
-
-          if (newState.typedText === state.currentLesson.text) {
-            newStat = Object.assign({}, newStat, { endTime: Date.now() });
-          }
         } else if (state.typedText.length !== 0) {
           newStat = Object.assign({}, newStat, { nofIncorrectPress: newStat.nofIncorrectPress + 1 });
         }
@@ -86,6 +82,14 @@ export function reducer(state = initialState, action: Action): State {
     case lesson.ActionTypes.START: {
       const newStat = Object.assign({}, state.statistic, { startTime: Date.now() }) as Statistic;
       return Object.assign({}, state, { isStarted: true, statistic: newStat });
+    }
+
+    case lesson.ActionTypes.END: {
+      let newStat = Object.assign({}, state.statistic) as Statistic;
+      if (state.statistic.endTime === -1) {
+        newStat = Object.assign(newStat, { endTime: Date.now() });
+      }
+      return Object.assign({}, state, { isStarted: false, statistic: newStat });
     }
 
     default: {

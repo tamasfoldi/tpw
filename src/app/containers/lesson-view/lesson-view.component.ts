@@ -30,6 +30,9 @@ export class LessonViewComponent implements OnInit {
     this.initalizeComputerEnemy();
     this.initializeDatasFromStore();
     this.store.dispatch(new lesson.StartAction());
+    setTimeout(() => {
+      this.store.dispatch(new lesson.EndAction());
+    }, 1000);
   }
 
   handleKeyup(event: KeyboardEvent) {
