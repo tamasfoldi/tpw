@@ -1,2 +1,3 @@
 <tpw-lesson [disableInput]="isLessonEnded$ | async" [lesson]="selectedLesson$ | async" [typedText]="typedText$ | async" (onKeyup)="handleKeyup($event)"></tpw-lesson>
-<tpw-lesson-statistic *ngIf="isLessonEnded$ | async" [data]="statistic$ | async"></tpw-lesson-statistic>
+<tpw-progress-bar [value]="progress$ | async" color="blue"></tpw-progress-bar>
+<tpw-lesson-statistic *ngIf=" isLessonEnded$ | async " [data]="statistic$ | async "></tpw-lesson-statistic>

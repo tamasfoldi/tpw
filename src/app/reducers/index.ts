@@ -47,3 +47,4 @@ export const getCurrentLessonTitle = createSelector(getLessonState, fromLesson.g
 export const getTypedText = createSelector(getLessonState, fromLesson.getTypedText);
 export const wasLessonTyped = createSelector(getLessonState, fromLesson.wasLessonTyped);
 export const getLessonStatistic = createSelector(getLessonState, fromLesson.getStatistic);
+export const getLessonProgress = createSelector(getLessonState, fromLesson.getProgress);

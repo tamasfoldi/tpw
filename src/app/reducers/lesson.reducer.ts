@@ -19,6 +19,7 @@ export interface State {
   currentLesson: Lesson;
   typedText: string;
   isLoading: boolean;
+  progress: number;
   statistic: StatisticData;
 };
 
@@ -26,6 +27,7 @@ export const initialState: State = {
   isLoading: false,
   currentLesson: null,
   typedText: '',
+  progress: -1,
   statistic: new Statistic()
 };
 
@@ -38,7 +40,10 @@ export function reducer(state = initialState, action: Action): State {
         let newState = Object.assign({}, state) as State;
 
         if (isItTheCorrectNextChar(key.key, state)) {
-          newState = Object.assign({}, state, { typedText: state.typedText + key.key });
+          newState = Object.assign({}, state, {
+            typedText: state.typedText + key.key,
+            progress: Math.floor((state.typedText.length + 1) / state.currentLesson.text.length * 100)
+          });
           newStat = Object.assign({}, newStat, { nofCorrectPress: newStat.nofCorrectPress + 1 });
 
           if (state.typedText.length === 0) {
@@ -86,3 +91,4 @@ export const getCurrentLesson = (state: State) => state.currentLesson;
 export const getTypedText = (state: State) => state.typedText;
 export const wasLessonTyped = (state: State) => state.currentLesson && state.typedText === state.currentLesson.text;
 export const getStatistic = (state: State) => new Statistic(state.statistic);
+export const getProgress = (state: State) => state.progress;

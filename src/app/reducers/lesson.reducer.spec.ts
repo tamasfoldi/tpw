@@ -21,6 +21,7 @@ describe('LessonsReducer', () => {
         isLoading: true,
         currentLesson: null,
         typedText: '',
+        progress: -1,
         statistic: new Statistic()
       };
       const result = reducer(initialState, new lesson.LoadAction('test'));
@@ -34,6 +35,7 @@ describe('LessonsReducer', () => {
       const expectedResult: State = {
         isLoading: false,
         currentLesson: { id: 'test_1', text: 'test', title: 'Test' },
+        progress: -1,
         typedText: '',
         statistic: new Statistic()
       };
@@ -48,6 +50,7 @@ describe('LessonsReducer', () => {
       const expectedResult: State = {
         isLoading: false,
         currentLesson: null,
+        progress: -1,
         typedText: '',
         statistic: new Statistic()
       };
@@ -62,6 +65,7 @@ describe('LessonsReducer', () => {
       const startingState: State = {
         isLoading: true,
         currentLesson: { id: 'test_1', text: 'test', title: 'Test' },
+        progress: -1,
         typedText: '',
         statistic: new Statistic()
       };
@@ -76,6 +80,7 @@ describe('LessonsReducer', () => {
       const startingState: State = {
         isLoading: false,
         currentLesson: { id: 'test_1', text: 'test', title: 'Test' },
+        progress: -1,
         typedText: '',
         statistic: new Statistic()
       };
@@ -93,6 +98,7 @@ describe('LessonsReducer', () => {
       const startingState: State = {
         isLoading: false,
         currentLesson: { id: 'test_1', text: 'test', title: 'Test' },
+        progress: -1,
         typedText: '',
         statistic: new Statistic()
       };
@@ -110,6 +116,7 @@ describe('LessonsReducer', () => {
       const startingState: State = {
         isLoading: false,
         currentLesson: { id: 'test_1', text: 'test', title: 'Test' },
+        progress: -1,
         typedText: 'L',
         statistic: new Statistic()
       };
@@ -127,6 +134,7 @@ describe('LessonsReducer', () => {
       const startingState: State = {
         isLoading: false,
         currentLesson: { id: 'test_1', text: 'test', title: 'Test' },
+        progress: -1,
         typedText: 'tes',
         statistic: new Statistic()
       };
@@ -144,6 +152,7 @@ describe('LessonsReducer', () => {
       const startingState: State = {
         isLoading: false,
         currentLesson: { id: 'test_1', text: 'test', title: 'Test' },
+        progress: -1,
         typedText: 'tes',
         statistic: new Statistic()
       };

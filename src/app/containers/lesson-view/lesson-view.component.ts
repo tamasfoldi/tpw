@@ -19,6 +19,7 @@ export class LessonViewComponent implements OnInit {
   typedText$: Observable<string>;
   isLessonEnded$: Observable<boolean>;
   statistic$: Observable<Statistic>;
+  progress$: Observable<number>;
 
   constructor(private store: Store<State>) { }
 
@@ -27,6 +28,7 @@ export class LessonViewComponent implements OnInit {
     this.typedText$ = this.store.select(fromRoot.getTypedText);
     this.isLessonEnded$ = this.store.select(fromRoot.wasLessonTyped);
     this.statistic$ = this.store.select(fromRoot.getLessonStatistic);
+    this.progress$ = this.store.select(fromRoot.getLessonProgress);
   }
 
   handleKeyup(event: KeyboardEvent) {
