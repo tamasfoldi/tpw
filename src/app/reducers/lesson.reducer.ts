@@ -19,6 +19,7 @@ const isItCharacterOrSpace = (code: string): boolean => {
 export interface State {
   currentLesson: Lesson;
   typedText: string;
+  isStarted: boolean;
   isLoading: boolean;
   statistic: StatisticData;
   enemiesProgress: EnemyProgress[];
@@ -26,6 +27,7 @@ export interface State {
 
 export const initialState: State = {
   isLoading: false,
+  isStarted: false,
   currentLesson: null,
   typedText: '',
   statistic: new Statistic(),
@@ -44,9 +46,7 @@ export function reducer(state = initialState, action: Action): State {
           newState = Object.assign({}, state, { typedText: state.typedText + key.key });
           newStat = Object.assign({}, newStat, { nofCorrectPress: newStat.nofCorrectPress + 1 });
 
-          if (state.typedText.length === 0) {
-            newStat = Object.assign({}, newStat, { startTime: Date.now() });
-          } else if (newState.typedText === state.currentLesson.text) {
+          if (newState.typedText === state.currentLesson.text) {
             newStat = Object.assign({}, newStat, { endTime: Date.now() });
           }
         } else if (state.typedText.length !== 0) {
@@ -81,6 +81,11 @@ export function reducer(state = initialState, action: Action): State {
 
     case lesson.ActionTypes.NEW_ENEMY_PROGRESS: {
       return Object.assign({}, state, { enemiesProgress: [...state.enemiesProgress, action.payload] });
+    }
+
+    case lesson.ActionTypes.START: {
+      const newStat = Object.assign({}, state.statistic, { startTime: Date.now() }) as Statistic;
+      return Object.assign({}, state, { isStarted: true, statistic: newStat });
     }
 
     default: {

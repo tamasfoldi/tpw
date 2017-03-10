@@ -29,6 +29,7 @@ export class LessonViewComponent implements OnInit {
   ngOnInit() {
     this.initalizeComputerEnemy();
     this.initializeDatasFromStore();
+    this.store.dispatch(new lesson.StartAction());
   }
 
   handleKeyup(event: KeyboardEvent) {
