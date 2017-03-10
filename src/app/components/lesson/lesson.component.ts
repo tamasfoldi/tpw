@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild, Renderer, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild, Renderer, AfterContentChecked } from '@angular/core';
 import { Lesson } from '../../models/lessons/lesson';
 
 @Component({
@@ -6,7 +6,7 @@ import { Lesson } from '../../models/lessons/lesson';
   templateUrl: './lesson.component.html',
   styleUrls: ['./lesson.component.scss']
 })
-export class LessonComponent implements OnInit, AfterViewInit {
+export class LessonComponent implements OnInit, AfterContentChecked {
 
   @Input('lesson')
   lesson: Lesson;
@@ -27,7 +27,7 @@ export class LessonComponent implements OnInit, AfterViewInit {
 
   ngOnInit() { }
 
-  ngAfterViewInit() {
+  ngAfterContentChecked() {
     this.renderer.invokeElementMethod(this.lessonInput.nativeElement, 'focus', []);
   }
 

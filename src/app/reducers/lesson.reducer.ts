@@ -20,6 +20,7 @@ export interface State {
   currentLesson: Lesson;
   typedText: string;
   isStarted: boolean;
+  isEnded: boolean;
   isLoading: boolean;
   statistic: StatisticData;
   enemiesProgress: EnemyProgress[];
@@ -28,6 +29,7 @@ export interface State {
 export const initialState: State = {
   isLoading: false,
   isStarted: false,
+  isEnded: false,
   currentLesson: null,
   typedText: '',
   statistic: new Statistic(),
@@ -76,7 +78,10 @@ export function reducer(state = initialState, action: Action): State {
     }
 
     case lesson.ActionTypes.NEW_ENEMY_PROGRESS: {
-      return Object.assign({}, state, { enemiesProgress: [...state.enemiesProgress, action.payload] });
+      const eIdx = state.enemiesProgress.findIndex(v => v.id = action.payload.id)
+      const newEnemiesProgress = [...state.enemiesProgress];
+      newEnemiesProgress[eIdx] = Object.assign({}, newEnemiesProgress[eIdx], { progress: action.payload.progress });
+      return Object.assign({}, state, { enemiesProgress: newEnemiesProgress });
     }
 
     case lesson.ActionTypes.START: {
@@ -89,7 +94,7 @@ export function reducer(state = initialState, action: Action): State {
       if (state.statistic.endTime === -1) {
         newStat = Object.assign(newStat, { endTime: Date.now() });
       }
-      return Object.assign({}, state, { isStarted: false, statistic: newStat });
+      return Object.assign({}, state, { isEnded: true, statistic: newStat });
     }
 
     default: {
@@ -105,7 +110,9 @@ export const getLessonId = (state: State) => state.currentLesson ? state.current
 export const getLessonDifficulty = (state: State) => state.currentLesson ? state.currentLesson.difficulty : null;
 export const getCurrentLesson = (state: State) => state.currentLesson;
 export const getTypedText = (state: State) => state.typedText;
-export const wasLessonTyped = (state: State) => state.currentLesson && state.typedText === state.currentLesson.text;
+export const isStarted = (state: State) => state.isStarted;
+export const isEnded = (state: State) => state.isEnded;
+export const wasCompleted = (state: State) => state.currentLesson && state.typedText === state.currentLesson.text;
 export const getStatistic = (state: State) => new Statistic(state.statistic);
 export const getProgress = (state: State) => Math.floor((state.typedText.length) / state.currentLesson.text.length * 100);
 export const getEnemiesProgress = (state: State) => state.enemiesProgress;

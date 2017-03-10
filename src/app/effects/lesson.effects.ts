@@ -33,9 +33,12 @@ export class LessonEffects {
       .catch(() => Observable.of(new lesson.LoadFailAction('error'))));
 
   @Effect()
-  lessonComplete$: Observable<Action> = this.store.select(fromRoot.wasLessonTyped)
+  lessonComplete$: Observable<Action> = this.store.select(fromRoot.wasLessonCompleted)
     .filter(typed => typed)
     .switchMap(() => this.store.select(fromRoot.getCurrentLessonId)
-      .map(id => new lesson.CompleteAction(id))
+      .mergeMap(id => [
+        new lesson.EndAction(),
+        new lesson.CompleteAction(id)
+      ])
     );
 }

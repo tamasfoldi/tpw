@@ -19,9 +19,14 @@ export class LessonViewComponent implements OnInit {
   selectedLesson$: Observable<Lesson>;
   typedText$: Observable<string>;
   isLessonEnded$: Observable<boolean>;
+  isLessonStarted$: Observable<boolean>;
   statistic$: Observable<Statistic>;
   progress$: Observable<number>;
   enemiesProgress$: Observable<EnemyProgress[]>;
+
+  startButtonText = 'START';
+  startInterval;
+  startInProgress = false;
 
   constructor(private store: Store<State>) {
   }
@@ -29,10 +34,6 @@ export class LessonViewComponent implements OnInit {
   ngOnInit() {
     this.initalizeComputerEnemy();
     this.initializeDatasFromStore();
-    this.store.dispatch(new lesson.StartAction());
-    setTimeout(() => {
-      this.store.dispatch(new lesson.EndAction());
-    }, 1000);
   }
 
   handleKeyup(event: KeyboardEvent) {
@@ -46,10 +47,46 @@ export class LessonViewComponent implements OnInit {
   initializeDatasFromStore() {
     this.selectedLesson$ = this.store.select(fromRoot.getCurrentLesson);
     this.typedText$ = this.store.select(fromRoot.getTypedText);
-    this.isLessonEnded$ = this.store.select(fromRoot.wasLessonTyped);
+    this.isLessonEnded$ = this.store.select(fromRoot.isLessonEnded);
+    this.isLessonStarted$ = this.store.select(fromRoot.isLessonStarted);
     this.statistic$ = this.store.select(fromRoot.getLessonStatistic);
     this.progress$ = this.store.select(fromRoot.getLessonProgress);
     this.enemiesProgress$ = this.store.select(fromRoot.getLessonEnemiesProgress);
+  }
+
+  startHandler() {
+    this.startInProgress = true;
+    let secTilStart = 3;
+    this.startButtonText = `Starts in ${secTilStart}...`;
+    this.isLessonStarted$
+      .filter(s => s)
+      .take(1)
+      .subscribe(() => {
+        clearInterval(this.startInterval);
+        this.startEnemy();
+      });
+
+    this.startInterval = setInterval(() => {
+      secTilStart--;
+      if (secTilStart > 0) {
+        this.startButtonText = `Starts in ${secTilStart}...`;
+      } else {
+        this.startButtonText = 'GO!';
+        this.store.dispatch(new lesson.StartAction());
+      }
+    }, 1000);
+  }
+
+  startEnemy() {
+    Observable.interval(1000 / (500 / 60))
+      .timeInterval()
+      .take(15)
+      .subscribe(v => this.store.dispatch(new lesson.NewEnemyProgressAction({
+        id: `computer`,
+        progress: Math.floor(((v.value + 1) / 15) * 100)
+      })),
+      () => { },
+      () => this.store.dispatch(new lesson.EndAction()));
   }
 }
 

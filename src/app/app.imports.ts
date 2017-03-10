@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { MdInputModule } from '@angular/material';
+import { MdInputModule, MdButtonModule } from '@angular/material';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -22,6 +22,7 @@ export const APP_IMPORTS = [
   FormsModule,
   HttpModule,
 
+  MdButtonModule,
   MdInputModule,
 
   RouterModule.forRoot(connectToStore(routes)),
