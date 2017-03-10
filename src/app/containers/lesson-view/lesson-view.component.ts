@@ -7,6 +7,7 @@ import { State } from '../../reducers/index';
 import * as fromRoot from '../../reducers/index';
 import * as lesson from '../../actions/lesson.actions';
 import { Statistic } from '../../models/statistic/statistic';
+import { EnemyProgress } from '../../models/enemy-progress';
 
 @Component({
   selector: 'tpw-lesson-view',
@@ -20,19 +21,31 @@ export class LessonViewComponent implements OnInit {
   isLessonEnded$: Observable<boolean>;
   statistic$: Observable<Statistic>;
   progress$: Observable<number>;
+  enemiesProgress$: Observable<EnemyProgress[]>;
 
-  constructor(private store: Store<State>) { }
+  constructor(private store: Store<State>) {
+  }
 
   ngOnInit() {
+    this.initalizeComputerEnemy();
+    this.initializeDatasFromStore();
+  }
+
+  handleKeyup(event: KeyboardEvent) {
+    this.store.dispatch(new lesson.NewKeyAction(event));
+  }
+
+  initalizeComputerEnemy() {
+    this.store.dispatch(new lesson.NewPlayerAction('computer'));
+  }
+
+  initializeDatasFromStore() {
     this.selectedLesson$ = this.store.select(fromRoot.getCurrentLesson);
     this.typedText$ = this.store.select(fromRoot.getTypedText);
     this.isLessonEnded$ = this.store.select(fromRoot.wasLessonTyped);
     this.statistic$ = this.store.select(fromRoot.getLessonStatistic);
     this.progress$ = this.store.select(fromRoot.getLessonProgress);
-  }
-
-  handleKeyup(event: KeyboardEvent) {
-    this.store.dispatch(new lesson.NewKeyAction(event));
+    this.enemiesProgress$ = this.store.select(fromRoot.getLessonEnemiesProgress);
   }
 }
 

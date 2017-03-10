@@ -12,6 +12,10 @@ export const ActionTypes = {
 
   CLEAR: type('[LESSON] Clear'),
 
+  NEW_PLAYER: type('[LESSON] New Player'),
+
+  NEW_ENEMY_PROGRESS: type('[LESSON] New Enemy Progress'),
+
   COMPLETE: type('[LESSON] Complete')
 };
 
@@ -51,11 +55,27 @@ export class CompleteAction implements Action {
   constructor(public payload: string) { }
 }
 
+export class NewPlayerAction implements Action {
+  type = ActionTypes.NEW_PLAYER;
+
+  constructor(public payload: string) { }
+}
+
+export class NewEnemyProgressAction implements Action {
+  type = ActionTypes.NEW_ENEMY_PROGRESS;
+
+  constructor(public payload: { id: string, progress: number }) { }
+}
+
+
+
 export type Actions
   = NewKeyAction
   | LoadAction
   | LoadSuccessAction
   | LoadFailAction
   | ClearAction
-  | CompleteAction;
+  | CompleteAction
+  | NewPlayerAction
+  | NewEnemyProgressAction;
 

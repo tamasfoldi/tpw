@@ -3,6 +3,7 @@ import * as lesson from '../actions/lesson.actions';
 import { Lesson } from '../models/lessons/lesson';
 import { StatisticData, Statistic } from '../models/statistic/statistic';
 import { Action } from '@ngrx/store';
+import { EnemyProgress } from '../models/enemy-progress';
 
 
 const isItTheCorrectNextChar = (char: string, state: State): boolean => {
@@ -19,16 +20,16 @@ export interface State {
   currentLesson: Lesson;
   typedText: string;
   isLoading: boolean;
-  progress: number;
   statistic: StatisticData;
+  enemiesProgress: EnemyProgress[];
 };
 
 export const initialState: State = {
   isLoading: false,
   currentLesson: null,
   typedText: '',
-  progress: -1,
-  statistic: new Statistic()
+  statistic: new Statistic(),
+  enemiesProgress: []
 };
 
 export function reducer(state = initialState, action: Action): State {
@@ -40,10 +41,7 @@ export function reducer(state = initialState, action: Action): State {
         let newState = Object.assign({}, state) as State;
 
         if (isItTheCorrectNextChar(key.key, state)) {
-          newState = Object.assign({}, state, {
-            typedText: state.typedText + key.key,
-            progress: Math.floor((state.typedText.length + 1) / state.currentLesson.text.length * 100)
-          });
+          newState = Object.assign({}, state, { typedText: state.typedText + key.key });
           newStat = Object.assign({}, newStat, { nofCorrectPress: newStat.nofCorrectPress + 1 });
 
           if (state.typedText.length === 0) {
@@ -77,6 +75,14 @@ export function reducer(state = initialState, action: Action): State {
       return Object.assign({}, initialState);
     }
 
+    case lesson.ActionTypes.NEW_PLAYER: {
+      return Object.assign({}, state, { enemiesProgress: [...state.enemiesProgress, { id: action.payload, progress: 0 }] });
+    }
+
+    case lesson.ActionTypes.NEW_ENEMY_PROGRESS: {
+      return Object.assign({}, state, { enemiesProgress: [...state.enemiesProgress, action.payload] });
+    }
+
     default: {
       return state;
     }
@@ -87,8 +93,10 @@ export function reducer(state = initialState, action: Action): State {
 export const getLessonTitle = (state: State) => state.currentLesson ? state.currentLesson.title : null;
 export const getLessonText = (state: State) => state.currentLesson ? state.currentLesson.text : null;
 export const getLessonId = (state: State) => state.currentLesson ? state.currentLesson.id : null;
+export const getLessonDifficulty = (state: State) => state.currentLesson ? state.currentLesson.difficulty : null;
 export const getCurrentLesson = (state: State) => state.currentLesson;
 export const getTypedText = (state: State) => state.typedText;
 export const wasLessonTyped = (state: State) => state.currentLesson && state.typedText === state.currentLesson.text;
 export const getStatistic = (state: State) => new Statistic(state.statistic);
-export const getProgress = (state: State) => state.progress;
+export const getProgress = (state: State) => Math.floor((state.typedText.length) / state.currentLesson.text.length * 100);
+export const getEnemiesProgress = (state: State) => state.enemiesProgress;

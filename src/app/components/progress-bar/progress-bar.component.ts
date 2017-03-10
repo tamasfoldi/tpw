@@ -13,7 +13,6 @@ export class ProgressBarComponent implements OnInit {
   get _value() {
     return `${this.value}%`;
   }
-
   @Input('color')
   color = 'red';
 
