@@ -8,7 +8,7 @@ import * as fromRoot from '../../reducers/index';
 import * as lesson from '../../actions/lesson.actions';
 import { Statistic } from '../../models/statistic/statistic';
 import { EnemyProgress } from '../../models/enemy-progress';
-import { Enemy } from '../../enemy/enemy';
+import { ComputerEnemy } from '../../enemy/enemy';
 
 @Component({
   selector: 'tpw-lesson-view',
@@ -29,7 +29,8 @@ export class LessonViewComponent implements OnInit {
   startInterval;
   startInProgress = false;
 
-  constructor(private store: Store<State>, private enemy: Enemy) {
+  enemy: ComputerEnemy;
+  constructor(private store: Store<State>) {
   }
 
   ngOnInit() {
@@ -42,7 +43,7 @@ export class LessonViewComponent implements OnInit {
   }
 
   initalizeComputerEnemy() {
-    this.store.dispatch(new lesson.NewPlayerAction('computer'));
+    this.enemy = new ComputerEnemy(this.store);
   }
 
   initializeDatasFromStore() {
@@ -65,7 +66,6 @@ export class LessonViewComponent implements OnInit {
       .take(1)
       .subscribe(() => {
         clearInterval(this.startInterval);
-        this.enemy.start();
       });
 
     this.startInterval = setInterval(() => {

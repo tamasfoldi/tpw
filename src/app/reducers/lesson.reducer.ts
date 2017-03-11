@@ -79,7 +79,7 @@ export function reducer(state = initialState, action: Action): State {
     }
 
     case lesson.ActionTypes.NEW_ENEMY_PROGRESS: {
-      const eIdx = state.enemiesProgress.findIndex(v => v.id = action.payload.id)
+      const eIdx = state.enemiesProgress.findIndex(v => v.id = action.payload.id);
       const newEnemiesProgress = [...state.enemiesProgress];
       newEnemiesProgress[eIdx] = Object.assign({}, newEnemiesProgress[eIdx], { progress: action.payload.progress });
       return Object.assign({}, state, { enemiesProgress: newEnemiesProgress });

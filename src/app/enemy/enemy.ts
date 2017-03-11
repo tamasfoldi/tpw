@@ -6,12 +6,12 @@ import * as fromRoot from '../reducers/index';
 import * as lesson from '../actions/lesson.actions';
 
 @Injectable()
-export class Enemy {
+export class ComputerEnemy {
   lessonDifficulty: number;
   lessonTextLength: number;
-  isLessonEnded: boolean;
-  isLessonStarted: boolean;
   startSub: Subscription;
+
+  readonly id = 'computer';
   constructor(private store: Store<State>) {
     this.store.select(fromRoot.getCurrentLessonDifficulty)
       .filter(d => !!d)
@@ -24,17 +24,18 @@ export class Enemy {
       .subscribe(t => this.lessonTextLength = t.length);
 
     this.store.select(fromRoot.isLessonEnded)
-      .filter(e => !!e)
+      .filter(e => e)
       .take(1)
       .subscribe(e => {
-        this.isLessonEnded = e;
         this.startSub.unsubscribe();
       });
 
     this.store.select(fromRoot.isLessonStarted)
-      .filter(s => !!s)
+      .filter(s => s)
       .take(1)
-      .subscribe(s => this.isLessonStarted = s);
+      .subscribe(() => this.start());
+
+    this.store.dispatch(new lesson.NewPlayerAction(this.id));
   }
   start() {
     this.startSub = Observable.interval(1000 / (this.lessonDifficulty / 60))

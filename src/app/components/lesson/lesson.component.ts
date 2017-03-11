@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild, Renderer, AfterContentChecked } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild, AfterContentChecked } from '@angular/core';
 import { Lesson } from '../../models/lessons/lesson';
 
 @Component({
@@ -23,12 +23,12 @@ export class LessonComponent implements OnInit, AfterContentChecked {
   @ViewChild('lessonInput')
   lessonInput: ElementRef;
 
-  constructor(private renderer: Renderer) { }
+  constructor() { }
 
   ngOnInit() { }
 
   ngAfterContentChecked() {
-    this.renderer.invokeElementMethod(this.lessonInput.nativeElement, 'focus', []);
+    this.lessonInput.nativeElement.focus();
   }
 
   handleKeyup(event: KeyboardEvent) {
