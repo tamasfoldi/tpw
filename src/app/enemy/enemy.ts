@@ -42,7 +42,7 @@ export class ComputerEnemy {
     this.startSub = Observable.interval(1000 / (this.lessonDifficulty / 60))
       .timeInterval()
       .take(this.lessonTextLength)
-      .subscribe(v => this.store.dispatch(new lesson.NewEnemyProgressAction({
+      .subscribe(v => this.store.dispatch(new lesson.NewPlayerProgressAction({
         id: `computer`,
         progress: Math.floor(((v.value + 1) / this.lessonTextLength) * 100)
       })),

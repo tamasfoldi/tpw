@@ -17,7 +17,7 @@ export const ActionTypes = {
 
   READY: type('[LESSON] Ready'),
 
-  NEW_PLAYER_PROGRESS: type('[LESSON] New Enemy Progress'),
+  NEW_PLAYER_PROGRESS: type('[LESSON] New Player Progress'),
 
   START: type('[LESSON] Start'),
 
@@ -83,7 +83,7 @@ export class ReadyAction implements Action {
   constructor(public payload: string) { }
 }
 
-export class NewEnemyProgressAction implements Action {
+export class NewPlayerProgressAction implements Action {
   type = ActionTypes.NEW_PLAYER_PROGRESS;
 
   constructor(public payload: { id: string, progress: number }) { }
@@ -118,7 +118,7 @@ export type Actions
   | CompleteAction
   | NewPlayerAction
   | ReadyAction
-  | NewEnemyProgressAction
+  | NewPlayerProgressAction
   | StartAction
   | EndAction
   | CountAction;

@@ -42,4 +42,9 @@ export class LessonEffects {
         new lesson.CompleteAction(id)
       ])
     );
+
+  @Effect()
+  palyerProgress$: Observable<Action> = this.store.select(fromRoot.getLessonProgress)
+    .filter(p => !!p)
+    .map(p => new lesson.NewPlayerProgressAction({ id: 'player', progress: p }));
 }

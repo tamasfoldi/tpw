@@ -33,16 +33,12 @@ export class LessonViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new lesson.NewPlayerAction(this.playerId))
-    this.initalizeComputerEnemy();
+    this.initializePlayers();
     this.initializeDatasFromStore();
   }
 
-  handleKeyup(event: KeyboardEvent) {
-    this.store.dispatch(new lesson.NewKeyAction(event));
-  }
-
-  initalizeComputerEnemy() {
+  initializePlayers() {
+    this.store.dispatch(new lesson.NewPlayerAction(this.playerId));
     this.enemy = new ComputerEnemy(this.store);
   }
 
@@ -55,6 +51,10 @@ export class LessonViewComponent implements OnInit {
     this.progress$ = this.store.select(fromRoot.getLessonProgress);
     this.enemiesProgress$ = this.store.select(fromRoot.getLessonEnemiesProgress);
     this.isStarting$ = this.store.select(fromRoot.isAllPlayerReady);
+  }
+
+  handleKeyup(event: KeyboardEvent) {
+    this.store.dispatch(new lesson.NewKeyAction(event));
   }
 
   handleReady() {
