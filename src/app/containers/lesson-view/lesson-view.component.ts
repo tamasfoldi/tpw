@@ -21,6 +21,7 @@ export class LessonViewComponent implements OnInit {
   typedText$: Observable<string>;
   isLessonEnded$: Observable<boolean>;
   isLessonStarted$: Observable<boolean>;
+  isStarting$: Observable<boolean>;
   statistic$: Observable<Statistic>;
   progress$: Observable<number>;
   enemiesProgress$: Observable<number[]>;
@@ -53,6 +54,7 @@ export class LessonViewComponent implements OnInit {
     this.statistic$ = this.store.select(fromRoot.getLessonStatistic);
     this.progress$ = this.store.select(fromRoot.getLessonProgress);
     this.enemiesProgress$ = this.store.select(fromRoot.getLessonEnemiesProgress);
+    this.isStarting$ = this.store.select(fromRoot.isAllPlayerReady);
   }
 
   handleReady() {

@@ -12,6 +12,7 @@ import { Observable } from 'rxjs/Rx';
 })
 export class StartCounterComponent implements OnInit {
   secsBeforeStart = 3;
+  counted = 0;
 
   constructor(private store: Store<State>) { }
 
@@ -26,8 +27,10 @@ export class StartCounterComponent implements OnInit {
     Observable.interval(1000)
       .timeInterval()
       .take(this.secsBeforeStart)
-      .subscribe(i =>
-        this.store.dispatch(new lesson.CountAction(this.secsBeforeStart - i.value)),
+      .subscribe(i => {
+        this.counted = i.value + 1;
+        this.store.dispatch(new lesson.CountAction(this.secsBeforeStart - this.counted));
+      },
       () => { },
       () => this.store.dispatch(new lesson.StartAction()));
   }
