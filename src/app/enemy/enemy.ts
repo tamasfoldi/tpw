@@ -36,6 +36,7 @@ export class ComputerEnemy {
       .subscribe(() => this.start());
 
     this.store.dispatch(new lesson.NewPlayerAction(this.id));
+    this.store.dispatch(new lesson.ReadyAction(this.id));
   }
   start() {
     this.startSub = Observable.interval(1000 / (this.lessonDifficulty / 60))

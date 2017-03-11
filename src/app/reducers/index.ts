@@ -52,3 +52,4 @@ export const wasLessonCompleted = createSelector(getLessonState, fromLesson.wasC
 export const getLessonStatistic = createSelector(getLessonState, fromLesson.getStatistic);
 export const getLessonProgress = createSelector(getLessonState, fromLesson.getProgress);
 export const getLessonEnemiesProgress = createSelector(getLessonState, fromLesson.getEnemiesProgress);
+export const isAllPlayerReady = createSelector(getLessonState, fromLesson.isAllPlayerReady);

@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 
 import { type } from './action-utils';
 import { Lesson } from '../models/lessons/lesson';
+import { Player } from '../models/player';
 
 export const ActionTypes = {
   NEW_KEY: type('[LESSON] New Key'),
@@ -14,9 +15,13 @@ export const ActionTypes = {
 
   NEW_PLAYER: type('[LESSON] New Player'),
 
-  NEW_ENEMY_PROGRESS: type('[LESSON] New Enemy Progress'),
+  READY: type('[LESSON] Ready'),
+
+  NEW_PLAYER_PROGRESS: type('[LESSON] New Enemy Progress'),
 
   START: type('[LESSON] Start'),
+
+  COUNT: type('[LESSON] Count'),
 
   END: type('[LESSON] End'),
 
@@ -61,12 +66,25 @@ export class CompleteAction implements Action {
 
 export class NewPlayerAction implements Action {
   type = ActionTypes.NEW_PLAYER;
+  payload: Player;
+
+  constructor(palyerId: string) {
+    this.payload = {
+      id: palyerId,
+      progress: 0,
+      state: 'NOT_READY'
+    };
+  }
+}
+
+export class ReadyAction implements Action {
+  type = ActionTypes.READY;
 
   constructor(public payload: string) { }
 }
 
 export class NewEnemyProgressAction implements Action {
-  type = ActionTypes.NEW_ENEMY_PROGRESS;
+  type = ActionTypes.NEW_PLAYER_PROGRESS;
 
   constructor(public payload: { id: string, progress: number }) { }
 }
@@ -75,6 +93,12 @@ export class StartAction implements Action {
   type = ActionTypes.START;
 
   constructor(public payload?: void) { }
+}
+
+export class CountAction implements Action {
+  type = ActionTypes.COUNT;
+
+  constructor(public payload: number) { }
 }
 
 export class EndAction implements Action {
@@ -93,6 +117,9 @@ export type Actions
   | ClearAction
   | CompleteAction
   | NewPlayerAction
+  | ReadyAction
   | NewEnemyProgressAction
-  | StartAction;
+  | StartAction
+  | EndAction
+  | CountAction;
 

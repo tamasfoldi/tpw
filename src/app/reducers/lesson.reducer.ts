@@ -4,7 +4,7 @@ import * as lessons from '../actions/lessons.actions';
 import { Lesson } from '../models/lessons/lesson';
 import { StatisticData, Statistic } from '../models/statistic/statistic';
 import { Action } from '@ngrx/store';
-import { EnemyProgress } from '../models/enemy-progress';
+import { Player } from '../models/player';
 
 
 const isItTheCorrectNextChar = (char: string, state: State): boolean => {
@@ -24,7 +24,7 @@ export interface State {
   isEnded: boolean;
   isLoading: boolean;
   statistic: StatisticData;
-  enemiesProgress: EnemyProgress[];
+  players: Player[];
 };
 
 export const initialState: State = {
@@ -34,7 +34,7 @@ export const initialState: State = {
   currentLesson: null,
   typedText: '',
   statistic: new Statistic(),
-  enemiesProgress: []
+  players: []
 };
 
 export function reducer(state = initialState, action: Action): State {
@@ -75,14 +75,21 @@ export function reducer(state = initialState, action: Action): State {
     }
 
     case lesson.ActionTypes.NEW_PLAYER: {
-      return Object.assign({}, state, { enemiesProgress: [...state.enemiesProgress, { id: action.payload, progress: 0 }] });
+      return Object.assign({}, state, { players: [...state.players, action.payload] });
     }
 
-    case lesson.ActionTypes.NEW_ENEMY_PROGRESS: {
-      const eIdx = state.enemiesProgress.findIndex(v => v.id = action.payload.id);
-      const newEnemiesProgress = [...state.enemiesProgress];
-      newEnemiesProgress[eIdx] = Object.assign({}, newEnemiesProgress[eIdx], { progress: action.payload.progress });
-      return Object.assign({}, state, { enemiesProgress: newEnemiesProgress });
+    case lesson.ActionTypes.NEW_PLAYER_PROGRESS: {
+      const pIdx = state.players.findIndex(p => p.id === action.payload.id);
+      const newPlayers = [...state.players];
+      newPlayers[pIdx] = Object.assign({}, newPlayers[pIdx], { progress: action.payload.progress });
+      return Object.assign({}, state, { players: newPlayers });
+    }
+
+    case lesson.ActionTypes.READY: {
+      const pIdx = state.players.findIndex(p => p.id === action.payload);
+      const newPlayers = [...state.players];
+      newPlayers[pIdx] = Object.assign({}, newPlayers[pIdx], { state: 'READY' });
+      return Object.assign({}, state, { players: newPlayers });
     }
 
     case lesson.ActionTypes.START: {
@@ -117,4 +124,7 @@ export const wasCompleted = (state: State) => state.currentLesson && state.typed
 export const getStatistic = (state: State) => new Statistic(state.statistic);
 export const getProgress = (state: State) => state.currentLesson &&
   Math.floor((state.typedText.length) / state.currentLesson.text.length * 100);
-export const getEnemiesProgress = (state: State) => state.enemiesProgress;
+export const getEnemiesProgress = (state: State) => state.players
+  .slice(1, state.players.length)
+  .map(player => player.progress);
+export const isAllPlayerReady = (state: State) => state.players.every(p => p.state === 'READY');

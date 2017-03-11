@@ -1,6 +1,7 @@
 <tpw-lesson [disableInput]="(isLessonEnded$ | async)|| !(isLessonStarted$ | async)" [lesson]="selectedLesson$ | async" [typedText]="typedText$ | async"
   (onKeyup)="handleKeyup($event)"></tpw-lesson>
 <tpw-progress-bar [value]="progress$ | async" color="blue"></tpw-progress-bar>
-<tpw-progress-bar *ngFor="let eProgress of (enemiesProgress$ | async)" [value]="eProgress.progress" color="red"></tpw-progress-bar>
+<tpw-progress-bar *ngFor="let eProgress of (enemiesProgress$ | async)" [value]="eProgress" color="red"></tpw-progress-bar>
 <tpw-lesson-statistic *ngIf="isLessonEnded$ | async" [data]="statistic$ | async "></tpw-lesson-statistic>
-<button [disabled]="startInProgress" md-raised-button (click)="startHandler()">{{startButtonText}}</button>
+<button [disabled]="isLessonStarted$ | async" md-raised-button (click)="handleReady()">READY</button>
+<tpw-start-counter></tpw-start-counter>

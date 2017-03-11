@@ -7,7 +7,7 @@ import { State } from '../../reducers/index';
 import * as fromRoot from '../../reducers/index';
 import * as lesson from '../../actions/lesson.actions';
 import { Statistic } from '../../models/statistic/statistic';
-import { EnemyProgress } from '../../models/enemy-progress';
+import { Player } from '../../models/player';
 import { ComputerEnemy } from '../../enemy/enemy';
 
 @Component({
@@ -23,17 +23,16 @@ export class LessonViewComponent implements OnInit {
   isLessonStarted$: Observable<boolean>;
   statistic$: Observable<Statistic>;
   progress$: Observable<number>;
-  enemiesProgress$: Observable<EnemyProgress[]>;
-
-  startButtonText = 'START';
-  startInterval;
-  startInProgress = false;
+  enemiesProgress$: Observable<number[]>;
 
   enemy: ComputerEnemy;
+
+  readonly playerId = 'player';
   constructor(private store: Store<State>) {
   }
 
   ngOnInit() {
+    this.store.dispatch(new lesson.NewPlayerAction(this.playerId))
     this.initalizeComputerEnemy();
     this.initializeDatasFromStore();
   }
@@ -54,29 +53,10 @@ export class LessonViewComponent implements OnInit {
     this.statistic$ = this.store.select(fromRoot.getLessonStatistic);
     this.progress$ = this.store.select(fromRoot.getLessonProgress);
     this.enemiesProgress$ = this.store.select(fromRoot.getLessonEnemiesProgress);
-
   }
 
-  startHandler() {
-    this.startInProgress = true;
-    let secTilStart = 3;
-    this.startButtonText = `Starts in ${secTilStart}...`;
-    this.isLessonStarted$
-      .filter(s => s)
-      .take(1)
-      .subscribe(() => {
-        clearInterval(this.startInterval);
-      });
-
-    this.startInterval = setInterval(() => {
-      secTilStart--;
-      if (secTilStart > 0) {
-        this.startButtonText = `Starts in ${secTilStart}...`;
-      } else {
-        this.startButtonText = 'GO!';
-        this.store.dispatch(new lesson.StartAction());
-      }
-    }, 1000);
+  handleReady() {
+    this.store.dispatch(new lesson.ReadyAction(this.playerId));
   }
 }
 
