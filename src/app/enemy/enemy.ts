@@ -4,6 +4,7 @@ import { Observable, Subscription } from 'rxjs/Rx';
 import { State } from '../reducers/index';
 import * as fromRoot from '../reducers/index';
 import * as lesson from '../actions/lesson.actions';
+import * as player from '../actions/player.actions';
 
 @Injectable()
 export class ComputerEnemy {
@@ -35,14 +36,14 @@ export class ComputerEnemy {
       .take(1)
       .subscribe(() => this.start());
 
-    this.store.dispatch(new lesson.NewPlayerAction(this.id));
-    this.store.dispatch(new lesson.ReadyAction(this.id));
+    this.store.dispatch(new player.NewAction(this.id));
+    this.store.dispatch(new player.ReadyAction(this.id));
   }
   start() {
     this.startSub = Observable.interval(1000 / (this.lessonDifficulty / 60))
       .timeInterval()
       .take(this.lessonTextLength)
-      .subscribe(v => this.store.dispatch(new lesson.NewPlayerProgressAction({
+      .subscribe(v => this.store.dispatch(new player.ProgressAction({
         id: `computer`,
         progress: Math.floor(((v.value + 1) / this.lessonTextLength) * 100)
       })),

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Rx';
 import { Lesson } from '../../models/lessons/lesson';
 import { State } from '../../reducers/index';
 import * as fromRoot from '../../reducers/index';
-import * as lesson from '../../actions/lesson.actions';
+import * as player from '../../actions/player.actions';
 import { Statistic } from '../../models/statistic/statistic';
 import { Player } from '../../models/player';
 import { ComputerEnemy } from '../../enemy/enemy';
@@ -38,7 +38,7 @@ export class LessonViewComponent implements OnInit {
   }
 
   initializePlayers() {
-    this.store.dispatch(new lesson.NewPlayerAction(this.playerId));
+    this.store.dispatch(new player.NewAction(this.playerId));
     this.enemy = new ComputerEnemy(this.store);
   }
 
@@ -54,11 +54,11 @@ export class LessonViewComponent implements OnInit {
   }
 
   handleKeyup(event: KeyboardEvent) {
-    this.store.dispatch(new lesson.NewKeyAction(event));
+    this.store.dispatch(new player.KeyAction(event));
   }
 
   handleReady() {
-    this.store.dispatch(new lesson.ReadyAction(this.playerId));
+    this.store.dispatch(new player.ReadyAction(this.playerId));
   }
 }
 

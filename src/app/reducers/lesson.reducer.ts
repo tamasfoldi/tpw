@@ -1,5 +1,6 @@
 // tslint:disable:no-switch-case-fall-through
 import * as lesson from '../actions/lesson.actions';
+import * as player from '../actions/player.actions';
 import * as lessons from '../actions/lessons.actions';
 import { Lesson } from '../models/lessons/lesson';
 import { StatisticData, Statistic } from '../models/statistic/statistic';
@@ -39,7 +40,7 @@ export const initialState: State = {
 
 export function reducer(state = initialState, action: Action): State {
   switch (action.type) {
-    case lesson.ActionTypes.NEW_KEY: {
+    case player.ActionTypes.KEY: {
       const key: KeyboardEvent = action.payload as KeyboardEvent;
       if (isItCharacterOrSpace(key.code)) {
         let newStat = Object.assign({}, state.statistic) as Statistic;
@@ -74,18 +75,18 @@ export function reducer(state = initialState, action: Action): State {
       return Object.assign({}, initialState);
     }
 
-    case lesson.ActionTypes.NEW_PLAYER: {
+    case player.ActionTypes.NEW: {
       return Object.assign({}, state, { players: [...state.players, action.payload] });
     }
 
-    case lesson.ActionTypes.NEW_PLAYER_PROGRESS: {
+    case player.ActionTypes.PROGRESS: {
       const pIdx = state.players.findIndex(p => p.id === action.payload.id);
       const newPlayers = [...state.players];
       newPlayers[pIdx] = Object.assign({}, newPlayers[pIdx], { progress: action.payload.progress });
       return Object.assign({}, state, { players: newPlayers });
     }
 
-    case lesson.ActionTypes.READY: {
+    case player.ActionTypes.READY: {
       const pIdx = state.players.findIndex(p => p.id === action.payload);
       const newPlayers = [...state.players];
       newPlayers[pIdx] = Object.assign({}, newPlayers[pIdx], { state: 'READY' });

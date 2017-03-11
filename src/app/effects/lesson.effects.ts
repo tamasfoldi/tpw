@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { LessonService } from '../services/lesson/lesson.service';
 import * as lessons from '../actions/lessons.actions';
 import * as lesson from '../actions/lesson.actions';
+import * as player from '../actions/player.actions';
 import { State } from '../reducers/index';
 import * as fromRoot from '../reducers/index';
 
@@ -46,5 +47,5 @@ export class LessonEffects {
   @Effect()
   palyerProgress$: Observable<Action> = this.store.select(fromRoot.getLessonProgress)
     .filter(p => !!p)
-    .map(p => new lesson.NewPlayerProgressAction({ id: 'player', progress: p }));
+    .map(p => new player.ProgressAction({ id: 'player', progress: p }));
 }
