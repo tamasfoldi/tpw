@@ -2,6 +2,7 @@ import { State, initialState, reducer } from './lesson.reducer';
 import * as lessons from '../actions/lessons.actions';
 import * as lesson from '../actions/lesson.actions';
 import * as player from '../actions/player.actions';
+import * as fromLesson from './lesson.reducer';
 import { Lesson } from '../models/lessons/lesson';
 import { Action } from '@ngrx/store';
 import { Statistic } from '../models/statistic/statistic';
@@ -228,6 +229,222 @@ describe('LessonsReducer', () => {
 
       expect(result.isEnded).toBeTruthy();
       expect(result.statistic.endTime).not.toBe(-1);
+    });
+  });
+
+  describe('getLessonTitle', () => {
+    it('should return with the lesson title if lesson loaded', () => {
+      const state = Object.assign({}, initialState, { currentLesson: { title: 'test' } });
+
+
+      const result = fromLesson.getLessonTitle(state);
+
+      expect(result).toBe('test');
+    });
+
+    it('should return with null if no lesson set', () => {
+      const result = fromLesson.getLessonTitle(initialState);
+
+      expect(result).toBeNull();
+    });
+  });
+
+  describe('getLessonText', () => {
+    it('should return with the lesson text if lesson loaded', () => {
+      const state = Object.assign({}, initialState, { currentLesson: { text: 'test' } });
+
+
+      const result = fromLesson.getLessonText(state);
+
+      expect(result).toBe('test');
+    });
+
+    it('should return with null if no lesson set', () => {
+      const result = fromLesson.getLessonText(initialState);
+
+      expect(result).toBeNull();
+    });
+  });
+
+  describe('getLessonId', () => {
+    it('should return with the lesson id if lesson loaded', () => {
+      const state = Object.assign({}, initialState, { currentLesson: { id: 'test' } });
+
+
+      const result = fromLesson.getLessonId(state);
+
+      expect(result).toBe('test');
+    });
+
+    it('should return with null if no lesson set', () => {
+      const result = fromLesson.getLessonId(initialState);
+
+      expect(result).toBeNull();
+    });
+  });
+
+  describe('getLessonDifficulty', () => {
+    it('should return with the lesson difficulty if lesson loaded', () => {
+      const state = Object.assign({}, initialState, { currentLesson: { difficulty: 1 } });
+
+
+      const result = fromLesson.getLessonDifficulty(state);
+
+      expect(result).toBe(1);
+    });
+
+    it('should return with null if no lesson set', () => {
+      const result = fromLesson.getLessonDifficulty(initialState);
+
+      expect(result).toBeNull();
+    });
+  });
+
+  describe('getCurrentLesson', () => {
+    it('should return with the lesson', () => {
+      const state = Object.assign({}, initialState, {
+        currentLesson: {
+          id: 'test', title: 'Test', text: 'test', difficulty: 1
+        }
+      });
+
+      const result = fromLesson.getCurrentLesson(state);
+
+      expect(result).toEqual({
+        id: 'test', title: 'Test', text: 'test', difficulty: 1
+      });
+    });
+  });
+
+  describe('getTypedText', () => {
+    it('should return with the typedText', () => {
+      const state = Object.assign({}, initialState, {
+        typedText: 'test'
+      });
+
+      const result = fromLesson.getTypedText(state);
+
+      expect(result).toBe('test');
+    });
+  });
+
+  describe('isStarted', () => {
+    it('should return with isStarted', () => {
+      const state = Object.assign({}, initialState, {
+        isStarted: true
+      });
+
+      const result = fromLesson.isStarted(state);
+
+      expect(result).toBeTruthy();
+    });
+  });
+
+  describe('isEnded', () => {
+    it('should return with isEnded', () => {
+      const state = Object.assign({}, initialState, {
+        isEnded: true
+      });
+
+      const result = fromLesson.isEnded(state);
+
+      expect(result).toBeTruthy();
+    });
+  });
+
+  describe('wasCompleted', () => {
+    it('should return with true if typed text equal lesson text', () => {
+      const state = Object.assign({}, initialState, {
+        typedText: 'test', currentLesson: { text: 'test' }
+      });
+
+      const result = fromLesson.wasCompleted(state);
+
+      expect(result).toBeTruthy();
+    });
+
+    it('should return with false if typed text not equal lesson text', () => {
+      const state = Object.assign({}, initialState, {
+        typedText: 'test', currentLesson: { text: 'te' }
+      });
+
+      const result = fromLesson.wasCompleted(state);
+
+      expect(result).toBeFalsy();
+    });
+
+    it('should return with false if there is no lesson', () => {
+      const state = Object.assign({}, initialState, {
+        typedText: 'test'
+      });
+
+      const result = fromLesson.wasCompleted(state);
+
+      expect(result).toBeFalsy();
+    });
+  });
+
+  describe('getStatistic', () => {
+    it('should return with a statistic created from data', () => {
+      const state = Object.assign({}, initialState, {
+        statistic: {
+          nofCorrectPress: 1,
+          nofIncorrectPress: 1,
+          startTime: 1,
+          endTime: 2,
+        }
+      });
+
+      const result = fromLesson.getStatistic(state);
+
+      expect(result.accuracy).toEqual(0.5);
+      expect(result.charPerMinute).toEqual(60000);
+    });
+  });
+
+  describe('getProgress', () => {
+    it('should return with null if there is no lesson', () => {
+      const state = Object.assign({}, initialState);
+
+      const result = fromLesson.getProgress(state);
+
+      expect(result).toBeNull();
+    });
+
+    it('should return the progress in % calculated from typed text length', () => {
+      const state = Object.assign({}, initialState, { typedText: 'te', currentLesson: { text: 'test' } });
+
+      const result = fromLesson.getProgress(state);
+
+      expect(result).toBe(50);
+    });
+  });
+
+  describe('getProgress', () => {
+    it('should return with an array created from players.progress expcept the first entry', () => {
+      const state = Object.assign({}, initialState, { players: [{ progress: 1 }, { progress: 2 }] });
+
+      const result = fromLesson.getEnemiesProgress(state);
+
+      expect(result).toEqual([2]);
+    });
+  });
+
+  describe('isAllPlayerReady', () => {
+    it('should return true if all the players are redy', () => {
+      const state = Object.assign({}, initialState, { players: [{ state: 'READY' }, { state: 'READY' }] });
+
+      const result = fromLesson.isAllPlayerReady(state);
+
+      expect(result).toBeTruthy();
+    });
+
+    it('should return false if all the players are redy', () => {
+      const state = Object.assign({}, initialState, { players: [{ state: 'READY' }, { state: 'NOT_READY' }] });
+
+      const result = fromLesson.isAllPlayerReady(state);
+
+      expect(result).toBeFalsy();
     });
   });
 });
