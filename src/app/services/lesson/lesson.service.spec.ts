@@ -1,8 +1,8 @@
 import { TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
 
 import { LessonService } from './lesson.service';
-import { MockBackend } from '@angular/http/testing';
-import { ResponseOptions, BaseRequestOptions, ConnectionBackend, Http } from '@angular/http';
+import { MockBackend, MockConnection } from '@angular/http/testing';
+import { ResponseOptions, BaseRequestOptions, ConnectionBackend, Http, Connection, RequestMethod } from '@angular/http';
 import { LESSON_BASE_URL } from '../tokens';
 import { MockHttp } from '../../mock-http/mock-http';
 import * as mockData from '../../mock-http/mock-http-data';
@@ -32,6 +32,7 @@ describe('LessonService', () => {
         let res;
         mockBackend.connections.subscribe(c => {
           expect(c.request.url).toBe('test/lessons');
+          expect(c.request.method).toBe(RequestMethod.Get);
           const response = new ResponseOptions();
           c.mockRespond(new Response(response));
 
@@ -52,6 +53,7 @@ describe('LessonService', () => {
         let res;
         mockBackend.connections.subscribe(c => {
           expect(c.request.url).toBe('test/lesson/1');
+          expect(c.request.method).toBe(RequestMethod.Get);
           const response = new ResponseOptions();
           c.mockRespond(new Response(response));
 
