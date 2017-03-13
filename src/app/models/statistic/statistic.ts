@@ -10,7 +10,7 @@ export class Statistic implements StatisticData {
   startTime: number;
   endTime: number;
 
-  get hasEnded() {
+  get hasEnded(): boolean {
     return this.startTime >= 0 && this.endTime >= 0;
   }
   get nofTotalPress(): number {

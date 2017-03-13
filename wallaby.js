@@ -109,7 +109,15 @@ module.exports = function (wallaby) {
     },
 
     filesWithNoCoverageCalculated: [
-      'src/**/*-helper.ts'
+      'src/**/*-helper.ts',
+      'src/test.ts',
+      'src/wallabyTest.ts',
+      'src/main.ts',
+      'src/environments/environment*.ts',
+      'src/app/router-store.ts',
+      'src/app/app.imports.ts',
+      'src/app/app.declarations.ts',
+      'src/app/app.providers.ts'
     ],
 
     debug: false
