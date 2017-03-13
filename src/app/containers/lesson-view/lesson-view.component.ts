@@ -8,7 +8,7 @@ import * as fromRoot from '../../reducers/index';
 import * as player from '../../actions/player.actions';
 import { Statistic } from '../../models/statistic/statistic';
 import { Player } from '../../models/player';
-import { ComputerEnemy } from '../../enemy/enemy';
+import { ComputerEnemy } from '../../computer-enemy/computer-enemy';
 
 @Component({
   selector: 'tpw-lesson-view',
