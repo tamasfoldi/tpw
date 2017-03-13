@@ -1,6 +1,7 @@
 import { State, initialState, reducer } from './lesson.reducer';
 import * as lessons from '../actions/lessons.actions';
 import * as lesson from '../actions/lesson.actions';
+import * as player from '../actions/player.actions';
 import { Lesson } from '../models/lessons/lesson';
 import { Action } from '@ngrx/store';
 import { Statistic } from '../models/statistic/statistic';
@@ -21,8 +22,10 @@ describe('LessonsReducer', () => {
         isLoading: true,
         currentLesson: null,
         typedText: '',
-        progress: -1,
-        statistic: new Statistic()
+        statistic: new Statistic(),
+        isEnded: false,
+        isStarted: false,
+        players: []
       };
       const result = reducer(initialState, new lesson.LoadAction('test'));
 
@@ -34,12 +37,14 @@ describe('LessonsReducer', () => {
     it('should add the received list to the state and set loading false', () => {
       const expectedResult: State = {
         isLoading: false,
-        currentLesson: { id: 'test_1', text: 'test', title: 'Test' },
-        progress: -1,
+        currentLesson: { id: 'test_1', text: 'test', title: 'Test', difficulty: 100 },
         typedText: '',
-        statistic: new Statistic()
+        statistic: new Statistic(),
+        isEnded: false,
+        isStarted: false,
+        players: []
       };
-      const result = reducer(initialState, new lesson.LoadSuccessAction({ id: 'test_1', text: 'test', title: 'Test' }));
+      const result = reducer(initialState, new lesson.LoadSuccessAction({ id: 'test_1', text: 'test', title: 'Test', difficulty: 100 }));
 
       expect(result).toEqual(expectedResult);
     });
@@ -50,9 +55,11 @@ describe('LessonsReducer', () => {
       const expectedResult: State = {
         isLoading: false,
         currentLesson: null,
-        progress: -1,
         typedText: '',
-        statistic: new Statistic()
+        statistic: new Statistic(),
+        isEnded: false,
+        isStarted: false,
+        players: []
       };
       const result = reducer(initialState, new lesson.LoadFailAction('fail'));
 
@@ -64,10 +71,12 @@ describe('LessonsReducer', () => {
     it('should set the initialState', () => {
       const startingState: State = {
         isLoading: true,
-        currentLesson: { id: 'test_1', text: 'test', title: 'Test' },
-        progress: -1,
+        currentLesson: { id: 'test_1', text: 'test', title: 'Test', difficulty: 100 },
         typedText: '',
-        statistic: new Statistic()
+        statistic: new Statistic(),
+        isEnded: false,
+        isStarted: false,
+        players: []
       };
       const result = reducer(startingState, new lesson.ClearAction());
 
@@ -75,89 +84,60 @@ describe('LessonsReducer', () => {
     });
   });
 
-  describe('NEW_KEY', () => {
-    it('should add the correct key, start time and modify statistic', () => {
+  describe('player.KEY', () => {
+    it('should add the correct key', () => {
       const startingState: State = {
-        isLoading: false,
-        currentLesson: { id: 'test_1', text: 'test', title: 'Test' },
-        progress: -1,
+        isLoading: true,
+        currentLesson: { id: 'test_1', text: 'test', title: 'Test', difficulty: 100 },
         typedText: '',
-        statistic: new Statistic()
+        statistic: new Statistic(),
+        isEnded: false,
+        isStarted: false,
+        players: []
       };
 
-      const result = reducer(startingState, new lesson.NewKeyAction(new KeyboardEvent('t', { code: 'KeyT', key: 't' })));
+      const result = reducer(startingState, new player.KeyAction(new KeyboardEvent('t', { code: 'KeyT', key: 't' })));
 
       expect(result.typedText).toEqual('t');
       expect(result.statistic.nofCorrectPress).toEqual(1);
-      expect(result.statistic.nofIncorrectPress).toEqual(0);
-      expect(result.statistic.startTime).not.toEqual(-1);
-      expect(result.statistic.endTime).toEqual(-1);
-    });
-
-    it('should not add the incorrect key and doesnt modify statistic at first key', () => {
-      const startingState: State = {
-        isLoading: false,
-        currentLesson: { id: 'test_1', text: 'test', title: 'Test' },
-        progress: -1,
-        typedText: '',
-        statistic: new Statistic()
-      };
-
-      const result = reducer(startingState, new lesson.NewKeyAction(new KeyboardEvent('e', { code: 'KeyE', key: 'e' })));
-
-      expect(result.typedText).toEqual('');
-      expect(result.statistic.nofCorrectPress).toEqual(0);
       expect(result.statistic.nofIncorrectPress).toEqual(0);
       expect(result.statistic.startTime).toEqual(-1);
       expect(result.statistic.endTime).toEqual(-1);
     });
 
-    it('should not add the incorrect key and modify statistic at not first key', () => {
+
+    it('should not add the incorrect key and modify statistic', () => {
       const startingState: State = {
         isLoading: false,
-        currentLesson: { id: 'test_1', text: 'test', title: 'Test' },
-        progress: -1,
-        typedText: 'L',
-        statistic: new Statistic()
+        currentLesson: { id: 'test_1', text: 'test', title: 'Test', difficulty: 100 },
+        typedText: 't',
+        statistic: new Statistic(),
+        isEnded: false,
+        isStarted: false,
+        players: []
       };
 
-      const result = reducer(startingState, new lesson.NewKeyAction(new KeyboardEvent('e', { code: 'KeyE', key: 'e' })));
+      const result = reducer(startingState, new player.KeyAction(new KeyboardEvent('t', { code: 'KeyT', key: 't' })));
 
-      expect(result.typedText).toEqual('L');
+      expect(result.typedText).toEqual('t');
       expect(result.statistic.nofCorrectPress).toEqual(0);
       expect(result.statistic.nofIncorrectPress).toEqual(1);
       expect(result.statistic.startTime).toEqual(-1);
       expect(result.statistic.endTime).toEqual(-1);
     });
 
-    it('should set the end timer', () => {
-      const startingState: State = {
-        isLoading: false,
-        currentLesson: { id: 'test_1', text: 'test', title: 'Test' },
-        progress: -1,
-        typedText: 'tes',
-        statistic: new Statistic()
-      };
-
-      const result = reducer(startingState, new lesson.NewKeyAction(new KeyboardEvent('t', { code: 'KeyT', key: 't' })));
-
-      expect(result.typedText).toEqual('test');
-      expect(result.statistic.nofCorrectPress).toEqual(1);
-      expect(result.statistic.nofIncorrectPress).toEqual(0);
-      expect(result.statistic.startTime).toEqual(-1);
-      expect(result.statistic.endTime).not.toEqual(-1);
-    });
-
     it('should return state on not char or space', () => {
       const startingState: State = {
         isLoading: false,
-        currentLesson: { id: 'test_1', text: 'test', title: 'Test' },
-        progress: -1,
-        typedText: 'tes',
-        statistic: new Statistic()
+        currentLesson: { id: 'test_1', text: 'test', title: 'Test', difficulty: 100 },
+        typedText: 't',
+        statistic: new Statistic(),
+        isEnded: false,
+        isStarted: false,
+        players: []
       };
 
-      const result = reducer(startingState, new lesson.NewKeyAction(new KeyboardEvent('t', { code: 'Digit1', key: 't' })));
+      const result = reducer(startingState, new player.KeyAction(new KeyboardEvent('t', { code: 'Digit1', key: 't' })));
 
       expect(result).toEqual(startingState);
 

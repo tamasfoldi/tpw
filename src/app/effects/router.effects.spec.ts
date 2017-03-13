@@ -8,7 +8,7 @@ import * as lesson from '../actions/lesson.actions';
 import { Lesson } from '../models/lessons/lesson';
 import { LessonListElement } from '../models/lessons/lesson-list-element';
 
-fdescribe('RouterEffects', () => {
+describe('RouterEffects', () => {
   let runner;
   let routerEffects;
   beforeEach(() => TestBed.configureTestingModule({
