@@ -118,7 +118,8 @@ module.exports = function (wallaby) {
       'src/app/router-store.ts',
       'src/app/app.imports.ts',
       'src/app/app.declarations.ts',
-      'src/app/app.providers.ts'
+      'src/app/app.providers.ts',
+      'src/app/services/renderer/**/*.ts'
     ],
 
     debug: false

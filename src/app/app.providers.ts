@@ -1,4 +1,4 @@
-import { Http, ConnectionBackend, BaseRequestOptions } from '@angular/http';
+import { Http, ConnectionBackend, BaseRequestOptions, XHRBackend } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { LessonService } from './services/lesson/lesson.service';
 import { LessonGuard } from './guards/lesson.guard';
@@ -7,21 +7,22 @@ import { LESSON_BASE_URL } from './services/tokens';
 import { MockHttp } from './mock-http/mock-http';
 import { environment } from '../environments/environment';
 
+export const BASE_URL = `${environment.baseUrl}`;
 export const APP_PROVIDERS = [
   LessonService,
   LessonGuard,
   MyDomRenderer,
 
-  MockBackend,
+  ConnectionBackend,
   BaseRequestOptions,
 
-  { provide: LESSON_BASE_URL, useValue: environment.baseUrl },
+  { provide: LESSON_BASE_URL, useValue: BASE_URL },
   {
     provide: Http, useFactory: (backend: ConnectionBackend,
       defaultOptions: BaseRequestOptions, baseUrl: string) => {
       return new MockHttp(backend, defaultOptions, baseUrl);
 
-    }, deps: [MockBackend, BaseRequestOptions, LESSON_BASE_URL]
+    }, deps: [ConnectionBackend, BaseRequestOptions, LESSON_BASE_URL]
   }
 ];
 
