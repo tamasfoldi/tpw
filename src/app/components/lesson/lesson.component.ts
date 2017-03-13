@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild, AfterContentChecked } from '@angular/core';
 import { Lesson } from '../../models/lessons/lesson';
+import { MyDomRenderer } from '../../services/renderer/my-dom-renderer';
 
 @Component({
   selector: 'tpw-lesson',
@@ -23,12 +24,12 @@ export class LessonComponent implements OnInit, AfterContentChecked {
   @ViewChild('lessonInput')
   lessonInput: ElementRef;
 
-  constructor() { }
+  constructor(private renderer: MyDomRenderer) { }
 
   ngOnInit() { }
 
   ngAfterContentChecked() {
-    this.lessonInput.nativeElement.focus();
+    this.renderer.invokeElementMethod(this.lessonInput.nativeElement, 'focus', []);
   }
 
   handleKeyup(event: KeyboardEvent) {
