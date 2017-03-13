@@ -1,68 +1,23 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { LessonListElement } from '../../models/lessons/lesson-list-element';
 import { Lesson } from '../../models/lessons/lesson';
-
-const LESSONS: Observable<Lesson[]> = Observable.of([
-  {
-    id: '1',
-    title: 'Lesson 1',
-    text: 'Lesson one text',
-    difficulty: 100
-  },
-  {
-    id: '2',
-    title: 'Lesson 2',
-    text: 'Lesson two text',
-    difficulty: 200
-  },
-  {
-    id: '3',
-    title: 'Lesson 3',
-    text: 'Lesson three text',
-    difficulty: 300
-  },
-  {
-    id: '4',
-    title: 'Lesson 4',
-    text: 'Lesson four text',
-    difficulty: 400
-  }
-] as Lesson[]);
+import { Http } from '@angular/http';
+import { LESSON_BASE_URL } from '../tokens';
 
 @Injectable()
 export class LessonService {
 
-  constructor() { }
+  constructor(private http: Http, @Inject(LESSON_BASE_URL) private baseUrl: string) { }
 
   getLessonList(): Observable<LessonListElement[]> {
-    return Observable.of([
-      {
-        id: '1',
-        title: 'Lesson 1',
-        isAvailable: true
-      },
-      {
-        id: '2',
-        title: 'Lesson 2',
-        isAvailable: false
-      },
-      {
-        id: '3',
-        title: 'Lesson 3',
-        isAvailable: false
-      }, {
-        id: '4',
-        title: 'Lesson 4',
-        isAvailable: false
-      }
-    ]);
+    return this.http.get(`${this.baseUrl}/lessons`)
+      .map(rsp => rsp.json())
   }
 
   getLesson(id: string): Observable<Lesson> {
-    return LESSONS
-      .map(lessons => lessons
-        .find(lesson => lesson.id === id));
+    return this.http.get(`${this.baseUrl}/lesson/${id}`)
+      .map(rsp => rsp.json());
   }
 
 }

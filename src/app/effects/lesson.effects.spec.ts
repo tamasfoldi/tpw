@@ -11,6 +11,10 @@ import { LessonListElement } from '../models/lessons/lesson-list-element';
 import { StoreModule, Store } from '@ngrx/store';
 import { reducer, State } from '../reducers/index';
 import * as fromRoot from '../reducers/index';
+import { Http, ConnectionBackend, BaseRequestOptions } from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
+import { MockHttp } from '../mock-http/mock-http';
+import { LESSON_BASE_URL } from '../services/tokens';
 
 describe('LessonEffects', () => {
   let runner: EffectsRunner;
@@ -22,7 +26,18 @@ describe('LessonEffects', () => {
     ],
     providers: [
       LessonEffects,
-      LessonService
+      LessonService,
+
+      { provide: LESSON_BASE_URL, useValue: 'test' },
+      MockBackend,
+      BaseRequestOptions,
+      {
+        provide: Http, useFactory: (backend: ConnectionBackend,
+          defaultOptions: BaseRequestOptions, baseUrl: string) => {
+          return new MockHttp(backend, defaultOptions, baseUrl);
+
+        }, deps: [MockBackend, BaseRequestOptions, LESSON_BASE_URL]
+      }
     ]
   }));
 
