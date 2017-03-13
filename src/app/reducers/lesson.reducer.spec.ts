@@ -144,6 +144,90 @@ describe('LessonsReducer', () => {
     });
   });
 
+  describe('palyer.NEW', () => {
+    it('should set add a new player to state', () => {
+      const expextedState: State = {
+        isLoading: false,
+        currentLesson: null,
+        typedText: '',
+        statistic: new Statistic(),
+        isEnded: false,
+        isStarted: false,
+        players: [{ id: 'test', progress: 0, state: 'NOT_READY' }]
+      };
+      const result = reducer(initialState, new player.NewAction('test'));
 
+      expect(result).toEqual(expextedState);
+    });
+  });
 
+  describe('palyer.PROGRESS', () => {
+    it('should add new progress to player', () => {
+      const startingState: State = {
+        isLoading: false,
+        currentLesson: null,
+        typedText: '',
+        statistic: new Statistic(),
+        isEnded: false,
+        isStarted: false,
+        players: [{ id: 'test', progress: 0, state: 'NOT_READY' }]
+      };
+      const expextedState: State = {
+        isLoading: false,
+        currentLesson: null,
+        typedText: '',
+        statistic: new Statistic(),
+        isEnded: false,
+        isStarted: false,
+        players: [{ id: 'test', progress: 50, state: 'NOT_READY' }]
+      };
+      const result = reducer(startingState, new player.ProgressAction({ id: 'test', progress: 50 }));
+
+      expect(result).toEqual(expextedState);
+    });
+  });
+
+  describe('palyer.READY', () => {
+    it('should set a players state to READY', () => {
+      const startingState: State = {
+        isLoading: false,
+        currentLesson: null,
+        typedText: '',
+        statistic: new Statistic(),
+        isEnded: false,
+        isStarted: false,
+        players: [{ id: 'test', progress: 0, state: 'NOT_READY' }]
+      };
+      const expextedState: State = {
+        isLoading: false,
+        currentLesson: null,
+        typedText: '',
+        statistic: new Statistic(),
+        isEnded: false,
+        isStarted: false,
+        players: [{ id: 'test', progress: 0, state: 'READY' }]
+      };
+      const result = reducer(startingState, new player.ReadyAction('test'));
+
+      expect(result).toEqual(expextedState);
+    });
+  });
+
+  describe('START', () => {
+    it('should set the start date and isStarted', () => {
+      const result = reducer(initialState, new lesson.StartAction());
+
+      expect(result.isStarted).toBeTruthy();
+      expect(result.statistic.startTime).not.toBe(-1);
+    });
+  });
+
+  describe('END', () => {
+    it('should set the end date and isEnded', () => {
+      const result = reducer(initialState, new lesson.EndAction());
+
+      expect(result.isEnded).toBeTruthy();
+      expect(result.statistic.endTime).not.toBe(-1);
+    });
+  });
 });
