@@ -10,7 +10,7 @@ export class LessonGuard implements CanActivate {
   constructor(private store: Store<State>, private router: Router) { }
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    state: RouterStateSnapshot): Observable<boolean> {
     return this.store.select(fromRoot.getLessonList)
       .select(list => list
         .find(elem => elem.id === next.params['id']))
