@@ -22,6 +22,17 @@ describe('LessonEffects', () => {
     ],
     providers: [
       LessonEffects,
+      // {
+      //   provide: Store, useValue: Observable.of({
+      //     lesson: {
+      //       currentLesson: {
+      //         text: 't',
+      //         id: 'test_1'
+      //       },
+      //       typedText: 't'
+      //     }
+      //   })
+      // },
       LessonService
     ]
   }));
@@ -81,6 +92,56 @@ describe('LessonEffects', () => {
         expect(lessonService.getLesson).toHaveBeenCalledTimes(1);
         expect(result).toEqual(expectedResult);
       })));
+  });
+
+  describe('lessonComplete$', () => {
+    it('should return a new EndAction and a CompleteAction, with the lessonId',
+      inject([LessonService, Store], (lessonService: LessonService, store: Store<State>) => {
+        store.dispatch(new lesson.LoadSuccessAction({
+          id: 'test_1',
+          text: 't',
+          title: 'Test',
+          difficulty: 100
+        }));
+        store.dispatch(new player.KeyAction(new KeyboardEvent('t', { code: 'KeyT', key: 't' })));
+        const expectedResult1 = new lesson.CompleteAction('test_1');
+        const expectedResult2 = new lesson.EndAction();
+
+        let result1, result2 = null;
+        lessonEffects.lessonComplete$
+          .subscribe(_result => {
+            result1 = _result;
+          });
+        lessonEffects.lessonComplete$
+          .take(1)
+          .subscribe(_result => {
+            result2 = _result;
+          });
+
+        expect(result1).toEqual(expectedResult1);
+        expect(result2).toEqual(expectedResult2);
+      }));
+  });
+
+  describe('palyerProgress$', () => {
+    it('should return a new ProgressAction',
+      inject([LessonService, Store], (lessonService: LessonService, store: Store<State>) => {
+        store.dispatch(new lesson.LoadSuccessAction({
+          id: 'test_1',
+          text: 't',
+          title: 'Test',
+          difficulty: 100
+        }));
+        store.dispatch(new player.KeyAction(new KeyboardEvent('t', { code: 'KeyT', key: 't' })));
+        const expectedResult = new player.ProgressAction({ id: 'player', progress: 100 });
+        let result = null;
+        lessonEffects.palyerProgress$
+          .subscribe(_result => {
+            result = _result;
+          });
+
+        expect(result).toEqual(expectedResult);
+      }));
   });
 
 });
