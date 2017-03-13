@@ -22,17 +22,6 @@ describe('LessonEffects', () => {
     ],
     providers: [
       LessonEffects,
-      // {
-      //   provide: Store, useValue: Observable.of({
-      //     lesson: {
-      //       currentLesson: {
-      //         text: 't',
-      //         id: 'test_1'
-      //       },
-      //       typedText: 't'
-      //     }
-      //   })
-      // },
       LessonService
     ]
   }));
