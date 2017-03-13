@@ -1,6 +1,7 @@
 import { State, initialState, reducer } from './lessons.reducer';
 import * as lessons from '../actions/lessons.actions';
 import * as lesson from '../actions/lesson.actions';
+import * as fromLessons from './lessons.reducer';
 import { Lesson } from '../models/lessons/lesson';
 import { Action } from '@ngrx/store';
 
@@ -72,4 +73,25 @@ describe('LessonsReducer', () => {
     });
   });
 
+  describe('getLessonList', () => {
+    it('should return with the loaded lessonList', () => {
+      const expectedResult = [
+        { id: 'test_1', title: 'Test 1', isAvailable: true },
+        { id: 'test_2', title: 'Test 2', isAvailable: true }
+      ];
+      const state = Object.assign({}, initialState, { lessonList: expectedResult });
+      const result = fromLessons.getLessonList(state);
+
+      expect(result).toEqual(expectedResult);
+    });
+  });
+
+  describe('isLoading', () => {
+    it('should return with isLoading', () => {
+      const state = Object.assign({}, initialState, { isLoading: true });
+      const result = fromLessons.isLoading(state);
+
+      expect(result).toBeTruthy();
+    });
+  });
 });
