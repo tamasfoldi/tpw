@@ -4,6 +4,7 @@ import { LessonEffects } from './lesson.effects';
 import { LessonService } from '../services/lesson/lesson.service';
 import { Observable } from 'rxjs/Observable';
 import * as lesson from '../actions/lesson.actions';
+import * as player from '../actions/player.actions';
 import * as lessons from '../actions/lessons.actions';
 import { Lesson } from '../models/lessons/lesson';
 import { LessonListElement } from '../models/lessons/lesson-list-element';
@@ -54,9 +55,9 @@ describe('LessonEffects', () => {
   describe('loadLesson$', () => {
     it('should return a new LoadSuccessAction, with the lesson', fakeAsync(
       inject([LessonService], (lessonService: LessonService) => {
-        spyOn(lessonService, 'getLesson').and.returnValue(Observable.of({ id: 'test_1', text: 'test', title: 'Test' }));
+        spyOn(lessonService, 'getLesson').and.returnValue(Observable.of({ id: 'test_1', text: 'test', title: 'Test', difficulty: 100 }));
 
-        const expectedResult = new lesson.LoadSuccessAction({ id: 'test_1', text: 'test', title: 'Test' });
+        const expectedResult = new lesson.LoadSuccessAction({ id: 'test_1', text: 'test', title: 'Test', difficulty: 100 });
         runner.queue(new lesson.LoadAction('test_1'));
         let result = null;
         lessonEffects.loadLesson$

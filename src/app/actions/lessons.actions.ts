@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { type } from './action-utils';
+import { type } from './action-helper';
 import { LessonListElement } from '../models/lessons/lesson-list-element';
 import { Lesson } from '../models/lessons/lesson';
 

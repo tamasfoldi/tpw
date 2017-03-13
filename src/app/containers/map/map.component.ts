@@ -20,7 +20,7 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
     this.lessons$ = this.store.select(fromRoot.getLessonList);
-    this.isLoading$ = this.store.select(fromRoot.isLoading);
+    this.isLoading$ = this.store.select(fromRoot.isLoadingLessons);
   }
 
   handleLessonSelect(id: string) {

@@ -21,15 +21,15 @@ const productionReducer: ActionReducer<State> = combineReducers(reducers);
 
 export function reducer(state: State, action: Action) {
   if (environment.production) {
+    /* istanbul ignore next */
     return productionReducer(state, action);
   } else {
     return developmentReducer(state, action);
   }
 }
 
-export const isLoading = (state: State) => state.lessons.isLoading;
-
 /* -------- Lessons Selectors -------- */
+/* istanbul ignore next */
 export const getLessonsState = (state: State) => state.lessons;
 
 export const getLessonList = createSelector(getLessonsState, fromLessons.getLessonList);
@@ -38,6 +38,7 @@ export const isLoadingLessons = createSelector(getLessonsState, fromLessons.isLo
 
 /* -------- Lesson Selectors -------- */
 
+/* istanbul ignore next */
 export const getLessonState = (state: State) => state.lesson;
 
 export const getCurrentLesson = createSelector(getLessonState, fromLesson.getCurrentLesson);

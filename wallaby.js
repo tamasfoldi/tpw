@@ -104,6 +104,14 @@ module.exports = function (wallaby) {
       window.__moduleBundler.loadTests();
     },
 
-    debug: true
+    hints: {
+      ignoreCoverage: /istanbul ignore next/
+    },
+
+    filesWithNoCoverageCalculated: [
+      'src/**/*-helper.ts'
+    ],
+
+    debug: false
   };
 };

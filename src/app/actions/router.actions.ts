@@ -1,7 +1,7 @@
 import { RouterStateSnapshot, NavigationCancel, RoutesRecognized, NavigationError } from '@angular/router';
 import { Action } from '@ngrx/store';
 
-import { type } from './action-utils';
+import { type } from './action-helper';
 import { State } from '../reducers/index';
 
 export const ActionTypes = {
