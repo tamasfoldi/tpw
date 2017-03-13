@@ -8,7 +8,7 @@ import { LESSON_BASE_URL } from '../tokens';
 @Injectable()
 export class LessonService {
 
-  constructor(private http: Http, @Inject(LESSON_BASE_URL) private baseUrl: any) { }
+  constructor(private http: Http, @Inject(LESSON_BASE_URL) private baseUrl: string) { }
 
   getLessonList(): Observable<LessonListElement[]> {
     return this.http.get(`${this.baseUrl}/lessons`)
