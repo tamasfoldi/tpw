@@ -1,45 +1,85 @@
 import { Injectable, ModuleWithProviders, NgModule, Optional } from '@angular/core';
 import {
-  ActivatedRouteSnapshot, CanActivateChild, RouterModule, RouterStateSnapshot,
+  ActivatedRouteSnapshot, CanActivateChild, ExtraOptions, RouterModule, RouterStateSnapshot,
   Routes, Router, NavigationCancel, RoutesRecognized, NavigationError
 } from '@angular/router';
 import { Store, StoreModule, provideStore } from '@ngrx/store';
+import { of } from 'rxjs/observable/of';
 
 import * as router from './actions/router.actions';
 
 /**
- * Used to intercept all navigations to dispatch actions.
+ * Connects RouterModule with StoreModule.
  *
- * @internal
+ * During the navigation, before any guards or resolvers run, the router will dispatch
+ * a ROUTER_NAVIGATION action, which has the following signature:
+ *
+ * ```
+ * export type RouterNavigationPayload = {
+ *   routerState: RouterStateSnapshot,
+ *   event: RoutesRecognized
+ * }
+ * ```
+ *
+ * Either a reducer or an effect can be invoked in response to this action.
+ * If the invoked reducer throws, the navigation will be canceled.
+ *
+ * If navigation gets canceled because of a guard, a ROUTER_CANCEL action will be
+ * dispatched. If navigation results in an error, a ROUTER_ERROR action will be dispatched.
+ *
+ * Both ROUTER_CANCEL and ROUTER_ERROR contain the store state before the navigation
+ * which can be used to restore the consistency of the store.
+ *
+ * Usage:
+ *
+ * ```typescript
+ * @NgModule({
+ *   declarations: [AppCmp, SimpleCmp],
+ *   imports: [
+ *     BrowserModule,
+ *     StoreModule.provideStore(mapOfReducerse),
+ *     RouterModule.forRoot([
+ *       { path: '', component: SimpleCmp },
+ *       { path: 'next', component: SimpleCmp }
+ *     ]),
+ *     StoreRouterConnectingModule
+ *   ],
+ *   bootstrap: [AppCmp]
+ * })
+ * export class AppModule {
+ * }
+ * ```
  */
-@Injectable()
-export class CanActivateChildInterceptor implements CanActivateChild {
+@NgModule({})
+export class StoreRouterConnectingModule {
   private routerState: RouterStateSnapshot = null;
   private storeState: any;
   private lastRoutesRecognized: RoutesRecognized;
 
-  constructor( @Optional() private store: Store<any>, private router: Router) {
-    if (!store) {
-      throw new Error('RouterConnectedToStoreModule can only be used in combination with StoreModule');
-    }
+  constructor(private store: Store<any>, private router: Router) {
+    this.setUpBeforePreactivationHook();
+    this.setUpStoreStateListener();
     this.setUpStateRollbackEvents();
   }
 
-  canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (this.routerState !== state) {
-      this.routerState = state;
+  private setUpBeforePreactivationHook(): void {
+    (<any>this.router).hooks.beforePreactivation = (routerState: RouterStateSnapshot) => {
+      this.routerState = routerState;
 
-      const payload = { routerState: state, event: this.lastRoutesRecognized };
+      const payload = { routerState, event: this.lastRoutesRecognized };
       this.store.dispatch({ type: router.ActionTypes.NAVIGATION, payload });
-    }
-    return true;
+
+      return of(true);
+    };
   }
 
-  private setUpStateRollbackEvents(): void {
+  private setUpStoreStateListener(): void {
     this.store.subscribe(s => {
       this.storeState = s;
     });
+  }
 
+  private setUpStateRollbackEvents(): void {
     this.router.events.subscribe(e => {
       if (e instanceof RoutesRecognized) {
         this.lastRoutesRecognized = e;
@@ -59,48 +99,5 @@ export class CanActivateChildInterceptor implements CanActivateChild {
   private dispatchRouterError(event: NavigationError): void {
     const payload = { routerState: this.routerState, storeState: this.storeState, event };
     this.store.dispatch({ type: router.ActionTypes.ERROR, payload });
-  }
-}
-
-/**
- * Wraps the router configuration to make StoreConnectedToRouter work.
- *
- * See StoreConnectedToRouter for more information.
- */
-export function connectToStore(routes: Routes): Routes {
-  return [{ path: '', canActivateChild: [CanActivateChildInterceptor], children: routes }];
-}
-
-/**
- * Sets up StoreModule and wires it up to the router.
- *
- * It has to be used in combination with connectToStore.
- *
- * Usage:
- *
- * ```typescript
- * @NgModule({
- *   declarations: [AppCmp, SimpleCmp],
- *   imports: [
- *     BrowserModule,
- *     RouterModule.forRoot(connectToStore([
- *       { path: '', component: SimpleCmp },
- *       { path: 'next', component: SimpleCmp }
- *     ])),
- *     StoreConnectedToRouter.provideStore(mapOfReducers)
- *   ],
- *   bootstrap: [AppCmp]
- * })
- * export class AppModule {
- * }
- * ```
- */
-@NgModule({})
-export class StoreConnectedToRouter {
-  static provideStore(_reducer: any, _initialState?: any): ModuleWithProviders {
-    return {
-      ngModule: StoreModule,
-      providers: [...provideStore(_reducer, _initialState), CanActivateChildInterceptor]
-    };
   }
 }

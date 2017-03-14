@@ -13,7 +13,7 @@ import { LessonsEffects } from './effects/lessons.effects';
 import { LessonEffects } from './effects/lesson.effects';
 import { RouterEffects } from './effects/router.effects';
 import { reducer } from './reducers/index';
-import { connectToStore, StoreConnectedToRouter } from './router-store';
+import { StoreRouterConnectingModule } from './router-store';
 import { routes } from './app.routes';
 import { environment } from '../environments/environment';
 
@@ -25,8 +25,8 @@ export const APP_IMPORTS = [
   MdButtonModule,
   MdInputModule,
 
-  RouterModule.forRoot(connectToStore(routes)),
-  StoreConnectedToRouter.provideStore(reducer),
+  RouterModule.forRoot(routes),
+  StoreRouterConnectingModule,
 
   StoreModule.provideStore(reducer),
   !environment.production ? StoreDevtoolsModule.instrumentOnlyWithExtension() : [],

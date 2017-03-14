@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { State } from '../reducers/index';
 import * as fromRoot from '../reducers/index';
-
+import * as lessons from '../actions/lessons.actions';
 @Injectable()
 export class LessonGuard implements CanActivate {
   constructor(private store: Store<State>, private router: Router) { }
@@ -14,9 +14,9 @@ export class LessonGuard implements CanActivate {
     return this.store.select(fromRoot.getLessonList)
       .select(list => list
         .find(elem => elem.id === next.params['id']))
-      .map(elem => elem.isAvailable)
-      .do(isAvail => !isAvail ?
+      .do(elem => !elem.isAvailable ?
         this.router.navigate(['/']) :
-        null);
+        this.store.dispatch(new lessons.SelectAction(next.params['id'])))
+      .map(elem => elem.isAvailable);
   }
 }
