@@ -33,7 +33,7 @@
     "zone.js": "^0.7.6"
   },
   "devDependencies": {
-    "@angular/cli": "^1.0.0-rc.1",
+    "@angular/cli": "^1.0.0-rc.2",
     "@angular/compiler-cli": ">=4.0.0-beta <5.0.0",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
@@ -52,7 +52,7 @@
     "ngrx-store-logger": "^0.1.7",
     "protractor": "~5.1.0",
     "ts-node": "~2.0.0",
-    "tslint": "~4.4.2",
+    "tslint": "~4.5.0",
     "typescript": "~2.2.1",
     "wallaby-webpack": "0.0.34"
   }
