@@ -28,28 +28,28 @@ describe('RouterEffects', () => {
     routerEffects = TestBed.get(RouterEffects);
   });
 
-  describe('loadSelected$', () => {
-    it('should dispatch a new SelectAction with id', inject([ActivatedRoute], (route: ActivatedRoute) => {
-      const expectedResult = new lessons.SelectAction('test1');
-      runner.queue(new routerA.NavigationAction({
-        routerState: {
-          root: {
-            firstChild: {
-              firstChild: {
-                params: {
-                  id: 'test1'
-                }
-              }
-            }
-          }
-        }
-      } as any));
+  // describe('loadSelected$', () => {
+  //   it('should dispatch a new SelectAction with id', inject([ActivatedRoute], (route: ActivatedRoute) => {
+  //     const expectedResult = new lessons.SelectAction('test1');
+  //     runner.queue(new routerA.NavigationAction({
+  //       routerState: {
+  //         root: {
+  //           firstChild: {
+  //             firstChild: {
+  //               params: {
+  //                 id: 'test1'
+  //               }
+  //             }
+  //           }
+  //         }
+  //       }
+  //     } as any));
 
-      let result = null;
-      routerEffects.loadSelected$
-        .subscribe(_result => result = _result);
+  //     let result = null;
+  //     routerEffects.loadSelected$
+  //       .subscribe(_result => result = _result);
 
-      expect(result).toEqual(expectedResult);
-    }));
-  });
+  //     expect(result).toEqual(expectedResult);
+  //   }));
+  // });
 });
