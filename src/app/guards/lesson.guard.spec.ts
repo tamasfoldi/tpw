@@ -41,7 +41,7 @@ describe('LessonGuard', () => {
           params: {
             id: 'test1'
           }
-        } as any, undefined).subscribe(() => { })
+        } as any, undefined).subscribe(() => { });
 
         expect(router.navigate).not.toHaveBeenCalled();
       }));
@@ -55,7 +55,7 @@ describe('LessonGuard', () => {
           params: {
             id: 'test2'
           }
-        } as any, undefined).subscribe(() => { })
+        } as any, undefined).subscribe(() => { });
 
         expect(router.navigate).toHaveBeenCalled();
         expect(router.navigate).toHaveBeenCalledTimes(1);

@@ -31,6 +31,6 @@ test:
     - mkdir $CIRCLE_TEST_REPORTS/lint
   override:
     - yarn test -- --single-run
-    - yarn lint -- --filesList ./tslint-formatters.ts
+    - yarn lint -- --format fileslist ./tslint-formatters
   post:
     - mv test-results.xml $CIRCLE_TEST_REPORTS/karma
