@@ -27,13 +27,15 @@ describe('LessonEffects', () => {
       BaseRequestOptions,
       {
         provide: Http, useFactory: (backend: ConnectionBackend,
-          defaultOptions: BaseRequestOptions, baseUrl: string) => {
-          return new MockHttp(backend, defaultOptions, baseUrl);
+          defaultOptions: BaseRequestOptions) => {
+          return new MockHttp(backend, defaultOptions);
 
-        }, deps: [MockBackend, BaseRequestOptions, LESSON_BASE_URL]
+        }, deps: [MockBackend, BaseRequestOptions]
       }
     ]
   }));
+
+
 
   beforeEach(() => {
     runner = TestBed.get(EffectsRunner);
