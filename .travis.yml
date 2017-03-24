@@ -1,26 +1,35 @@
+#.travis.yml
+
 sudo: required
 dist: trusty
 language: node_js
 node_js:
-  - '4.2'
+ - "6.9"
 
-addons:
-apt:
-  sources:
-    - google-chrome
-  packages:
-    - google-chrome-stable
-    - google-chrome-beta
+branches:
+  only:
+    - master
 
 before_install:
-  - export CHROME_BIN=chromium-browser
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
+ - export CHROME_BIN=/usr/bin/google-chrome
+ - export DISPLAY=:99.0
+ - sh -e /etc/init.d/xvfb start
+ - sudo apt-get update
+ - sudo apt-get install -y libappindicator1 fonts-liberation
+ - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+ - sudo dpkg -i google-chrome*.deb
 
 before_script:
-- npm install -g angular-cli
-- npm install -g karma
-- npm install
-- ng build
+  - npm install -g @angular/cli
+  - ng build --prod
 
-script: karma start config/karma.conf.js --single-run
+script: ng test --single-run
+
+
+notifications:
+  email:
+    on_failure: change
+    on_success: change
+
+
+
