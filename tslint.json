@@ -106,13 +106,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "app",
+      "tpw",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "app",
+      "tpw",
       "kebab-case"
     ],
     "use-input-property-decorator": true,
