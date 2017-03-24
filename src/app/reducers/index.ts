@@ -5,28 +5,18 @@ import { createSelector } from 'reselect';
 
 import * as fromLessons from './lessons.reducer';
 import * as fromLesson from './lesson.reducer';
+import * as fromRouter from './router.reducer';
 import { environment } from '../../environments/environment';
-import { RouterStateSnapshot } from '@angular/router';
-import * as router from '../actions/router.actions';
 export interface State {
   lessons: fromLessons.State;
   lesson: fromLesson.State;
   router: string;
 }
 
-function routerReducer(state = '', action: router.Actions) {
-  if (action.type === router.ActionTypes.NAVIGATION) {
-    const s: RouterStateSnapshot = action.payload.routerState;
-    return s.url.toString();
-  } else {
-    return state;
-  }
-}
-
 export const reducers = {
   lessons: fromLessons.reducer,
   lesson: fromLesson.reducer,
-  router: routerReducer
+  router: fromRouter.reducer
 };
 
 const developmentReducer: ActionReducer<State> = compose(storeLogger(), combineReducers)(reducers);

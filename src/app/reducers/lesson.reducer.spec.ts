@@ -431,7 +431,7 @@ describe('LessonsReducer', () => {
   });
 
   describe('isAllPlayerReady', () => {
-    it('should return true if all the players are redy', () => {
+    it('should return true if all the players are ready', () => {
       const state = Object.assign({}, initialState, { players: [{ state: 'READY' }, { state: 'READY' }] });
 
       const result = fromLesson.isAllPlayerReady(state);
@@ -439,8 +439,16 @@ describe('LessonsReducer', () => {
       expect(result).toBeTruthy();
     });
 
-    it('should return false if all the players are redy', () => {
+    it('should return false if there is a player who is not ready', () => {
       const state = Object.assign({}, initialState, { players: [{ state: 'READY' }, { state: 'NOT_READY' }] });
+
+      const result = fromLesson.isAllPlayerReady(state);
+
+      expect(result).toBeFalsy();
+    });
+
+    it('should return false if the number of player lower then 2', () => {
+      const state = Object.assign({}, initialState, { players: [{ state: 'READY' }] });
 
       const result = fromLesson.isAllPlayerReady(state);
 

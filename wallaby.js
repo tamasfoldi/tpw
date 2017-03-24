@@ -110,6 +110,7 @@ module.exports = function (wallaby) {
 
     filesWithNoCoverageCalculated: [
       'src/**/*-helper.ts',
+      'src/app/reducers/router.reducer.ts',
       'src/app/mock-http/**.ts',
       'src/test.ts',
       'src/wallabyTest.ts',

@@ -128,4 +128,4 @@ export const getProgress = (state: State) => state.currentLesson &&
 export const getEnemiesProgress = (state: State) => state.players
   .slice(1, state.players.length)
   .map(player => player.progress);
-export const isAllPlayerReady = (state: State) => state.players.every(p => p.state === 'READY');
+export const isAllPlayerReady = (state: State) => state.players.length > 1 ? state.players.every(p => p.state === 'READY') : false;
