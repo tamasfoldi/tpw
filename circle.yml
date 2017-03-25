@@ -28,9 +28,7 @@ dependencies:
 test:
   pre:
     - mkdir $CIRCLE_TEST_REPORTS/karma
-    - mkdir $CIRCLE_TEST_REPORTS/lint
   override:
     - yarn test -- --single-run
-    - yarn lint -- --format fileslist ./tslint-formatters
   post:
     - mv test-results.xml $CIRCLE_TEST_REPORTS/karma
