@@ -101,7 +101,7 @@ describe('LessonsReducer', () => {
 
       expect(result.typedText).toEqual('t');
       expect(result.statistic.nofCorrectPress).toEqual(1);
-      expect(result.statistic.nofIncorrectPress).toEqual(0);
+      expect(result.statistic.mistakes).toEqual({});
       expect(result.statistic.startTime).toEqual(-1);
       expect(result.statistic.endTime).toEqual(-1);
     });
@@ -122,7 +122,7 @@ describe('LessonsReducer', () => {
 
       expect(result.typedText).toEqual('t');
       expect(result.statistic.nofCorrectPress).toEqual(0);
-      expect(result.statistic.nofIncorrectPress).toEqual(1);
+      expect(result.statistic.mistakes['e']['t']).toEqual(1);
       expect(result.statistic.startTime).toEqual(-1);
       expect(result.statistic.endTime).toEqual(-1);
     });
@@ -389,7 +389,11 @@ describe('LessonsReducer', () => {
       const state = Object.assign({}, initialState, {
         statistic: {
           nofCorrectPress: 1,
-          nofIncorrectPress: 1,
+          mistakes: {
+            e: {
+              t: 1
+            }
+          },
           startTime: 1,
           endTime: 2,
         }

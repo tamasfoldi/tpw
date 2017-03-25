@@ -5,7 +5,7 @@ describe('Statistic', () => {
     it('should return true if start and end time >= 0', () => {
       const stat: Statistic = new Statistic({
         nofCorrectPress: 0,
-        nofIncorrectPress: 0,
+        mistakes: {},
         startTime: 1,
         endTime: 1
       });
@@ -16,7 +16,7 @@ describe('Statistic', () => {
     it('should return true if start <= 0', () => {
       const stat: Statistic = new Statistic({
         nofCorrectPress: 0,
-        nofIncorrectPress: 0,
+        mistakes: {},
         startTime: -1,
         endTime: 1
       });
@@ -27,7 +27,7 @@ describe('Statistic', () => {
     it('should return true if end <= 0', () => {
       const stat: Statistic = new Statistic({
         nofCorrectPress: 0,
-        nofIncorrectPress: 0,
+        mistakes: {},
         startTime: 1,
         endTime: -1
       });
@@ -40,7 +40,11 @@ describe('Statistic', () => {
     it('should return with the sum of correct and incorrect presses', () => {
       const stat: Statistic = new Statistic({
         nofCorrectPress: 1,
-        nofIncorrectPress: 1,
+        mistakes: {
+          'e': {
+            't': 1
+          }
+        },
         startTime: -1,
         endTime: -1
       });
@@ -53,7 +57,11 @@ describe('Statistic', () => {
     it('should return with -1 if not ended', () => {
       const stat: Statistic = new Statistic({
         nofCorrectPress: 1,
-        nofIncorrectPress: 1,
+        mistakes: {
+          'e': {
+            't': 1
+          }
+        },
         startTime: -1,
         endTime: -1
       });
@@ -64,7 +72,11 @@ describe('Statistic', () => {
     it('should return with substraction of end and start', () => {
       const stat: Statistic = new Statistic({
         nofCorrectPress: 1,
-        nofIncorrectPress: 1,
+        mistakes: {
+          'e': {
+            't': 1
+          }
+        },
         startTime: 1,
         endTime: 2
       });
@@ -77,7 +89,11 @@ describe('Statistic', () => {
     it('should return with -1 if not ended', () => {
       const stat: Statistic = new Statistic({
         nofCorrectPress: 1,
-        nofIncorrectPress: 1,
+        mistakes: {
+          'e': {
+            't': 1
+          }
+        },
         startTime: -1,
         endTime: -1
       });
@@ -88,7 +104,11 @@ describe('Statistic', () => {
     it('should return with substraction of end and start /1000', () => {
       const stat: Statistic = new Statistic({
         nofCorrectPress: 1,
-        nofIncorrectPress: 1,
+        mistakes: {
+          'e': {
+            't': 1
+          }
+        },
         startTime: 1,
         endTime: 2
       });
@@ -101,7 +121,11 @@ describe('Statistic', () => {
     it('should return with -1 if not ended', () => {
       const stat: Statistic = new Statistic({
         nofCorrectPress: 1,
-        nofIncorrectPress: 1,
+        mistakes: {
+          'e': {
+            't': 1
+          }
+        },
         startTime: -1,
         endTime: -1
       });
@@ -112,7 +136,11 @@ describe('Statistic', () => {
     it('should return with charPerMinute / 5', () => {
       const stat: Statistic = new Statistic({
         nofCorrectPress: 10,
-        nofIncorrectPress: 15,
+        mistakes: {
+          'e': {
+            't': 1
+          }
+        },
         startTime: 1,
         endTime: 2
       });
@@ -125,7 +153,11 @@ describe('Statistic', () => {
     it('should return with correct/total', () => {
       const stat: Statistic = new Statistic({
         nofCorrectPress: 1,
-        nofIncorrectPress: 1,
+        mistakes: {
+          'e': {
+            't': 1
+          }
+        },
         startTime: -1,
         endTime: -1
       });
@@ -138,7 +170,11 @@ describe('Statistic', () => {
     it('should return with -1 if not ended', () => {
       const stat: Statistic = new Statistic({
         nofCorrectPress: 1,
-        nofIncorrectPress: 1,
+        mistakes: {
+          'e': {
+            't': 1
+          }
+        },
         startTime: -1,
         endTime: -1
       });
@@ -149,7 +185,11 @@ describe('Statistic', () => {
     it('should return with correct / durationInSecs * 60', () => {
       const stat: Statistic = new Statistic({
         nofCorrectPress: 10,
-        nofIncorrectPress: 15,
+        mistakes: {
+          'e': {
+            't': 15
+          }
+        },
         startTime: 1,
         endTime: 2
       });

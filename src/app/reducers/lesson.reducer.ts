@@ -43,16 +43,21 @@ export function reducer(state = initialState, action: Action): State {
     case player.ActionTypes.KEY: {
       const key: KeyboardEvent = action.payload as KeyboardEvent;
       if (isItCharacterOrSpace(key.code)) {
-        let newStat = Object.assign({}, state.statistic) as Statistic;
-        let newState = Object.assign({}, state) as State;
+        let localStat = Object.assign({}, state.statistic) as Statistic;
+        let localState = Object.assign({}, state) as State;
 
         if (isItTheCorrectNextChar(key.key, state)) {
-          newState = Object.assign({}, state, { typedText: state.typedText + key.key });
-          newStat = Object.assign({}, newStat, { nofCorrectPress: newStat.nofCorrectPress + 1 });
+          localState = Object.assign({}, state, { typedText: state.typedText + key.key });
+          localStat = Object.assign({}, localStat, { nofCorrectPress: localStat.nofCorrectPress + 1 });
         } else if (state.typedText.length !== 0) {
-          newStat = Object.assign({}, newStat, { nofIncorrectPress: newStat.nofIncorrectPress + 1 });
+          const nextChar = state.currentLesson.text[state.typedText.length];
+          const localMistakes = Object.assign({}, localStat.mistakes);
+          localMistakes[nextChar] = Object.assign({}, localStat.mistakes[nextChar]);
+          localMistakes[nextChar][key.key] = localMistakes[nextChar][key.key] + 1 || 1;
+
+          localStat = Object.assign({}, localStat, { mistakes: localMistakes });
         }
-        return Object.assign(newState, { statistic: Object.assign({}, newStat) });
+        return Object.assign(localState, { statistic: Object.assign({}, localStat) });
       }
 
       return state;
