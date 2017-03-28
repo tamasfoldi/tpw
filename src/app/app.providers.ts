@@ -1,6 +1,7 @@
 import { Http, ConnectionBackend, BaseRequestOptions, XHRBackend } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { LessonService } from './services/lesson/lesson.service';
+import { StatisticsService } from './services/statistics/statistics.service';
 import { LessonGuard } from './guards/lesson.guard';
 import { MyDomRenderer } from './services/renderer/my-dom-renderer';
 import { LESSON_BASE_URL, STATISTIC_BASE_URL } from './services/tokens';
@@ -9,6 +10,7 @@ import { environment } from '../environments/environment';
 import { Provider } from '@angular/core';
 import { MyMockConnectionBackend } from './mock-http/my-mock-connection-backend';
 
+
 export function mockHttpFactory(backend: ConnectionBackend, defaultOptions: BaseRequestOptions) {
   return new MockHttp(backend, defaultOptions);
 }
@@ -16,6 +18,7 @@ export function mockHttpFactory(backend: ConnectionBackend, defaultOptions: Base
 export const BASE_URL = environment.baseUrl;
 export const APP_PROVIDERS: Provider[] = [
   LessonService,
+  StatisticsService,
   LessonGuard,
   MyDomRenderer,
 
