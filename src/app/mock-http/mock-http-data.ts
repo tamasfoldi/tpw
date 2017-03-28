@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs/Rx';
 import { Lesson } from '../models/lessons/lesson';
 import { LessonListElement } from '../models/lessons/lesson-list-element';
+import { Statistic } from '../models/statistic/statistic';
 
 export const LESSONS: Lesson[] = [
   {
@@ -54,3 +55,20 @@ export const LESSON_LIST: LessonListElement[] = [
     isAvailable: false
   }
 ];
+
+export const STATISTIC: Statistic = new Statistic(
+  {
+    endTime: -1,
+    startTime: -2,
+    mistakes: {
+      'e': {
+        'j': 1,
+        'k': 2
+      },
+      'f': {
+        'e': 3
+      }
+    },
+    nofCorrectPress: 100
+  }
+);

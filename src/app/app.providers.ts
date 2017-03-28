@@ -3,7 +3,7 @@ import { MockBackend } from '@angular/http/testing';
 import { LessonService } from './services/lesson/lesson.service';
 import { LessonGuard } from './guards/lesson.guard';
 import { MyDomRenderer } from './services/renderer/my-dom-renderer';
-import { LESSON_BASE_URL } from './services/tokens';
+import { LESSON_BASE_URL, STATISTIC_BASE_URL } from './services/tokens';
 import { MockHttp } from './mock-http/mock-http';
 import { environment } from '../environments/environment';
 import { Provider } from '@angular/core';
@@ -23,6 +23,7 @@ export const APP_PROVIDERS: Provider[] = [
   BaseRequestOptions,
 
   { provide: LESSON_BASE_URL, useValue: BASE_URL },
+  { provide: STATISTIC_BASE_URL, useValue: BASE_URL },
   {
     provide: Http, useFactory: mockHttpFactory, deps: [MyMockConnectionBackend, BaseRequestOptions]
   }

@@ -40,6 +40,14 @@ export class MockHttp extends Http {
       });
   }
 
+  post(url: string, options?: RequestOptionsArgs): Observable<Response> {
+    this.backend.createConnection(new Request({ url: url, method: RequestMethod.Post, body: options.body }));
+    return Observable.of(true)
+      .map(() => {
+        return new Response(new ResponseOptions());
+      });
+  }
+
   getLessons(): LessonListElement[] {
     return mockData.LESSON_LIST;
   }
@@ -49,6 +57,10 @@ export class MockHttp extends Http {
       .find(lesson => lesson.id === lessonId);
     retLesson.text = this.getWords(retLesson.includedLetters, 10).toString().replace(/,/g, ' ');
     return retLesson;
+  }
+
+  getStatistics() {
+
   }
 
 
