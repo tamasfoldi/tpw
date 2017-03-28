@@ -8,6 +8,7 @@ import { LessonService } from '../services/lesson/lesson.service';
 import * as lessons from '../actions/lessons.actions';
 import * as lesson from '../actions/lesson.actions';
 import * as player from '../actions/player.actions';
+import * as statistic from '../actions/statistic.actions';
 import { State } from '../reducers/index';
 import * as fromRoot from '../reducers/index';
 
@@ -42,6 +43,14 @@ export class LessonEffects {
         new lesson.EndAction(),
         new lesson.CompleteAction(id)
       ])
+    );
+
+  @Effect()
+  addStat$: Observable<Action> = this.store.select(fromRoot.wasLessonCompleted)
+    .filter(typed => typed)
+    .switchMap(() => this.store.select(fromRoot.getLessonStatistic)
+      .take(1)
+      .map(stat => new statistic.AddAction(stat))
     );
 
   @Effect()

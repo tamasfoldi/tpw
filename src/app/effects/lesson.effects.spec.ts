@@ -4,9 +4,11 @@ import { LessonEffects } from './lesson.effects';
 import { LessonService } from '../services/lesson/lesson.service';
 import { Observable } from 'rxjs/Observable';
 import * as lesson from '../actions/lesson.actions';
+import * as statistic from '../actions/statistic.actions';
 import * as player from '../actions/player.actions';
 import * as lessons from '../actions/lessons.actions';
 import { Lesson } from '../models/lessons/lesson';
+import { Statistic } from '../models/statistic/statistic';
 import { LessonListElement } from '../models/lessons/lesson-list-element';
 import { StoreModule, Store } from '@ngrx/store';
 import { reducer, State } from '../reducers/index';
@@ -14,6 +16,7 @@ import * as fromRoot from '../reducers/index';
 import { Http, ConnectionBackend, BaseRequestOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { MockHttp } from '../mock-http/mock-http';
+import * as mockData from '../mock-http/mock-http-data';
 import { LESSON_BASE_URL } from '../services/tokens';
 
 describe('LessonEffects', () => {
@@ -70,9 +73,15 @@ describe('LessonEffects', () => {
   describe('loadLesson$', () => {
     it('should return a new LoadSuccessAction, with the lesson', fakeAsync(
       inject([LessonService], (lessonService: LessonService) => {
-        spyOn(lessonService, 'getLesson').and.returnValue(Observable.of({ id: 'test_1', text: 'test', title: 'Test', difficulty: 100 }));
+        spyOn(lessonService, 'getLesson').and.returnValue(Observable.of({
+          id: 'test_1', text: 'test', title: 'Test', difficulty: 100,
+          includedLetters: [{ 'a': 1 }]
+        }));
 
-        const expectedResult = new lesson.LoadSuccessAction({ id: 'test_1', text: 'test', title: 'Test', difficulty: 100 });
+        const expectedResult = new lesson.LoadSuccessAction({
+          id: 'test_1', text: 'test', title: 'Test', difficulty: 100,
+          includedLetters: [{ 'a': 1 }]
+        });
         runner.queue(new lesson.LoadAction('test_1'));
         let result = null;
         lessonEffects.loadLesson$
@@ -105,7 +114,8 @@ describe('LessonEffects', () => {
           id: 'test_1',
           text: 't',
           title: 'Test',
-          difficulty: 100
+          difficulty: 100,
+          includedLetters: [{ 'a': 1 }]
         }));
         store.dispatch(new player.KeyAction(new KeyboardEvent('t', { code: 'KeyT', key: 't' })));
         const expectedResult1 = new lesson.CompleteAction('test_1');
@@ -127,6 +137,35 @@ describe('LessonEffects', () => {
       }));
   });
 
+  describe('addStat$', () => {
+    it('should return a new statistic.AddAction with a lesson stat',
+      inject([LessonService, Store], (lessonService: LessonService, store: Store<State>) => {
+        store.dispatch(new lesson.LoadSuccessAction({
+          id: 'test_1',
+          text: 't',
+          title: 'Test',
+          difficulty: 100,
+          includedLetters: [{ 'a': 1 }]
+        }));
+        store.dispatch(new player.KeyAction(new KeyboardEvent('t', { code: 'KeyT', key: 't' })));
+        const expectedResult = new statistic.AddAction(new Statistic({
+          nofCorrectPress: 1,
+          endTime: -1,
+          startTime: -1,
+          mistakes: {}
+        }));
+
+        let result = null;
+        lessonEffects.addStat$
+          .take(3)
+          .subscribe(_result => {
+            result = _result;
+          });
+
+        expect(result).toEqual(expectedResult);
+      }));
+  });
+
   describe('palyerProgress$', () => {
     it('should return a new ProgressAction',
       inject([LessonService, Store], (lessonService: LessonService, store: Store<State>) => {
@@ -134,7 +173,8 @@ describe('LessonEffects', () => {
           id: 'test_1',
           text: 't',
           title: 'Test',
-          difficulty: 100
+          difficulty: 100,
+          includedLetters: [{ 'a': 1 }]
         }));
         store.dispatch(new player.KeyAction(new KeyboardEvent('t', { code: 'KeyT', key: 't' })));
         const expectedResult = new player.ProgressAction({ id: 'player', progress: 100 });
