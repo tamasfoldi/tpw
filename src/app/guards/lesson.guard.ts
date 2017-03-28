@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import { Store } from '@ngrx/store';
 import { State } from '../reducers/index';
 import * as fromRoot from '../reducers/index';
@@ -14,6 +14,8 @@ export class LessonGuard implements CanActivate {
     return this.store.select(fromRoot.getLessonList)
       .select(list => list
         .find(elem => elem.id === next.params['id']))
+      .filter(elem => !!elem)
+      .do(a => console.log(a))
       .do(elem => !elem.isAvailable ?
         this.router.navigate(['/']) :
         this.store.dispatch(new lessons.SelectAction(next.params['id'])))

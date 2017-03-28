@@ -1,11 +1,12 @@
 import * as Router from 'koa-router';
 import * as fs from 'fs';
 import LESSON_LIST_ROUTE from './lesson-list/lesson-list.routes';
+import LESSON_ROUTE from './lesson/lesson.routes';
 const ROUTER = new Router();
 
 const LOAD_HTML = function () {
   return new Promise(function (resolve, reject) {
-    fs.readFile('./dist/client/index.html', { 'encoding': 'utf8' }, function (err, data) {
+    fs.readFile('./dev/client/index.html', { 'encoding': 'utf8' }, function (err, data) {
       if (err) {
         return reject(err);
       };
@@ -15,6 +16,7 @@ const LOAD_HTML = function () {
 };
 
 ROUTER.get(LESSON_LIST_ROUTE.path, LESSON_LIST_ROUTE.middleware);
+ROUTER.get(LESSON_ROUTE.path, LESSON_ROUTE.middleware);
 
 ROUTER.get(/^\/(.*)(?:\/|$)/, function* (next) {
   if (this.request.url.startsWith('/api')) {

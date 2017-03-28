@@ -1,5 +1,5 @@
 import { LessonListElement } from '../../common/lesson-list-element';
-
+import { LESSON_LIST } from '../../app/mock-http/mock-http-data';
 class LessonListDAO {
   private LESSON_LIST_DB: LokiCollection<{}>;
 
@@ -9,6 +9,7 @@ class LessonListDAO {
       instance.LESSON_LIST_DB = DB.getCollection('lesson_list');
       if (!instance.LESSON_LIST_DB) {
         instance.LESSON_LIST_DB = DB.addCollection('lesson_list');
+        instance.LESSON_LIST_DB.insert(LESSON_LIST);
       }
     });
   }
