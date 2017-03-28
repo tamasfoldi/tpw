@@ -15,7 +15,7 @@
     "dev": "npm run build-dev && nodemon --watch dev/server dev/server/app.js & npm run watch",
     "livereload": "$(npm bin)/browser-sync start --proxy 'http://localhost:3000' --files 'dev/client/**/*'",
     "start": "node dist/server/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "ng test",
     "watch": "npm run watch-dev-client & npm run watch-dev-server",
     "watch-dev-client": "ng build --watch --output-path=dev/client",
     "watch-dev-server": "tsc --project src/server/ --outDir dev/ --sourceMap --watch"
