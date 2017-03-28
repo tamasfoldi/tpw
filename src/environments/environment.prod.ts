@@ -1,4 +1,7 @@
 export const environment = {
-  production: true,
-  baseUrl: 'http://live.api'
+  production: false,
+  apiBaseUrl: 'http://localhost:3000/api',
+  lessonListApiUrl: 'lesson-list',
+  statisticApiUrl: 'statistic',
+  lessonApiUrl: 'lesson'
 };

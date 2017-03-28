@@ -1,6 +1,6 @@
 import * as Router from 'koa-router';
 import * as fs from 'fs';
-
+import LESSON_LIST_ROUTE from './lesson-list/lesson-list.routes';
 const ROUTER = new Router();
 
 const LOAD_HTML = function () {
@@ -13,6 +13,8 @@ const LOAD_HTML = function () {
     });
   });
 };
+
+ROUTER.get(LESSON_LIST_ROUTE.path, LESSON_LIST_ROUTE.middleware);
 
 ROUTER.get(/^\/(.*)(?:\/|$)/, function* (next) {
   if (this.request.url.startsWith('/api')) {
