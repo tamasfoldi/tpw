@@ -1,8 +1,8 @@
 import { Action } from '@ngrx/store';
 
 import { type } from './action-helper';
-import { Lesson } from '../models/lessons/lesson';
-import { Player } from '../models/player';
+import { Lesson } from '../../common/lesson';
+import { Player } from '../../common/player';
 
 export const ActionTypes = {
   KEY: type('[PLAYER] New Key'),

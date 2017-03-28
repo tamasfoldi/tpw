@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { Http } from '@angular/http';
 import { STATISTIC_BASE_URL } from '../../services/tokens';
-import { Statistic } from '../../models/statistic/statistic';
+import { Statistic } from '../../../common/statistic';
 
 @Injectable()
 export class StatisticsService {

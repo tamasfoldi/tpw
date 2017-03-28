@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Statistic } from '../../models/statistic/statistic';
+import { Statistic } from '../../../common/statistic';
 
 @Component({
   selector: 'tpw-lesson-statistic',

@@ -2,7 +2,7 @@ import { State, initialState, reducer } from './lessons.reducer';
 import * as lessons from '../actions/lessons.actions';
 import * as lesson from '../actions/lesson.actions';
 import * as fromLessons from './lessons.reducer';
-import { Lesson } from '../models/lessons/lesson';
+import { Lesson } from '../../common/lesson';
 import { Action } from '@ngrx/store';
 
 describe('LessonsReducer', () => {

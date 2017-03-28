@@ -1,8 +1,8 @@
 // tslint:disable:no-switch-case-fall-through
 import * as lessons from '../actions/lessons.actions';
 import * as lesson from '../actions/lesson.actions';
-import { LessonListElement } from '../models/lessons/lesson-list-element';
-import { Lesson } from '../models/lessons/lesson';
+import { LessonListElement } from '../../common/lesson-list-element';
+import { Lesson } from '../../common/lesson';
 import { Action } from '@ngrx/store';
 
 export interface State {

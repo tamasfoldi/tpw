@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { State } from '../../reducers/index';
 import { Observable } from 'rxjs/Rx';
-import { LessonListElement } from '../../models/lessons/lesson-list-element';
+import { LessonListElement } from '../../../common/lesson-list-element';
+import { Lesson } from '../../../common/lesson';
 import * as fromRoot from '../../reducers/index';
 import * as lessons from '../../actions/lessons.actions';
-import { Lesson } from '../../models/lessons/lesson';
 
 @Component({
   selector: 'tpw-map',

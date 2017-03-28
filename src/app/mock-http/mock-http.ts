@@ -7,8 +7,8 @@ import { MockBackend } from '@angular/http/testing';
 import { Observable } from 'rxjs/Rx';
 import { Inject, Injectable } from '@angular/core';
 import * as mockData from './mock-http-data';
-import { LessonListElement } from 'app/models/lessons/lesson-list-element';
-import { Lesson } from 'app/models/lessons/lesson';
+import { LessonListElement } from '../../common/lesson-list-element';
+import { Lesson } from '../../common//lesson';
 import * as _ from 'lodash';
 
 interface ParsedWord { [key: string]: string[]; };

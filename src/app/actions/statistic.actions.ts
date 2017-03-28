@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { type } from './action-helper';
-import { Statistic } from '../models/statistic/statistic';
+import { Statistic } from '../../common/statistic';
 
 export const ActionTypes = {
   ADD: type('[SATATISTIC] Add'),

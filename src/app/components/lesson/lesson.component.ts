@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild, AfterContentChecked } from '@angular/core';
-import { Lesson } from '../../models/lessons/lesson';
+import { Lesson } from '../../../common/lesson';
 import { MyDomRenderer } from '../../services/renderer/my-dom-renderer';
 
 @Component({

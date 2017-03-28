@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Rx';
-import { Lesson } from '../models/lessons/lesson';
-import { LessonListElement } from '../models/lessons/lesson-list-element';
-import { Statistic } from '../models/statistic/statistic';
+import { Lesson } from '../../common/lesson';
+import { LessonListElement } from '../../common/lesson-list-element';
+import { Statistic } from '../../common/statistic';
 
 export const LESSONS: Lesson[] = [
   {

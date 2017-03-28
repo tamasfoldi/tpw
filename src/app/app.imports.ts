@@ -11,7 +11,6 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { LessonsEffects } from './effects/lessons.effects';
 import { LessonEffects } from './effects/lesson.effects';
-import { RouterEffects } from './effects/router.effects';
 import { StatisticEffects } from './effects/statistic.effects';
 import { reducer } from './reducers/index';
 import { StoreRouterConnectingModule } from './router-store';
@@ -34,6 +33,5 @@ export const APP_IMPORTS = [
 
   EffectsModule.run(LessonsEffects),
   EffectsModule.run(LessonEffects),
-  EffectsModule.run(StatisticEffects),
-  EffectsModule.run(RouterEffects)
+  EffectsModule.run(StatisticEffects)
 ];

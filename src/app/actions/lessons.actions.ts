@@ -1,8 +1,8 @@
 import { Action } from '@ngrx/store';
 
 import { type } from './action-helper';
-import { LessonListElement } from '../models/lessons/lesson-list-element';
-import { Lesson } from '../models/lessons/lesson';
+import { LessonListElement } from '../../common/lesson-list-element';
+import { Lesson } from '../../common/lesson';
 
 export const ActionTypes = {
   LOAD_LIST: type('[LESSONS] Load List'),

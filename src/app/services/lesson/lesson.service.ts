@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-import { LessonListElement } from '../../models/lessons/lesson-list-element';
-import { Lesson } from '../../models/lessons/lesson';
+import { LessonListElement } from '../../../common/lesson-list-element';
+import { Lesson } from '../../../common/lesson';
 import { Http } from '@angular/http';
 import { LESSON_BASE_URL } from '../tokens';
 

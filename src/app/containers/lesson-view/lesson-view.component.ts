@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Rx';
 
-import { Lesson } from '../../models/lessons/lesson';
 import { State } from '../../reducers/index';
 import * as fromRoot from '../../reducers/index';
 import * as player from '../../actions/player.actions';
-import { Statistic } from '../../models/statistic/statistic';
-import { Player } from '../../models/player';
+import { Lesson } from '../../../common/lesson';
+import { Statistic } from '../../../common/statistic';
+import { Player } from '../../../common/player';
 import { ComputerEnemy } from '../../computer-enemy/computer-enemy';
 
 @Component({

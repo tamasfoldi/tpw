@@ -2,10 +2,10 @@
 import * as lesson from '../actions/lesson.actions';
 import * as player from '../actions/player.actions';
 import * as lessons from '../actions/lessons.actions';
-import { Lesson } from '../models/lessons/lesson';
-import { StatisticData, Statistic } from '../models/statistic/statistic';
+import { Lesson } from '../../common/lesson';
+import { StatisticData, Statistic } from '../../common/statistic';
+import { Player } from '../../common/player';
 import { Action } from '@ngrx/store';
-import { Player } from '../models/player';
 
 
 const isItTheCorrectNextChar = (char: string, state: State): boolean => {
