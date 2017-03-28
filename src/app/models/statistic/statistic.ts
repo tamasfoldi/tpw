@@ -3,7 +3,6 @@ export interface StatisticData {
   nofCorrectPress: number;
   startTime: number;
   endTime: number;
-
   mistakes: Mistakes;
 }
 export class Statistic implements StatisticData {
@@ -13,10 +12,7 @@ export class Statistic implements StatisticData {
   endTime: number;
 
   get nofIncorrectPress(): number {
-    if (this.mistakes) {
-      return this.getIncorrectPressesFromMistakes(this.mistakes);
-    }
-    return 0;
+    return this.getIncorrectPressesFromMistakes(this.mistakes);
   }
   get hasEnded(): boolean {
     return this.startTime >= 0 && this.endTime >= 0;

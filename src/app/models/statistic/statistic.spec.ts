@@ -198,4 +198,33 @@ describe('Statistic', () => {
     });
   });
 
+  describe('nofIncorrectPress', () => {
+    it('should return with sum of mistakes', () => {
+      const stat: Statistic = new Statistic({
+        nofCorrectPress: 1,
+        mistakes: {
+          'e': {
+            't': 1
+          }
+        },
+        startTime: -1,
+        endTime: -1
+      });
+
+      expect(stat.nofIncorrectPress).toBe(1);
+    });
+
+    it('should return with 0 if there are no mistakes', () => {
+      const stat: Statistic = new Statistic({
+        nofCorrectPress: 10,
+        mistakes: {
+        },
+        startTime: 1,
+        endTime: 2
+      });
+
+      expect(stat.nofIncorrectPress).toBe(0);
+    });
+  });
+
 });

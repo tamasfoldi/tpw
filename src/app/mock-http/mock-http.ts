@@ -32,8 +32,7 @@ export class MockHttp extends Http {
         let rspData;
         if (url.includes(`/lesson/`)) {
           const id = url.split('/').reverse()[0];
-          const mistakes = options ? options.body : null;
-          rspData = this.getLessonData(id, mistakes);
+          rspData = this.getLessonData(id);
         } else if (url.includes(`/lessons`)) {
           rspData = this.getLessons();
         }
@@ -45,7 +44,7 @@ export class MockHttp extends Http {
     return mockData.LESSON_LIST;
   }
 
-  getLessonData(lessonId: string, mistakes?): Lesson {
+  getLessonData(lessonId: string): Lesson {
     const retLesson = mockData.LESSONS
       .find(lesson => lesson.id === lessonId);
     retLesson.text = this.getWords(retLesson.includedLetters, 10).toString().replace(/,/g, ' ');
