@@ -46,7 +46,7 @@ export class LessonEffects {
     );
 
   @Effect()
-  addStat$: Observable<Action> = this.store.select(fromRoot.wasLessonCompleted)
+  addStat$: Observable<Action> = this.store.select(fromRoot.isLessonEnded)
     .filter(typed => typed)
     .switchMap(() => this.store.select(fromRoot.getLessonStatistic)
       .take(1)

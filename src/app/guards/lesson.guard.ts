@@ -15,7 +15,6 @@ export class LessonGuard implements CanActivate {
       .select(list => list
         .find(elem => elem.id === next.params['id']))
       .filter(elem => !!elem)
-      .do(a => console.log(a))
       .do(elem => !elem.isAvailable ?
         this.router.navigate(['/']) :
         this.store.dispatch(new lessons.SelectAction(next.params['id'])))

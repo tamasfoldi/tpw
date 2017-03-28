@@ -9,7 +9,7 @@ export class StatisticsService {
   constructor(private http: Http, @Inject(STATISTIC_BASE_URL) private baseUrl: string) { }
 
   newLessonStatistic(stat: Statistic) {
-    return this.http.post(`${this.baseUrl}/statistic`, stat)
+    return this.http.post(`${this.baseUrl}`, stat)
       .map(rsp => rsp.json());
   }
 
