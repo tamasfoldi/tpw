@@ -42,13 +42,27 @@ describe('StatisticEffects', () => {
   });
 
   describe('addLessonStat$', () => {
-    it('should return a new LoadListSuccessAction, with the lessons, on success', fakeAsync(
+    it('should return a new AddSuccessAction, with the statistic, on success', fakeAsync(
       inject([StatisticsService], (statisticService: StatisticsService) => {
         spyOn(statisticService, 'newLessonStatistic').and
           .returnValue(Observable.of(mockData.STATISTIC));
 
         const expectedResult = new statistic.AddSuccessAction(mockData.STATISTIC);
-        runner.queue(new statistic.AddAction(mockData.STATISTIC))
+        runner.queue(new statistic.AddAction(mockData.STATISTIC));
+        let result = null;
+        statisticEffects.addLessonStat$
+          .subscribe(_result => result = _result);
+        expect(statisticService.newLessonStatistic).toHaveBeenCalledTimes(1);
+        expect(result).toEqual(expectedResult);
+      })));
+
+    it('should return a new AddFailAction, with the error, on error', fakeAsync(
+      inject([StatisticsService], (statisticService: StatisticsService) => {
+        spyOn(statisticService, 'newLessonStatistic').and
+          .returnValue(Observable.throw('error'));
+
+        const expectedResult = new statistic.AddFailAction('error');
+        runner.queue(new statistic.AddAction(mockData.STATISTIC));
         let result = null;
         statisticEffects.addLessonStat$
           .subscribe(_result => result = _result);
