@@ -1,8 +1,8 @@
 import { Injectable, Inject } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import { LESSONLIST_BASE_URL } from 'app/services/tokens';
-import { LessonListElement } from 'common/lesson-list-element';
+import { LESSONLIST_BASE_URL } from '../tokens';
+import { LessonListElement } from '../../../common/lesson-list-element';
 
 @Injectable()
 export class LessonListService {

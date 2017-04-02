@@ -9,7 +9,8 @@ import { LessonListElement } from '../../common/lesson-list-element';
 import { Http, ConnectionBackend, BaseRequestOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { MockHttp } from '../mock-http/mock-http';
-import { LESSON_BASE_URL } from '../services/tokens';
+import { LESSONLIST_BASE_URL } from '../services/tokens';
+import { LessonListService } from '../services/lesson-list/lesson-list.service';
 
 describe('LessonEffects', () => {
   let runner;
@@ -20,9 +21,9 @@ describe('LessonEffects', () => {
     ],
     providers: [
       LessonsEffects,
-      LessonService,
+      LessonListService,
 
-      { provide: LESSON_BASE_URL, useValue: 'test' },
+      { provide: LESSONLIST_BASE_URL, useValue: 'test' },
       MockBackend,
       BaseRequestOptions,
       {
@@ -44,28 +45,28 @@ describe('LessonEffects', () => {
 
   describe('loadList$', () => {
     it('should return a new LoadListSuccessAction, with the lessons, on success', fakeAsync(
-      inject([LessonService], (lessonService: LessonService) => {
-        spyOn(lessonService, 'getLessonList').and.returnValue(Observable.of([{ id: 'test_1', title: 'Test 1', isAvailable: true }]));
+      inject([LessonListService], (lessonListService: LessonListService) => {
+        spyOn(lessonListService, 'getLessonList').and.returnValue(Observable.of([{ id: 'test_1', title: 'Test 1', isAvailable: true }]));
 
         const expectedResult = new lesson.LoadListSuccessAction([{ id: 'test_1', title: 'Test 1', isAvailable: true }]);
 
         let result = null;
         lessonsEffects.loadList$
           .subscribe(_result => result = _result);
-        expect(lessonService.getLessonList).toHaveBeenCalledTimes(1);
+        expect(lessonListService.getLessonList).toHaveBeenCalledTimes(1);
         expect(result).toEqual(expectedResult);
       })));
 
     it('should return a new LoadListFailAction, with the fail', fakeAsync(
-      inject([LessonService], (lessonService: LessonService) => {
-        spyOn(lessonService, 'getLessonList').and.returnValue(Observable.throw('fail'));
+      inject([LessonListService], (lessonListService: LessonListService) => {
+        spyOn(lessonListService, 'getLessonList').and.returnValue(Observable.throw('fail'));
 
         const expectedResult = new lesson.LoadListFailAction('fail');
 
         let result = null;
         lessonsEffects.loadList$
           .subscribe(_result => result = _result);
-        expect(lessonService.getLessonList).toHaveBeenCalledTimes(1);
+        expect(lessonListService.getLessonList).toHaveBeenCalledTimes(1);
         expect(result).toEqual(expectedResult);
       })));
   });

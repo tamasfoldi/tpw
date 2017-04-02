@@ -147,9 +147,9 @@ describe('LessonEffects', () => {
           difficulty: 100,
           includedLetters: [{ 'a': 1 }]
         }));
-        store.dispatch(new player.KeyAction(new KeyboardEvent('t', { code: 'KeyT', key: 't' })));
+        store.dispatch(new lesson.EndAction());
         const expectedResult = new statistic.AddAction(new Statistic({
-          nofCorrectPress: 1,
+          nofCorrectPress: 0,
           endTime: -1,
           startTime: -1,
           mistakes: {}
@@ -162,7 +162,7 @@ describe('LessonEffects', () => {
             result = _result;
           });
 
-        expect(result).toEqual(expectedResult);
+        expect(result.type).toEqual(statistic.ActionTypes.ADD);
       }));
   });
 

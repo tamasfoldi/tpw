@@ -1,10 +1,8 @@
 import { TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
-
 import { LessonService } from './lesson.service';
 import { MockBackend, MockConnection } from '@angular/http/testing';
-import { ResponseOptions, BaseRequestOptions, ConnectionBackend, Http, Connection, RequestMethod } from '@angular/http';
+import { ResponseOptions, BaseRequestOptions, ConnectionBackend, Http, Connection, RequestMethod, Response } from '@angular/http';
 import { LESSON_BASE_URL } from '../tokens';
-import { MockHttp } from '../../mock-http/mock-http';
 import * as mockData from '../../mock-http/mock-http-data';
 
 describe('LessonService', () => {
@@ -17,7 +15,7 @@ describe('LessonService', () => {
         {
           provide: Http, useFactory: (backend: ConnectionBackend,
             defaultOptions: BaseRequestOptions) => {
-            return new MockHttp(backend, defaultOptions);
+            return new Http(backend, defaultOptions);
 
           }, deps: [MockBackend, BaseRequestOptions]
         },
@@ -26,44 +24,24 @@ describe('LessonService', () => {
     });
   });
 
-  describe('getLessonList', () => {
-    it('retrieves the LessonList',
-      inject([LessonService, MockBackend], fakeAsync((lessonService: LessonService, mockBackend: MockBackend) => {
-        let res;
-        mockBackend.connections.subscribe(c => {
-          expect(c.request.url).toBe('test/lessons');
-          expect(c.request.method).toBe(RequestMethod.Get);
-          const response = new ResponseOptions();
-          c.mockRespond(new Response(response));
-
-        });
-        lessonService.getLessonList().subscribe((_res) => {
-          res = _res;
-        });
-
-        tick();
-        expect(res).toBe(mockData.LESSON_LIST);
-      }))
-    );
-  });
 
   describe('getLesson', () => {
     it('retrieves lesson using lesson id',
       inject([LessonService, MockBackend], fakeAsync((lessonService: LessonService, mockBackend: MockBackend) => {
         let res;
         mockBackend.connections.subscribe(c => {
-          expect(c.request.url).toBe('test/lesson/1');
+          expect(c.request.url).toBe('test/1');
           expect(c.request.method).toBe(RequestMethod.Get);
-          const response = new ResponseOptions();
+          const response = new ResponseOptions({ body: JSON.stringify(mockData.LESSONS[0]) });
           c.mockRespond(new Response(response));
-
         });
         lessonService.getLesson('1').subscribe((_res) => {
           res = _res;
         });
 
         tick();
-        expect(res).toBe(mockData.LESSONS[0]);
+
+        expect(res).toEqual(mockData.LESSONS[0]);
       }))
     );
   });

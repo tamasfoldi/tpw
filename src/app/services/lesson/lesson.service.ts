@@ -11,6 +11,8 @@ export class LessonService {
   constructor(private http: Http, @Inject(LESSON_BASE_URL) private baseUrl: string) { }
 
   getLesson(id: string): Observable<Lesson> {
+    this.http.get(`${this.baseUrl}/${id}`)
+      .subscribe(a => console.log(a));
     return this.http.get(`${this.baseUrl}/${id}`)
       .map(rsp => rsp.json());
   }

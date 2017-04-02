@@ -1,80 +1,108 @@
 <?xml version="1.0"?>
-<testsuite name="Chrome 57.0.2987 (Windows 10 0.0.0)" package="" timestamp="2017-03-28T14:31:06" id="0" hostname="DESKTOP-HABLFEA" tests="72" errors="0" failures="0" time="0.545">
+<testsuite name="Chrome 57.0.2987 (Windows 10 0.0.0)" package="" timestamp="2017-04-02T09:00:34" id="0" hostname="DESKTOP-HABLFEA" tests="73" errors="0" failures="3" time="0.471">
   <properties>
-    <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.110 Safari/537.36"/>
+    <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36"/>
   </properties>
-  <testcase name="LessonEffects selectLesson$ should return a new ClearAction and a new LoadAction with the lesson id" time="0.103" classname="LessonEffects"/>
-  <testcase name="LessonEffects loadLesson$ should return a new LoadSuccessAction, with the lesson" time="0.035" classname="LessonEffects"/>
-  <testcase name="LessonEffects loadLesson$ should return a new LoadFailAction, with the fail" time="0.041" classname="LessonEffects"/>
-  <testcase name="LessonEffects lessonComplete$ should return a new EndAction and a CompleteAction, with the lessonId" time="0.032" classname="LessonEffects"/>
-  <testcase name="LessonEffects addStat$ should return a new statistic.AddAction with a lesson stat" time="0.052" classname="LessonEffects"/>
-  <testcase name="LessonEffects palyerProgress$ should return a new ProgressAction" time="0.025" classname="LessonEffects"/>
-  <testcase name="LessonEffects loadList$ should return a new LoadListSuccessAction, with the lessons, on success" time="0.03" classname="LessonEffects"/>
-  <testcase name="LessonEffects loadList$ should return a new LoadListFailAction, with the fail" time="0.035" classname="LessonEffects"/>
-  <testcase name="StatisticEffects addLessonStat$ should return a new AddSuccessAction, with the statistic, on success" time="0.018" classname="StatisticEffects"/>
-  <testcase name="StatisticEffects addLessonStat$ should return a new AddFailAction, with the error, on error" time="0.016" classname="StatisticEffects"/>
-  <testcase name="LessonGuard canActivate should not route if the lesson available" time="0.036" classname="LessonGuard"/>
-  <testcase name="LessonGuard canActivate should not route / the lesson not available" time="0.016" classname="LessonGuard"/>
-  <testcase name="LessonsReducer undefined action should return the default state" time="0" classname="LessonsReducer"/>
-  <testcase name="LessonsReducer LOAD should set isLoading true" time="0.001" classname="LessonsReducer"/>
+  <testcase name="LessonEffects selectLesson$ should return a new ClearAction and a new LoadAction with the lesson id" time="0.083" classname="LessonEffects"/>
+  <testcase name="LessonEffects loadLesson$ should return a new LoadSuccessAction, with the lesson" time="0.033" classname="LessonEffects"/>
+  <testcase name="LessonEffects loadLesson$ should return a new LoadFailAction, with the fail" time="0.031" classname="LessonEffects"/>
+  <testcase name="LessonEffects lessonComplete$ should return a new EndAction and a CompleteAction, with the lessonId" time="0.025" classname="LessonEffects"/>
+  <testcase name="LessonEffects addStat$ should return a new statistic.AddAction with a lesson stat" time="0.03" classname="LessonEffects"/>
+  <testcase name="LessonEffects palyerProgress$ should return a new ProgressAction" time="0.022" classname="LessonEffects"/>
+  <testcase name="LessonEffects loadList$ should return a new LoadListSuccessAction, with the lessons, on success" time="0.029" classname="LessonEffects"/>
+  <testcase name="LessonEffects loadList$ should return a new LoadListFailAction, with the fail" time="0.022" classname="LessonEffects"/>
+  <testcase name="StatisticEffects addLessonStat$ should return a new AddSuccessAction, with the statistic, on success" time="0.022" classname="StatisticEffects"/>
+  <testcase name="StatisticEffects addLessonStat$ should return a new AddFailAction, with the error, on error" time="0.022" classname="StatisticEffects"/>
+  <testcase name="LessonGuard canActivate should not route if the lesson available" time="0.022" classname="LessonGuard"/>
+  <testcase name="LessonGuard canActivate should not route / the lesson not available" time="0.021" classname="LessonGuard"/>
+  <testcase name="LessonsReducer undefined action should return the default state" time="0.001" classname="LessonsReducer"/>
+  <testcase name="LessonsReducer LOAD should set isLoading true" time="0" classname="LessonsReducer"/>
   <testcase name="LessonsReducer LOAD_SUCCESS should add the received list to the state and set loading false" time="0" classname="LessonsReducer"/>
   <testcase name="LessonsReducer LOAD_LIST_FAIL should set is loading false" time="0" classname="LessonsReducer"/>
-  <testcase name="LessonsReducer CLEAR should set the initialState" time="0" classname="LessonsReducer"/>
-  <testcase name="LessonsReducer player.KEY should add the correct key" time="0" classname="LessonsReducer"/>
+  <testcase name="LessonsReducer CLEAR should set the initialState" time="0.001" classname="LessonsReducer"/>
+  <testcase name="LessonsReducer player.KEY should add the correct key" time="0.001" classname="LessonsReducer"/>
   <testcase name="LessonsReducer player.KEY should not add the incorrect key and modify statistic" time="0" classname="LessonsReducer"/>
   <testcase name="LessonsReducer player.KEY should return state on not char or space" time="0.001" classname="LessonsReducer"/>
-  <testcase name="LessonsReducer palyer.NEW should set add a new player to state" time="0.002" classname="LessonsReducer"/>
-  <testcase name="LessonsReducer palyer.PROGRESS should add new progress to player" time="0.004" classname="LessonsReducer"/>
-  <testcase name="LessonsReducer palyer.READY should set a players state to READY" time="0.001" classname="LessonsReducer"/>
+  <testcase name="LessonsReducer palyer.NEW should set add a new player to state" time="0.001" classname="LessonsReducer"/>
+  <testcase name="LessonsReducer palyer.PROGRESS should add new progress to player" time="0.001" classname="LessonsReducer"/>
+  <testcase name="LessonsReducer palyer.READY should set a players state to READY" time="0" classname="LessonsReducer"/>
   <testcase name="LessonsReducer START should set the start date and isStarted" time="0.001" classname="LessonsReducer"/>
-  <testcase name="LessonsReducer END should set the end date and isEnded" time="0" classname="LessonsReducer"/>
-  <testcase name="LessonsReducer getLessonTitle should return with the lesson title if lesson loaded" time="0" classname="LessonsReducer"/>
+  <testcase name="LessonsReducer END should set the end date and isEnded" time="0.001" classname="LessonsReducer"/>
+  <testcase name="LessonsReducer getLessonTitle should return with the lesson title if lesson loaded" time="0.001" classname="LessonsReducer"/>
   <testcase name="LessonsReducer getLessonTitle should return with null if no lesson set" time="0" classname="LessonsReducer"/>
   <testcase name="LessonsReducer getLessonText should return with the lesson text if lesson loaded" time="0.002" classname="LessonsReducer"/>
-  <testcase name="LessonsReducer getLessonText should return with null if no lesson set" time="0.001" classname="LessonsReducer"/>
+  <testcase name="LessonsReducer getLessonText should return with null if no lesson set" time="0" classname="LessonsReducer"/>
   <testcase name="LessonsReducer getLessonId should return with the lesson id if lesson loaded" time="0" classname="LessonsReducer"/>
-  <testcase name="LessonsReducer getLessonId should return with null if no lesson set" time="0" classname="LessonsReducer"/>
+  <testcase name="LessonsReducer getLessonId should return with null if no lesson set" time="0.001" classname="LessonsReducer"/>
   <testcase name="LessonsReducer getLessonDifficulty should return with the lesson difficulty if lesson loaded" time="0.001" classname="LessonsReducer"/>
   <testcase name="LessonsReducer getLessonDifficulty should return with null if no lesson set" time="0" classname="LessonsReducer"/>
   <testcase name="LessonsReducer getCurrentLesson should return with the lesson" time="0" classname="LessonsReducer"/>
-  <testcase name="LessonsReducer getTypedText should return with the typedText" time="0.001" classname="LessonsReducer"/>
+  <testcase name="LessonsReducer getTypedText should return with the typedText" time="0" classname="LessonsReducer"/>
   <testcase name="LessonsReducer isStarted should return with isStarted" time="0" classname="LessonsReducer"/>
-  <testcase name="LessonsReducer isEnded should return with isEnded" time="0.001" classname="LessonsReducer"/>
+  <testcase name="LessonsReducer isEnded should return with isEnded" time="0" classname="LessonsReducer"/>
   <testcase name="LessonsReducer wasCompleted should return with true if typed text equal lesson text" time="0" classname="LessonsReducer"/>
   <testcase name="LessonsReducer wasCompleted should return with false if typed text not equal lesson text" time="0.001" classname="LessonsReducer"/>
-  <testcase name="LessonsReducer wasCompleted should return with false if there is no lesson" time="0.001" classname="LessonsReducer"/>
-  <testcase name="LessonsReducer getStatistic should return with a statistic created from data" time="0.002" classname="LessonsReducer"/>
+  <testcase name="LessonsReducer wasCompleted should return with false if there is no lesson" time="0" classname="LessonsReducer"/>
+  <testcase name="LessonsReducer getStatistic should return with a statistic created from data" time="0.001" classname="LessonsReducer"/>
   <testcase name="LessonsReducer getProgress should return with null if there is no lesson" time="0" classname="LessonsReducer"/>
   <testcase name="LessonsReducer getProgress should return the progress in % calculated from typed text length" time="0" classname="LessonsReducer"/>
   <testcase name="LessonsReducer getProgress should return with an array created from players.progress expcept the first entry" time="0" classname="LessonsReducer"/>
   <testcase name="LessonsReducer isAllPlayerReady should return true if all the players are ready" time="0.001" classname="LessonsReducer"/>
   <testcase name="LessonsReducer isAllPlayerReady should return false if there is a player who is not ready" time="0" classname="LessonsReducer"/>
   <testcase name="LessonsReducer isAllPlayerReady should return false if the number of player lower then 2" time="0" classname="LessonsReducer"/>
-  <testcase name="LessonsReducer undefined action should return the default state" time="0" classname="LessonsReducer"/>
+  <testcase name="LessonsReducer undefined action should return the default state" time="0.001" classname="LessonsReducer"/>
   <testcase name="LessonsReducer LOAD_LIST should set isLoading true" time="0" classname="LessonsReducer"/>
   <testcase name="LessonsReducer LOAD_LIST_SUCCESS should add the received list to the state and set loading false" time="0" classname="LessonsReducer"/>
   <testcase name="LessonsReducer LOAD_LIST_FAIL should set is loading false" time="0" classname="LessonsReducer"/>
-  <testcase name="LessonsReducer COMPLETE should set is loading false" time="0" classname="LessonsReducer"/>
+  <testcase name="LessonsReducer COMPLETE should set is loading false" time="0.001" classname="LessonsReducer"/>
   <testcase name="LessonsReducer getLessonList should return with the loaded lessonList" time="0" classname="LessonsReducer"/>
   <testcase name="LessonsReducer isLoading should return with isLoading" time="0" classname="LessonsReducer"/>
-  <testcase name="LessonService getLessonList retrieves the LessonList" time="0.018" classname="LessonService"/>
-  <testcase name="LessonService getLesson retrieves lesson using lesson id" time="0.023" classname="LessonService"/>
-  <testcase name="StatisticsService newLessonStatistic should post new statistic" time="0.026" classname="StatisticsService"/>
-  <testcase name="Statistic hasEnded should return true if start and end time >= 0" time="0" classname="Statistic"/>
+  <testcase name="LessonListService should ..." time="0.029" classname="LessonListService"/>
+  <testcase name="LessonListService getLessonList retrieves the LessonList" time="0.018" classname="LessonListService">
+    <failure type="">Expected [object Promise] to be [ Object({ id: '1', title: 'Lesson 1', isAvailable: true }), Object({ id: '2', title: 'Lesson 2', isAvailable: false }), Object({ id: '3', title: 'Lesson 3', isAvailable: false }), Object({ id: '4', title: 'Lesson 4', isAvailable: false }) ].
+    at Object.&lt;anonymous&gt; (webpack:///src/app/services/lesson-list/lesson-list.service.spec.ts:49:20 &lt;- src/test.ts:19076:25) [ProxyZone]
+    at Object.&lt;anonymous&gt; (webpack:///~/@angular/core/@angular/core/testing.es5.js:336:0 &lt;- src/test.ts:15551:26) [ProxyZone]
+    at TestBed.Array.concat.TestBed.execute (webpack:///~/@angular/core/@angular/core/testing.es5.js:768:0 &lt;- src/test.ts:15983:19) [ProxyZone]
+    at Object.&lt;anonymous&gt; (webpack:///~/@angular/core/@angular/core/testing.es5.js:857:28 &lt;- src/test.ts:16072:45) [ProxyZone]
+    at ProxyZoneSpec.Array.concat.ProxyZoneSpec.onInvoke (webpack:///~/zone.js/dist/proxy.js:79:0 &lt;- src/test.ts:69574:39) [ProxyZone]
+    at Zone.run (webpack:///~/zone.js/dist/zone.js:125:0 &lt;- src/polyfills.ts:1280:43) [&lt;root&gt; =&gt; ProxyZone]
+</failure>
+  </testcase>
+  <testcase name="LessonService getLesson retrieves lesson using lesson id" time="0.011" classname="LessonService">
+    <failure type="">Expected [object Promise] to equal Object({ id: '1', title: 'Lesson 1', text: 'Lesson one text', difficulty: 100, includedLetters: [ Object({ j: 100 }) ] }).
+    at Object.&lt;anonymous&gt; (webpack:///src/app/services/lesson/lesson.service.spec.ts:46:20 &lt;- src/test.ts:19126:25) [ProxyZone]
+    at Object.&lt;anonymous&gt; (webpack:///~/@angular/core/@angular/core/testing.es5.js:336:0 &lt;- src/test.ts:15551:26) [ProxyZone]
+    at TestBed.Array.concat.TestBed.execute (webpack:///~/@angular/core/@angular/core/testing.es5.js:768:0 &lt;- src/test.ts:15983:19) [ProxyZone]
+    at Object.&lt;anonymous&gt; (webpack:///~/@angular/core/@angular/core/testing.es5.js:857:28 &lt;- src/test.ts:16072:45) [ProxyZone]
+    at ProxyZoneSpec.Array.concat.ProxyZoneSpec.onInvoke (webpack:///~/zone.js/dist/proxy.js:79:0 &lt;- src/test.ts:69574:39) [ProxyZone]
+    at Zone.run (webpack:///~/zone.js/dist/zone.js:125:0 &lt;- src/polyfills.ts:1280:43) [&lt;root&gt; =&gt; ProxyZone]
+</failure>
+  </testcase>
+  <testcase name="StatisticsService newLessonStatistic should post new statistic" time="0.022" classname="StatisticsService">
+    <failure type="">Expected [object Promise] to equal Object({  }).
+    at Object.&lt;anonymous&gt; (webpack:///src/app/services/statistics/statistics.service.spec.ts:44:20 &lt;- src/test.ts:19174:25) [ProxyZone]
+    at Object.&lt;anonymous&gt; (webpack:///~/@angular/core/@angular/core/testing.es5.js:336:0 &lt;- src/test.ts:15551:26) [ProxyZone]
+    at TestBed.Array.concat.TestBed.execute (webpack:///~/@angular/core/@angular/core/testing.es5.js:768:0 &lt;- src/test.ts:15983:19) [ProxyZone]
+    at Object.&lt;anonymous&gt; (webpack:///~/@angular/core/@angular/core/testing.es5.js:857:28 &lt;- src/test.ts:16072:45) [ProxyZone]
+    at ProxyZoneSpec.Array.concat.ProxyZoneSpec.onInvoke (webpack:///~/zone.js/dist/proxy.js:79:0 &lt;- src/test.ts:69574:39) [ProxyZone]
+    at Zone.run (webpack:///~/zone.js/dist/zone.js:125:0 &lt;- src/polyfills.ts:1280:43) [&lt;root&gt; =&gt; ProxyZone]
+</failure>
+  </testcase>
+  <testcase name="Statistic hasEnded should return true if start and end time >= 0" time="0.001" classname="Statistic"/>
   <testcase name="Statistic hasEnded should return true if start &lt;= 0" time="0" classname="Statistic"/>
-  <testcase name="Statistic hasEnded should return true if end &lt;= 0" time="0" classname="Statistic"/>
-  <testcase name="Statistic nofTotalPress should return with the sum of correct and incorrect presses" time="0.008" classname="Statistic"/>
+  <testcase name="Statistic hasEnded should return true if end &lt;= 0" time="0.006" classname="Statistic"/>
+  <testcase name="Statistic nofTotalPress should return with the sum of correct and incorrect presses" time="0.001" classname="Statistic"/>
   <testcase name="Statistic durationInMillis should return with -1 if not ended" time="0" classname="Statistic"/>
-  <testcase name="Statistic durationInMillis should return with substraction of end and start" time="0" classname="Statistic"/>
+  <testcase name="Statistic durationInMillis should return with substraction of end and start" time="0.001" classname="Statistic"/>
   <testcase name="Statistic durationInSecs should return with -1 if not ended" time="0" classname="Statistic"/>
-  <testcase name="Statistic durationInSecs should return with substraction of end and start /1000" time="0.001" classname="Statistic"/>
+  <testcase name="Statistic durationInSecs should return with substraction of end and start /1000" time="0" classname="Statistic"/>
   <testcase name="Statistic wordPerMinute should return with -1 if not ended" time="0.001" classname="Statistic"/>
-  <testcase name="Statistic wordPerMinute should return with charPerMinute / 5" time="0.004" classname="Statistic"/>
-  <testcase name="Statistic accuracy should return with correct/total" time="0.003" classname="Statistic"/>
+  <testcase name="Statistic wordPerMinute should return with charPerMinute / 5" time="0" classname="Statistic"/>
+  <testcase name="Statistic accuracy should return with correct/total" time="0" classname="Statistic"/>
   <testcase name="Statistic charPerMinute should return with -1 if not ended" time="0" classname="Statistic"/>
-  <testcase name="Statistic charPerMinute should return with correct / durationInSecs * 60" time="0" classname="Statistic"/>
+  <testcase name="Statistic charPerMinute should return with correct / durationInSecs * 60" time="0.001" classname="Statistic"/>
   <testcase name="Statistic nofIncorrectPress should return with sum of mistakes" time="0" classname="Statistic"/>
-  <testcase name="Statistic nofIncorrectPress should return with 0 if there are no mistakes" time="0.001" classname="Statistic"/>
+  <testcase name="Statistic nofIncorrectPress should return with 0 if there are no mistakes" time="0" classname="Statistic"/>
   <system-out>
     <![CDATA[Chrome 57.0.2987 (Windows 10 0.0.0) LOG: '%c prev state', 'color: #9E9E9E; font-weight: bold', Object{lessons: Object{lessonList: [], isLoading: false}, lesson: Object{isLoading: false, isStarted: false, isEnded: false, currentLesson: null, typedText: '', statistic: Statistic{nofCorrectPress: ..., startTime: ..., endTime: ..., mistakes: ...}, players: []}, router: ''}
 ,Chrome 57.0.2987 (Windows 10 0.0.0) LOG: '%c action', 'color: #03A9F4; font-weight: bold', LoadSuccessAction{payload: Object{id: 'test_1', text: 't', title: 'Test', difficulty: 100, includedLetters: [...]}, type: '[LESSON] Load Success'}
@@ -86,8 +114,8 @@
 ,Chrome 57.0.2987 (Windows 10 0.0.0) LOG: '%c action', 'color: #03A9F4; font-weight: bold', LoadSuccessAction{payload: Object{id: 'test_1', text: 't', title: 'Test', difficulty: 100, includedLetters: [...]}, type: '[LESSON] Load Success'}
 ,Chrome 57.0.2987 (Windows 10 0.0.0) LOG: '%c next state', 'color: #4CAF50; font-weight: bold', Object{lessons: Object{lessonList: [], isLoading: false}, lesson: Object{isLoading: false, isStarted: false, isEnded: false, currentLesson: Object{id: ..., text: ..., title: ..., difficulty: ..., includedLetters: ...}, typedText: '', statistic: Statistic{nofCorrectPress: ..., startTime: ..., endTime: ..., mistakes: ...}, players: []}, router: ''}
 ,Chrome 57.0.2987 (Windows 10 0.0.0) LOG: '%c prev state', 'color: #9E9E9E; font-weight: bold', Object{lessons: Object{lessonList: [], isLoading: false}, lesson: Object{isLoading: false, isStarted: false, isEnded: false, currentLesson: Object{id: ..., text: ..., title: ..., difficulty: ..., includedLetters: ...}, typedText: '', statistic: Statistic{nofCorrectPress: ..., startTime: ..., endTime: ..., mistakes: ...}, players: []}, router: ''}
-,Chrome 57.0.2987 (Windows 10 0.0.0) LOG: '%c action', 'color: #03A9F4; font-weight: bold', KeyAction{payload: KeyboardEvent{isTrusted: false}, type: '[PLAYER] New Key'}
-,Chrome 57.0.2987 (Windows 10 0.0.0) LOG: '%c next state', 'color: #4CAF50; font-weight: bold', Object{lessons: Object{lessonList: [], isLoading: false}, lesson: Object{isLoading: false, isStarted: false, isEnded: false, currentLesson: Object{id: ..., text: ..., title: ..., difficulty: ..., includedLetters: ...}, typedText: 't', statistic: Object{nofCorrectPress: ..., startTime: ..., endTime: ..., mistakes: ...}, players: []}, router: ''}
+,Chrome 57.0.2987 (Windows 10 0.0.0) LOG: '%c action', 'color: #03A9F4; font-weight: bold', EndAction{payload: undefined, type: '[LESSON] End'}
+,Chrome 57.0.2987 (Windows 10 0.0.0) LOG: '%c next state', 'color: #4CAF50; font-weight: bold', Object{lessons: Object{lessonList: [], isLoading: false}, lesson: Object{isLoading: false, isStarted: false, isEnded: true, currentLesson: Object{id: ..., text: ..., title: ..., difficulty: ..., includedLetters: ...}, typedText: '', statistic: Object{nofCorrectPress: ..., startTime: ..., endTime: ..., mistakes: ...}, players: []}, router: ''}
 ,Chrome 57.0.2987 (Windows 10 0.0.0) LOG: '%c prev state', 'color: #9E9E9E; font-weight: bold', Object{lessons: Object{lessonList: [], isLoading: false}, lesson: Object{isLoading: false, isStarted: false, isEnded: false, currentLesson: null, typedText: '', statistic: Statistic{nofCorrectPress: ..., startTime: ..., endTime: ..., mistakes: ...}, players: []}, router: ''}
 ,Chrome 57.0.2987 (Windows 10 0.0.0) LOG: '%c action', 'color: #03A9F4; font-weight: bold', LoadSuccessAction{payload: Object{id: 'test_1', text: 't', title: 'Test', difficulty: 100, includedLetters: [...]}, type: '[LESSON] Load Success'}
 ,Chrome 57.0.2987 (Windows 10 0.0.0) LOG: '%c next state', 'color: #4CAF50; font-weight: bold', Object{lessons: Object{lessonList: [], isLoading: false}, lesson: Object{isLoading: false, isStarted: false, isEnded: false, currentLesson: Object{id: ..., text: ..., title: ..., difficulty: ..., includedLetters: ...}, typedText: '', statistic: Statistic{nofCorrectPress: ..., startTime: ..., endTime: ..., mistakes: ...}, players: []}, router: ''}
@@ -103,6 +131,7 @@
 ,Chrome 57.0.2987 (Windows 10 0.0.0) LOG: '%c prev state', 'color: #9E9E9E; font-weight: bold', Object{lessons: Object{lessonList: [], isLoading: false}, lesson: Object{isLoading: false, isStarted: false, isEnded: false, currentLesson: null, typedText: '', statistic: Statistic{nofCorrectPress: ..., startTime: ..., endTime: ..., mistakes: ...}, players: []}, router: ''}
 ,Chrome 57.0.2987 (Windows 10 0.0.0) LOG: '%c action', 'color: #03A9F4; font-weight: bold', LoadListSuccessAction{payload: [Object{id: ..., title: ..., isAvailable: ...}, Object{id: ..., title: ..., isAvailable: ...}], type: '[LESSONS] Load List Success'}
 ,Chrome 57.0.2987 (Windows 10 0.0.0) LOG: '%c next state', 'color: #4CAF50; font-weight: bold', Object{lessons: Object{lessonList: [..., ...], isLoading: false}, lesson: Object{isLoading: false, isStarted: false, isEnded: false, currentLesson: null, typedText: '', statistic: Statistic{nofCorrectPress: ..., startTime: ..., endTime: ..., mistakes: ...}, players: []}, router: ''}
+,Chrome 57.0.2987 (Windows 10 0.0.0) LOG: Response{}
 
 ]]>
   </system-out>
