@@ -12,7 +12,6 @@ export class StatisticsService {
   newLessonStatistic(stat: Statistic): Observable<void> {
     return this.http.post(`${this.baseUrl}`, stat)
       .map(rsp => rsp.json())
-      .do(a => console.log(a));
   }
 
 }
