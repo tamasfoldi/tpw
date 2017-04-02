@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import LESSON_LIST_ROUTE from './lesson-list/lesson-list.routes';
 import LESSON_ROUTE from './lesson/lesson.routes';
 import STATISTIC_ROUTE from './statistic/statistic.routes';
+import WORDS from './words/words.routes';
 const ROUTER = new Router();
 
 const LOAD_HTML = function () {
@@ -18,6 +19,7 @@ const LOAD_HTML = function () {
 
 ROUTER.get(LESSON_LIST_ROUTE.path, LESSON_LIST_ROUTE.middleware);
 ROUTER.get(LESSON_ROUTE.path, LESSON_ROUTE.middleware);
+ROUTER.get(WORDS.path, WORDS.middleware);
 ROUTER.post(STATISTIC_ROUTE.path, STATISTIC_ROUTE.middleware);
 
 ROUTER.get(/^\/(.*)(?:\/|$)/, function* (next) {

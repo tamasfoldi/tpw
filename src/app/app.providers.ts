@@ -4,7 +4,6 @@ import { StatisticsService } from './services/statistics/statistics.service';
 import { LessonGuard } from './guards/lesson.guard';
 import { MyDomRenderer } from './services/renderer/my-dom-renderer';
 import { LESSON_BASE_URL, STATISTIC_BASE_URL, LESSONLIST_BASE_URL } from './services/tokens';
-import { MockHttp } from './mock-http/mock-http';
 import { environment } from '../environments/environment';
 import { Provider } from '@angular/core';
 import { MyMockConnectionBackend } from './mock-http/my-mock-connection-backend';

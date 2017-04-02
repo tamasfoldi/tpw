@@ -7,6 +7,7 @@ import * as Lokijs from 'lokijs';
 import { SINGLETON as LessonListDAO } from './lesson-list/lesson-list.dao';
 import { SINGLETON as LessonDAO } from './lesson/lesson.dao';
 import { SINGLETON as StatisticDAO } from './statistic/statistic.dao';
+import { SINGLETON as WordsDAO } from './words/words.dao';
 
 const LESSON_LIST_DB = new Lokijs('db/lesson-list.json', {
   autosave: true
@@ -18,9 +19,14 @@ const STATISTIC_DB = new Lokijs('db/statistic.json', {
   autosave: true
 });
 
+const WORDS_DB = new Lokijs('db/words.json', {
+  autosave: true
+});
+
 LessonListDAO.configure(LESSON_LIST_DB);
 LessonDAO.configure(LESSONS_DB);
 StatisticDAO.configure(STATISTIC_DB);
+WordsDAO.configure(WORDS_DB);
 
 const CLIENT_FILES = './dev/client/';
 

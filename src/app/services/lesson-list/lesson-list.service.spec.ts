@@ -2,7 +2,6 @@ import { TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
 import { MockBackend } from '@angular/http/testing';
 import { ConnectionBackend, BaseRequestOptions, Http, RequestMethod, ResponseOptions, Response } from '@angular/http';
 import { LessonListService } from './lesson-list.service';
-import { MockHttp } from '../../mock-http/mock-http';
 import { LESSONLIST_BASE_URL } from '../tokens';
 import * as mockData from '../../mock-http/mock-http-data';
 

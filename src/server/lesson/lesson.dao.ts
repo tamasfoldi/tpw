@@ -1,5 +1,7 @@
 import { Lesson } from '../../common/lesson';
 import { LESSONS } from '../../app/mock-http/mock-http-data';
+import * as _ from 'lodash';
+import { SINGLETON as WordsDAO } from '../words/words.dao';
 
 class LessonDAO {
   private LESSON_DB: LokiCollection<{}>;
@@ -15,8 +17,10 @@ class LessonDAO {
     });
   }
 
-  findById(id: string): any {
-    return this.LESSON_DB.findOne({ id });
+  findById(id: string): Lesson {
+    const retLesson: Lesson = this.LESSON_DB.findOne({ id }) as Lesson;
+    retLesson.text = WordsDAO.getWords(retLesson.includedLetters, 10).toString().replace(/,/g, ' ');
+    return retLesson;
   }
 }
 
