@@ -1,4 +1,7 @@
 import * as _ from 'lodash';
+import { SINGLETON as StatisticDAO } from '../statistic/statistic.dao';
+import { Mistakes } from '../../common/mistake';
+import { StatisticData } from '../../common/statistic';
 
 class WordsDAO {
   private WORDS_DB: LokiCollection<{}>;
@@ -21,24 +24,51 @@ class WordsDAO {
     return this.WORDS_DB.data;
   }
 
-  getWords(arr: { [key: string]: number }[], totalNumberOfWords = 100) {
-    const keys = arr.reduce((p, c) => _.concat(p, _.keys(c))
-      , [] as string[]);
-    const numberOfWordForKey = arr.map((v, i) => v[keys[i]]).map(v => totalNumberOfWords * (v / 100));
+  getWords(arr: { [key: string]: number }, totalNumberOfWords = 100) {
+    const keys = Object.keys(arr);
+    const corrObj = _.pick(this.getCorrectionObject(), keys);
+    const max = Object.keys(corrObj).reduce((prev, curr) => prev >= corrObj[curr] ? prev : corrObj[curr], 0);
+    const mappedObj = _.mapValues(corrObj, o => (100 / max) * o);
+    arr = _.mergeWith(arr, mappedObj, (objValue, sourceValue) => objValue * 0.5 + sourceValue * 0.5);
+
+    const numberOfWordForKey = _.mapValues(arr, (o) => totalNumberOfWords * (o / 100) >= 1 ? totalNumberOfWords * (o / 100) : 1);
     const joinedKeys = [keys.join('')];
     const differedArraysByKey = keys.reduce((p, c) => {
       p[c] = _.differenceWith(this.WORDS_DB.data[0][c], joinedKeys, this.diff);
       return p;
     }, {});
-
-    let tmp = [];
-    keys.forEach((v, i) => {
-      if (differedArraysByKey[v].length < numberOfWordForKey[i]) {
-        differedArraysByKey[v] = this.fillArray(differedArraysByKey[v], numberOfWordForKey[i]);
+    console.log(numberOfWordForKey);
+    const tmp = keys.reduce((prev, curr) => {
+      if (differedArraysByKey[curr].length < numberOfWordForKey[curr]) {
+        differedArraysByKey[curr] = this.fillArray(differedArraysByKey[curr], numberOfWordForKey[curr]);
       }
-      tmp = _.concat(tmp, _.take(_.shuffle(differedArraysByKey[v]), numberOfWordForKey[i]));
-    });
+      return _.concat(prev, _.take(_.shuffle(differedArraysByKey[curr]), numberOfWordForKey[curr]));
+    }, []);
+
     return _.shuffle(tmp);
+  }
+
+  private getCorrectionObject() {
+    const mistakes = this.getSummarizedMistakes();
+    return this.calculateCorrectionObject(mistakes);
+  }
+
+  private getSummarizedMistakes() {
+    return StatisticDAO.getAll()
+      .reverse()
+      .slice(0, 10)
+      .map((item: StatisticData) => item.mistakes)
+      .reduce((prev, curr) => Mistakes.add(prev, curr), {});
+  }
+
+  private calculateCorrectionObject(mistakes: Mistakes): { [key: string]: number } {
+    const ret = {};
+    Object.keys(mistakes).forEach(key => {
+      ret[key] = Object.keys(mistakes[key]).reduce((p, c) => {
+        return p + mistakes[key][c];
+      }, 0);
+    });
+    return ret;
   }
 
   private diff(arr: string, differ: string) {

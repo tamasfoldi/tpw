@@ -3,5 +3,5 @@ export interface Lesson {
   title: string;
   text: string;
   difficulty: number;
-  includedLetters: { [key: string]: number }[];
+  includedLetters: { [key: string]: number };
 }

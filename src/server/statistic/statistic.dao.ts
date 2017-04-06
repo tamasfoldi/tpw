@@ -1,6 +1,5 @@
 import { StatisticData } from '../../common/statistic';
 import { STATISTIC } from '../../app/mock-http/mock-http-data';
-import { Mistakes } from '../../common/mistake';
 class StatisticDAO {
   private STATISTIC_DB: LokiCollection<{}>;
 
@@ -16,13 +15,10 @@ class StatisticDAO {
 
   updateStatisticList(stat: StatisticData) {
     this.STATISTIC_DB.insert(stat);
-    console.log(this.getMistakes());
   }
 
-  getMistakes() {
-    return this.STATISTIC_DB.mapReduce(
-      (item: StatisticData) => item.mistakes,
-      a => a.reduce((prev, curr) => Mistakes.add(prev, curr) ));
+  getAll() {
+    return this.STATISTIC_DB.data;
   }
 }
 

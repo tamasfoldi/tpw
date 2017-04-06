@@ -1,6 +1,5 @@
 import { Lesson } from '../../common/lesson';
 import { LESSONS } from '../../app/mock-http/mock-http-data';
-import * as _ from 'lodash';
 import { SINGLETON as WordsDAO } from '../words/words.dao';
 
 class LessonDAO {
