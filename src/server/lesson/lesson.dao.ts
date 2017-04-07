@@ -18,7 +18,7 @@ class LessonDAO {
 
   findById(id: string): Lesson {
     const retLesson: Lesson = this.LESSON_DB.findOne({ id }) as Lesson;
-    retLesson.text = WordsDAO.getWords(retLesson.includedLetters, 2).toString().replace(/,/g, ' ');
+    retLesson.text = WordsDAO.getWordsForLetters(retLesson.includedLetters, 50).toString().replace(/,/g, ' ');
     return retLesson;
   }
 }

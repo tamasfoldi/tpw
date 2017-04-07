@@ -24,28 +24,37 @@ class WordsDAO {
     return this.WORDS_DB.data;
   }
 
-  getWords(arr: { [key: string]: number }, totalNumberOfWords = 100) {
-    const keys = Object.keys(arr);
-    const corrObj = _.pick(this.getCorrectionObject(), keys);
-    const max = Object.keys(corrObj).reduce((prev, curr) => prev >= corrObj[curr] ? prev : corrObj[curr], 0);
-    const mappedObj = _.mapValues(corrObj, o => (100 / max) * o);
-    arr = _.mergeWith(arr, mappedObj, (objValue, sourceValue) => objValue * 0.5 + sourceValue * 0.5);
-
-    const numberOfWordForKey = _.mapValues(arr, (o) => totalNumberOfWords * (o / 100) >= 1 ? totalNumberOfWords * (o / 100) : 1);
-    const joinedKeys = [keys.join('')];
-    const differedArraysByKey = keys.reduce((p, c) => {
-      p[c] = _.differenceWith(this.WORDS_DB.data[0][c], joinedKeys, this.diff);
+  getWordsForLetters(weightedLetters: { [key: string]: number }, totalNumberOfWords = 100) {
+    const requestedLetters = Object.keys(weightedLetters);
+    const joinedLetters = [requestedLetters.join('')];
+    const correctionObejctBasedOnStats = _.pick(this.getCorrectionObject(), requestedLetters);
+    const differedArraysByKey = requestedLetters.reduce((p, c) => {
+      p[c] = _.differenceWith(this.WORDS_DB.data[0][c], joinedLetters, this.diff);
       return p;
     }, {});
-    console.log(numberOfWordForKey);
-    const tmp = keys.reduce((prev, curr) => {
-      if (differedArraysByKey[curr].length < numberOfWordForKey[curr]) {
-        differedArraysByKey[curr] = this.fillArray(differedArraysByKey[curr], numberOfWordForKey[curr]);
+
+    weightedLetters = this.correctWeightedLetters(weightedLetters, correctionObejctBasedOnStats);
+
+    const numberOfWordsForLetters = _.mapValues(weightedLetters, (o) =>
+      totalNumberOfWords * (o / 100) >= 1 ? totalNumberOfWords * (o / 100) : 1);
+
+
+    const requestedWords = requestedLetters.reduce((prev, curr) => {
+      if (differedArraysByKey[curr].length < numberOfWordsForLetters[curr]) {
+        differedArraysByKey[curr] = this.fillArray(differedArraysByKey[curr], numberOfWordsForLetters[curr]);
       }
-      return _.concat(prev, _.take(_.shuffle(differedArraysByKey[curr]), numberOfWordForKey[curr]));
+      return _.concat(prev, _.take(_.shuffle(differedArraysByKey[curr]), numberOfWordsForLetters[curr]));
     }, []);
 
-    return _.shuffle(tmp);
+    return _.shuffle(requestedWords);
+  }
+
+  private correctWeightedLetters(weightedLetters, correctionObject) {
+    const maxFailCount = Object.keys(correctionObject)
+      .reduce((prev, curr) => prev >= correctionObject[curr] ? prev : correctionObject[curr], 0);
+    correctionObject = _.mapValues(correctionObject, o => (100 / maxFailCount) * o);
+    return _.mergeWith(weightedLetters, correctionObject, (objValue, sourceValue) =>
+      objValue * 0.5 + sourceValue * 0.5);
   }
 
   private getCorrectionObject() {
