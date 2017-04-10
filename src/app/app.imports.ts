@@ -28,7 +28,7 @@ export const APP_IMPORTS = [
   MdInputModule,
 
   RouterModule.forRoot(routes),
-  StoreRouterConnectingModule,
+  // StoreRouterConnectingModule,
 
   StoreModule.provideStore(reducer),
   !environment.production ? StoreDevtoolsModule.instrumentOnlyWithExtension() : [],

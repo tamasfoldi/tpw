@@ -1,7 +1,9 @@
-export interface Lesson {
-  id: string;
-  title: string;
-  text: string;
-  difficulty: number;
-  includedLetters: { [key: string]: number };
+import { serialize } from 'cerialize';
+
+export class Lesson {
+  @serialize id: string;
+  @serialize title: string;
+  @serialize text: string;
+  @serialize difficulty: number;
+  @serialize includedLetters: { [key: string]: number };
 }

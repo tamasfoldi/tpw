@@ -10,13 +10,13 @@ import { environment } from '../../environments/environment';
 export interface State {
   lessons: fromLessons.State;
   lesson: fromLesson.State;
-  router: string;
+  // router: string;
 }
 
 export const reducers = {
   lessons: fromLessons.reducer,
   lesson: fromLesson.reducer,
-  router: fromRouter.reducer
+  // router: fromRouter.reducer
 };
 
 const developmentReducer: ActionReducer<State> = compose(storeLogger(), combineReducers)(reducers);
