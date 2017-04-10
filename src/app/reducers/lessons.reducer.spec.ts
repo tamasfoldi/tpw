@@ -51,7 +51,7 @@ describe('LessonsReducer', () => {
     });
   });
 
-  describe('COMPLETE', () => {
+  describe('SET_AVAIL', () => {
     it('should set is loading false', () => {
       const startingState: State = {
         isLoading: false,
@@ -61,13 +61,13 @@ describe('LessonsReducer', () => {
         ]
       };
       const expectedResult: State = {
-        isLoading: false,
+        isLoading: true,
         lessonList: [
           { id: 'test_1', title: 'Test 1', isAvailable: true },
-          { id: 'test_2', title: 'Test 2', isAvailable: true }
+          { id: 'test_2', title: 'Test 2', isAvailable: false }
         ]
       };
-      const result = reducer(startingState, new lesson.CompleteAction('test_1'));
+      const result = reducer(startingState, new lessons.SetAvailAction('test_1'));
 
       expect(result).toEqual(expectedResult);
     });

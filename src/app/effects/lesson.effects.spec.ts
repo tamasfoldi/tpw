@@ -118,7 +118,7 @@ describe('LessonEffects', () => {
           includedLetters: [{ 'a': 1 }]
         }));
         store.dispatch(new player.KeyAction(new KeyboardEvent('t', { code: 'KeyT', key: 't' })));
-        const expectedResult1 = new lesson.CompleteAction('test_1');
+        const expectedResult1 = new lessons.SetAvailAction('test_1');
         const expectedResult2 = new lesson.EndAction();
 
         let result1, result2 = null;
