@@ -1,3 +1,4 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -18,6 +19,7 @@ import { routes } from './app.routes';
 import { environment } from '../environments/environment';
 
 export const APP_IMPORTS = [
+  BrowserAnimationsModule,
   BrowserModule,
   FormsModule,
   HttpModule,
@@ -29,7 +31,7 @@ export const APP_IMPORTS = [
   StoreRouterConnectingModule,
 
   StoreModule.provideStore(reducer),
-  !environment.production ? StoreDevtoolsModule.instrumentOnlyWithExtension() : [],
+  // !environment.production ? StoreDevtoolsModule.instrumentOnlyWithExtension() : [],
 
   EffectsModule.run(LessonsEffects),
   EffectsModule.run(LessonEffects),
