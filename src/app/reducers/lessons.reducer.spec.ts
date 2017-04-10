@@ -73,7 +73,7 @@ describe('LessonsReducer', () => {
   });
 
   describe('SET_AVAIL_FAIL', () => {
-    it('should set isLoading false', () => {
+    it('should set is loading false', () => {
       const startingState: State = Object.assign({}, initialState, { isLoading: true });
       const expectedResult: State = initialState;
       const result = reducer(startingState, new lessons.SetAvailFailAction('test_1'));

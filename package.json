@@ -18,7 +18,9 @@
     "test": "ng test",
     "watch": "npm run watch-dev-client & npm run watch-dev-server",
     "watch-dev-client": "ng build --watch --output-path=dev/client",
-    "watch-dev-server": "tsc --project src/server/ --outDir dev/ --sourceMap --watch"
+    "watch-dev-server": "tsc --project src/server/ --outDir dev/ --sourceMap --watch",
+    "precommit": "ng lint",
+    "prepush": "npm run test"
   },
   "private": true,
   "dependencies": {
@@ -62,6 +64,7 @@
     "angular2-template-loader": "^0.6.2",
     "codelyzer": "~2.0.1",
     "electron": "^1.6.6",
+    "husky": "^0.13.3",
     "jasmine-core": "~2.5.2",
     "jasmine-spec-reporter": "~3.2.0",
     "karma": "~1.4.1",
