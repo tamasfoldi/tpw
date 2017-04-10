@@ -65,7 +65,6 @@ describe('LessonEffects', () => {
 
         lessonsEffects.loadList$
           .subscribe(_result => result = _result);
-        expect(true).toBeFalsy();
       })));
 
     it('should return a new LoadListFailAction, with the fail', fakeAsync(
