@@ -36,7 +36,7 @@ export function reducer(state = initialState, action: Action): State {
     case lessons.ActionTypes.SET_AVAIL_SUCCESS: {
       const lessonId = action.payload;
       const lessonList = [...state.lessonList];
-      const nextListId = lessonList.findIndex(l => l.id === lessonId) + 1;
+      const nextListId = lessonList.findIndex(l => l.id === lessonId);
       if (nextListId <= lessonList.length - 1) {
         lessonList[nextListId] = Object.assign({}, lessonList[nextListId], { isAvailable: true });
       }

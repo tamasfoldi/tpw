@@ -42,7 +42,7 @@ export class SetAvailAction implements Action {
 export class SetAvailSuccessAction implements Action {
   type = ActionTypes.SET_AVAIL_SUCCESS;
 
-  constructor() { }
+  constructor(public payload: string) { }
 }
 
 export class SetAvailFailAction implements Action {
