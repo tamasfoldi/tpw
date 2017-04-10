@@ -31,7 +31,7 @@ export function reducer(state = initialState, action: Action): State {
       return Object.assign({}, state, { isLoading: false });
     }
 
-    case lesson.ActionTypes.COMPLETE: {
+    case lessons.ActionTypes.SET_AVAIL: {
       const lessonId = action.payload;
       const lessonList = [...state.lessonList];
       const nextListId = lessonList.findIndex(l => l.id === lessonId) + 1;

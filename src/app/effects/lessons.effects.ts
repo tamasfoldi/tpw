@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 
 import { LessonListService } from '../services/lesson-list/lesson-list.service';
 import * as lessons from '../actions/lessons.actions';
-import * as lesson from '../actions/lesson.actions';
 
 @Injectable()
 export class LessonsEffects {
@@ -22,7 +21,7 @@ export class LessonsEffects {
 
   @Effect()
   setAvail$: Observable<Action> = this.actions$
-    .ofType(lesson.ActionTypes.COMPLETE)
+    .ofType(lessons.ActionTypes.SET_AVAIL)
     .map(toPayload)
     .switchMap(id => this.lessonListService.setAvailable(id)
       .map(ls => new lessons.SetAvailSuccessAction())

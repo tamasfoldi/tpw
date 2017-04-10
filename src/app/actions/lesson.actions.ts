@@ -15,9 +15,7 @@ export const ActionTypes = {
 
   COUNT: type('[LESSON] Count'),
 
-  END: type('[LESSON] End'),
-
-  COMPLETE: type('[LESSON] Complete')
+  END: type('[LESSON] End')
 };
 
 export class LoadAction implements Action {
@@ -44,12 +42,6 @@ export class ClearAction implements Action {
   constructor(public payload?: void) { }
 }
 
-export class CompleteAction implements Action {
-  type = ActionTypes.COMPLETE;
-
-  constructor(public payload: string) { }
-}
-
 export class StartAction implements Action {
   type = ActionTypes.START;
 
@@ -73,7 +65,6 @@ export type Actions
   | LoadSuccessAction
   | LoadFailAction
   | ClearAction
-  | CompleteAction
   | StartAction
   | EndAction
   | CountAction;
