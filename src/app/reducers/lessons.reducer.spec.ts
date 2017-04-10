@@ -17,10 +17,7 @@ describe('LessonsReducer', () => {
 
   describe('LOAD_LIST', () => {
     it('should set isLoading true', () => {
-      const expectedResult: State = {
-        isLoading: true,
-        lessonList: []
-      };
+      const expectedResult: State = Object.assign({}, initialState, { isLoading: true });
       const result = reducer(initialState, new lessons.LoadListAction());
 
       expect(result).toEqual(expectedResult);
@@ -28,31 +25,30 @@ describe('LessonsReducer', () => {
   });
 
   describe('LOAD_LIST_SUCCESS', () => {
-    it('should add the received list to the state and set loading false', () => {
-      const expectedResult: State = {
-        isLoading: false,
-        lessonList: [{ id: 'test_1', title: 'Test 1', isAvailable: false }]
-      };
-      const result = reducer(initialState, new lessons.LoadListSuccessAction([{ id: 'test_1', title: 'Test 1', isAvailable: false }]));
+    it('should add the received list to the state and set isLoading false', () => {
+      const expectedResult: State = Object.assign({}, initialState, {
+        lessonList: [{ id: '1', title: 'Test 1', isAvailable: false }]
+      });
+
+      const result = reducer(initialState, new lessons.LoadListSuccessAction([{ id: '1', title: 'Test 1', isAvailable: false }]));
 
       expect(result).toEqual(expectedResult);
     });
   });
 
   describe('LOAD_LIST_FAIL', () => {
-    it('should set is loading false', () => {
-      const expectedResult: State = {
-        isLoading: false,
-        lessonList: []
-      };
-      const result = reducer(initialState, new lessons.LoadListFailAction('fail'));
+    it('should set isLoading false', () => {
+      const startingState = Object.assign({}, initialState, { isLoading: true });
+      const expectedResult: State = Object.assign({}, initialState, { isLoading: false });
+
+      const result = reducer(startingState, new lessons.LoadListFailAction('fail'));
 
       expect(result).toEqual(expectedResult);
     });
   });
 
   describe('SET_AVAIL', () => {
-    it('should set is loading true', () => {
+    it('should set isLoading true', () => {
       const expectedResult: State = Object.assign({}, initialState, { isLoading: true });
       const result = reducer(initialState, new lessons.SetAvailAction('test_1'));
 
@@ -61,7 +57,7 @@ describe('LessonsReducer', () => {
   });
 
   describe('SET_AVAIL_SUCCESS', () => {
-    it('should set is loading false, and set the availability', () => {
+    it('should set isLoading false, and set the availability', () => {
       const startingState: State = {
         isLoading: true,
         lessonList: [{ id: 'test_1', title: 'Test 1', isAvailable: false }]
@@ -77,7 +73,7 @@ describe('LessonsReducer', () => {
   });
 
   describe('SET_AVAIL_FAIL', () => {
-    it('should set is loading false', () => {
+    it('should set isLoading false', () => {
       const startingState: State = Object.assign({}, initialState, { isLoading: true });
       const expectedResult: State = initialState;
       const result = reducer(startingState, new lessons.SetAvailFailAction('test_1'));

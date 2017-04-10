@@ -5,18 +5,16 @@ import { createSelector } from 'reselect';
 
 import * as fromLessons from './lessons.reducer';
 import * as fromLesson from './lesson.reducer';
-import * as fromRouter from './router.reducer';
 import { environment } from '../../environments/environment';
+
 export interface State {
   lessons: fromLessons.State;
   lesson: fromLesson.State;
-  // router: string;
 }
 
 export const reducers = {
   lessons: fromLessons.reducer,
-  lesson: fromLesson.reducer,
-  // router: fromRouter.reducer
+  lesson: fromLesson.reducer
 };
 
 const developmentReducer: ActionReducer<State> = compose(storeLogger(), combineReducers)(reducers);
