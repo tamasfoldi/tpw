@@ -111,14 +111,14 @@ describe('LessonEffects', () => {
     it('should return a new EndAction and a CompleteAction, with the lessonId',
       inject([LessonService, Store], (lessonService: LessonService, store: Store<State>) => {
         store.dispatch(new lesson.LoadSuccessAction({
-          id: 'test_1',
+          id: '1',
           text: 't',
           title: 'Test',
           difficulty: 100,
           includedLetters: [{ 'a': 1 }]
         }));
         store.dispatch(new player.KeyAction(new KeyboardEvent('t', { code: 'KeyT', key: 't' })));
-        const expectedResult1 = new lessons.SetAvailAction('test_1');
+        const expectedResult1 = new lessons.SetAvailAction('2');
         const expectedResult2 = new lesson.EndAction();
 
         let result1, result2 = null;

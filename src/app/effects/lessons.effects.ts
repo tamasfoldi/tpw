@@ -23,7 +23,6 @@ export class LessonsEffects {
   setAvail$: Observable<Action> = this.actions$
     .ofType(lessons.ActionTypes.SET_AVAIL)
     .map(toPayload)
-    .map(id => (parseInt(id, 10) + 1).toString())
     .switchMap(id => this.lessonListService.setAvailable(id)
       .map(ls => new lessons.SetAvailSuccessAction(id))
       .catch(() => Observable.of(new lessons.SetAvailFailAction('fail'))));

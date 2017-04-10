@@ -41,7 +41,7 @@ export class LessonEffects {
       .take(1)
       .mergeMap(id => [
         new lesson.EndAction(),
-        new lessons.SetAvailAction(id)
+        new lessons.SetAvailAction((parseInt(id, 10) + 1).toString())
       ])
     );
 
