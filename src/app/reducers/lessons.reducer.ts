@@ -17,8 +17,14 @@ export const initialState: State = {
 
 export function reducer(state = initialState, action: Action): State {
   switch (action.type) {
+    case lessons.ActionTypes.SET_AVAIL:
     case lessons.ActionTypes.LOAD_LIST: {
       return Object.assign({}, state, { isLoading: true });
+    }
+
+    case lessons.ActionTypes.SET_AVAIL_FAIL:
+    case lessons.ActionTypes.LOAD_LIST_FAIL: {
+      return Object.assign({}, state, { isLoading: false });
     }
 
     case lessons.ActionTypes.LOAD_LIST_SUCCESS: {
@@ -27,11 +33,7 @@ export function reducer(state = initialState, action: Action): State {
       return Object.assign({}, state, { lessonList: [...lessonList], isLoading: false });
     }
 
-    case lessons.ActionTypes.LOAD_LIST_FAIL: {
-      return Object.assign({}, state, { isLoading: false });
-    }
-
-    case lessons.ActionTypes.SET_AVAIL: {
+    case lessons.ActionTypes.SET_AVAIL_SUCCESS: {
       const lessonId = action.payload;
       const lessonList = [...state.lessonList];
       const nextListId = lessonList.findIndex(l => l.id === lessonId) + 1;
@@ -39,7 +41,7 @@ export function reducer(state = initialState, action: Action): State {
         lessonList[nextListId] = Object.assign({}, lessonList[nextListId], { isAvailable: true });
       }
 
-      return Object.assign({}, state, { lessonList: lessonList });
+      return Object.assign({}, state, { isLoading: false, lessonList: lessonList });
     }
 
     default: {
