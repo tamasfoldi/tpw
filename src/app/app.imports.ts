@@ -31,7 +31,7 @@ export const APP_IMPORTS = [
   StoreRouterConnectingModule,
 
   StoreModule.provideStore(reducer),
-  // !environment.production ? StoreDevtoolsModule.instrumentOnlyWithExtension() : [],
+  !environment.production ? StoreDevtoolsModule.instrumentOnlyWithExtension() : [],
 
   EffectsModule.run(LessonsEffects),
   EffectsModule.run(LessonEffects),
