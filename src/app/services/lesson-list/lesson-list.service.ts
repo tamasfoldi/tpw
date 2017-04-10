@@ -13,4 +13,9 @@ export class LessonListService {
     return this.http.get(`${this.baseUrl}`)
       .map(rsp => rsp.json());
   }
+
+  setAvailable(id: string): Observable<void> {
+    return this.http.put(`${this.baseUrl}/${id}`, {})
+      .map(rsp => rsp.json());
+  }
 }

@@ -17,6 +17,12 @@ class LessonListDAO {
   getAll(): LessonListElement[] {
     return this.LESSON_LIST_DB.data as LessonListElement[];
   }
+
+  updateAvailability(id: string) {
+    const lesson = this.LESSON_LIST_DB.findOne({ id }) as LessonListElement;
+    lesson.isAvailable = true;
+    this.LESSON_LIST_DB.update(lesson);
+  }
 }
 
 export const SINGLETON: LessonListDAO = new LessonListDAO();

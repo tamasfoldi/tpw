@@ -1,6 +1,6 @@
 import * as Router from 'koa-router';
 import * as fs from 'fs';
-import LESSON_LIST_ROUTE from './lesson-list/lesson-list.routes';
+import * as lessonListRoutes from './lesson-list/lesson-list.routes';
 import LESSON_ROUTE from './lesson/lesson.routes';
 import STATISTIC_ROUTE from './statistic/statistic.routes';
 import WORDS from './words/words.routes';
@@ -17,7 +17,8 @@ const LOAD_HTML = function () {
   });
 };
 
-ROUTER.get(LESSON_LIST_ROUTE.path, LESSON_LIST_ROUTE.middleware);
+ROUTER.get(lessonListRoutes.GET_LESSONS_LIST.path, lessonListRoutes.GET_LESSONS_LIST.middleware);
+ROUTER.put(lessonListRoutes.UPDATE_AVAILABILITY.path, lessonListRoutes.UPDATE_AVAILABILITY.middleware);
 ROUTER.get(LESSON_ROUTE.path, LESSON_ROUTE.middleware);
 ROUTER.get(WORDS.path, WORDS.middleware);
 ROUTER.post(STATISTIC_ROUTE.path, STATISTIC_ROUTE.middleware);
