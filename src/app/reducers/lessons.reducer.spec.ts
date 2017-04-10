@@ -52,22 +52,35 @@ describe('LessonsReducer', () => {
   });
 
   describe('SET_AVAIL', () => {
-    it('should set is loading false', () => {
+    it('should set is loading true', () => {
+      const expectedResult: State = Object.assign({}, initialState, { isLoading: true });
+      const result = reducer(initialState, new lessons.SetAvailAction('test_1'));
+
+      expect(result).toEqual(expectedResult);
+    });
+  });
+
+  describe('SET_AVAIL_SUCCESS', () => {
+    it('should set is loading false, and set the availability', () => {
       const startingState: State = {
-        isLoading: false,
-        lessonList: [
-          { id: 'test_1', title: 'Test 1', isAvailable: true },
-          { id: 'test_2', title: 'Test 2', isAvailable: false }
-        ]
+        isLoading: true,
+        lessonList: [{ id: 'test_1', title: 'Test 1', isAvailable: false }]
       };
       const expectedResult: State = {
-        isLoading: true,
-        lessonList: [
-          { id: 'test_1', title: 'Test 1', isAvailable: true },
-          { id: 'test_2', title: 'Test 2', isAvailable: false }
-        ]
+        isLoading: false,
+        lessonList: [{ id: 'test_1', title: 'Test 1', isAvailable: true }]
       };
-      const result = reducer(startingState, new lessons.SetAvailAction('test_1'));
+      const result = reducer(startingState, new lessons.SetAvailSuccessAction('test_1'));
+
+      expect(result).toEqual(expectedResult);
+    });
+  });
+
+  describe('SET_AVAIL_FAIL', () => {
+    it('should set is loading false', () => {
+      const startingState: State = Object.assign({}, initialState, { isLoading: true });
+      const expectedResult: State = initialState;
+      const result = reducer(startingState, new lessons.SetAvailFailAction('test_1'));
 
       expect(result).toEqual(expectedResult);
     });
