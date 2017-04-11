@@ -24,11 +24,6 @@ describe('LessonListService', () => {
     });
   });
 
-  it('should ...', inject([LessonListService], (service: LessonListService) => {
-    expect(service).toBeTruthy();
-  }));
-
-
   describe('getLessonList', () => {
     it('should retrieves the LessonList',
       inject([LessonListService, MockBackend], fakeAsync((lessonListService: LessonListService, mockBackend: MockBackend) => {

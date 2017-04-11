@@ -1,4 +1,4 @@
-import { MapComponent } from './containers/map/map.component';
+import { LessonListViewComponent } from './containers/lesson-list-view/lesson-list-view.component';
 import { WaypointComponent } from './components/waypoint/waypoint.component';
 import { LessonComponent } from './components/lesson/lesson.component';
 import { LessonViewComponent } from './containers/lesson-view/lesson-view.component';
@@ -7,7 +7,7 @@ import { ProgressBarComponent } from './components/progress-bar/progress-bar.com
 import { StartCounterComponent } from './components/start-counter/start-counter.component';
 
 export const APP_DECLRATATIONS = [
-  MapComponent,
+  LessonListViewComponent,
   WaypointComponent,
   LessonComponent,
   LessonViewComponent,

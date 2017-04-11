@@ -9,11 +9,11 @@ import * as fromRoot from '../../reducers/index';
 import * as lessons from '../../actions/lessons.actions';
 
 @Component({
-  selector: 'tpw-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss']
+  selector: 'tpw-lesson-list-view',
+  templateUrl: './lesson-list-view.component.html',
+  styleUrls: ['./lesson-list-view.component.scss']
 })
-export class MapComponent implements OnInit {
+export class LessonListViewComponent implements OnInit {
   lessons$: Observable<LessonListElement[]>;
   isLoading$: Observable<boolean>;
   constructor(private store: Store<State>, private router: Router) { }
