@@ -12,33 +12,36 @@ export class ComputerEnemy {
   lessonTextLength: number;
   startSub: Subscription;
 
+  subs: Subscription[] = [];
+
   readonly id = 'computer';
   constructor(private store: Store<State>) {
 
   }
 
   connectToRace() {
-    this.store.select(fromRoot.getCurrentLessonDifficulty)
+    this.unsub();
+    this.subs.push(this.store.select(fromRoot.getCurrentLessonDifficulty)
       .filter(d => !!d)
       .take(1)
-      .subscribe(d => this.lessonDifficulty = d);
+      .subscribe(d => this.lessonDifficulty = d));
 
-    this.store.select(fromRoot.getCurrentLessonText)
+    this.subs.push(this.store.select(fromRoot.getCurrentLessonText)
       .filter(t => !!t)
       .take(1)
-      .subscribe(t => this.lessonTextLength = t.length);
+      .subscribe(t => this.lessonTextLength = t.length));
 
-    this.store.select(fromRoot.isLessonEnded)
+    this.subs.push(this.store.select(fromRoot.isLessonEnded)
       .filter(e => e)
       .take(1)
       .subscribe(e => {
         this.startSub.unsubscribe();
-      });
+      }));
 
-    this.store.select(fromRoot.isLessonStarted)
+    this.subs.push(this.store.select(fromRoot.isLessonStarted)
       .filter(s => s)
       .take(1)
-      .subscribe(() => this.start());
+      .subscribe(() => this.start()));
 
     this.store.dispatch(new player.NewAction(this.id));
     this.store.dispatch(new player.ReadyAction(this.id));
@@ -48,10 +51,16 @@ export class ComputerEnemy {
       .timeInterval()
       .take(this.lessonTextLength)
       .subscribe(v => this.store.dispatch(new player.ProgressAction({
-        id: `computer`,
+        id: this.id,
         progress: Math.floor(((v.value + 1) / this.lessonTextLength) * 100)
       })),
       () => { },
-      () => this.store.dispatch(new lesson.EndAction()));
+      () => this.store
+        .dispatch(new lesson.EndAction()));
+    this.subs.push(this.startSub);
+  }
+
+  unsub() {
+    this.subs.forEach(s => s.unsubscribe());
   }
 }
