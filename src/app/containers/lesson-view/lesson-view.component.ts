@@ -26,10 +26,8 @@ export class LessonViewComponent implements OnInit {
   progress$: Observable<number>;
   enemiesProgress$: Observable<number[]>;
 
-  enemy: ComputerEnemy;
-
   readonly playerId = 'player';
-  constructor(private store: Store<State>) {
+  constructor(private store: Store<State>, private enemy: ComputerEnemy) {
   }
 
   ngOnInit() {
@@ -39,7 +37,7 @@ export class LessonViewComponent implements OnInit {
 
   initializePlayers() {
     this.store.dispatch(new player.NewAction(this.playerId));
-    this.enemy = new ComputerEnemy(this.store);
+    this.enemy.connectToRace();
   }
 
   initializeDatasFromStore() {

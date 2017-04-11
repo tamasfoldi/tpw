@@ -7,6 +7,7 @@ import { LESSON_BASE_URL, STATISTIC_BASE_URL, LESSONLIST_BASE_URL } from './serv
 import { environment } from '../environments/environment';
 import { Provider } from '@angular/core';
 import { MyMockConnectionBackend } from './mock-http/my-mock-connection-backend';
+import { ComputerEnemy } from './computer-enemy/computer-enemy';
 
 export const _LESSONLIST_BASE_URL = environment.apiBaseUrl + '/' + environment.lessonListApiUrl;
 export const _LESSON_BASE_URL = environment.apiBaseUrl + '/' + environment.lessonApiUrl;
@@ -17,6 +18,7 @@ export const APP_PROVIDERS: Provider[] = [
   StatisticsService,
   LessonGuard,
   MyDomRenderer,
+  ComputerEnemy,
 
   { provide: LESSONLIST_BASE_URL, useValue: _LESSONLIST_BASE_URL },
   { provide: LESSON_BASE_URL, useValue: _LESSON_BASE_URL },

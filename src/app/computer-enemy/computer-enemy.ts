@@ -14,6 +14,10 @@ export class ComputerEnemy {
 
   readonly id = 'computer';
   constructor(private store: Store<State>) {
+
+  }
+
+  connectToRace() {
     this.store.select(fromRoot.getCurrentLessonDifficulty)
       .filter(d => !!d)
       .take(1)
