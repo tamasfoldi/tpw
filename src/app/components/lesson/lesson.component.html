@@ -1,6 +1,6 @@
 <h1>{{lesson?.title}}</h1>
 <div>
-  <span class="typedText">{{typedText.split(' ').join('_')}}</span><span>{{lesson?.text | slice:typedText?.length:lesson?.text.length}}</span>
+  <span class="typedText">{{typedText?.split(' ').join('_')}}</span><span>{{lesson?.text | slice:typedText?.length:lesson?.text.length}}</span>
 </div>
 
 <md-input-container class="example-full-width">
