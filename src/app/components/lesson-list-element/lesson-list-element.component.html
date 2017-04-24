@@ -1,1 +1,1 @@
-<div (click)='onSelect.emit(lesson.id)' [ngClass]="{'available': lesson.isAvailable}"> {{lesson.title}}</div>
+<div (click)='onSelect.emit(lesson.id)' [ngClass]="{'available': lesson?.isAvailable}"> {{lesson?.title}}</div>
