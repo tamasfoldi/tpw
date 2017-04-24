@@ -120,9 +120,12 @@ module.exports = function (wallaby) {
       'src/app/app.imports.ts',
       'src/app/app.declarations.ts',
       'src/app/app.providers.ts',
-      'src/app/services/renderer/**/*.ts'
+      'src/app/app.routes.ts',
+      'src/app/services/renderer/**/*.ts',
+      'src/common/**/*.ts',
+      'src/server/**/*.ts'
     ],
 
-    debug: false
+    debug: true
   };
 };

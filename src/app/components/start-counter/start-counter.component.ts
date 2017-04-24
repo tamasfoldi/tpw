@@ -11,9 +11,8 @@ import { Observable } from 'rxjs/Rx';
   styleUrls: ['./start-counter.component.scss']
 })
 export class StartCounterComponent implements OnInit {
-  secsBeforeStart = 3;
+  readonly secsBeforeStart = 3;
   counted = 0;
-
   constructor(private store: Store<State>) { }
 
   ngOnInit() {
@@ -24,6 +23,7 @@ export class StartCounterComponent implements OnInit {
   }
 
   startCounting() {
+    this.counted = 0;
     Observable.interval(1000)
       .timeInterval()
       .take(this.secsBeforeStart)

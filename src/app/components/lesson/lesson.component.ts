@@ -11,7 +11,7 @@ import { MyDomRenderer } from '../../services/renderer/my-dom-renderer';
   styleUrls: ['./lesson.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LessonComponent implements OnInit, AfterContentChecked {
+export class LessonComponent implements AfterContentChecked {
 
   @Input('lesson')
   lesson: Lesson;
@@ -29,8 +29,6 @@ export class LessonComponent implements OnInit, AfterContentChecked {
   lessonInput: ElementRef;
 
   constructor(private renderer: MyDomRenderer) { }
-
-  ngOnInit() { }
 
   ngAfterContentChecked() {
     this.renderer.invokeElementMethod(this.lessonInput.nativeElement, 'focus', []);

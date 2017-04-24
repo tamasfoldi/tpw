@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { LessonListElement } from '../../../common/lesson-list-element';
 
 @Component({
@@ -6,14 +6,11 @@ import { LessonListElement } from '../../../common/lesson-list-element';
   templateUrl: './lesson-list-element.component.html',
   styleUrls: ['./lesson-list-element.component.scss']
 })
-export class LessonListElementComponent implements OnInit {
+export class LessonListElementComponent {
   @Input('lesson')
   lesson: LessonListElement;
 
   @Output('onSelect')
   onSelect = new EventEmitter<string>();
   constructor() { }
-
-  ngOnInit() {
-  }
 }

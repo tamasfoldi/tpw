@@ -75,12 +75,12 @@ describe('LessonEffects', () => {
       inject([LessonService], (lessonService: LessonService) => {
         spyOn(lessonService, 'getLesson').and.returnValue(Observable.of({
           id: 'test_1', text: 'test', title: 'Test', difficulty: 100,
-          includedLetters: [{ 'a': 1 }]
+          includedLetters: { 'a': 1 }
         }));
 
         const expectedResult = new lesson.LoadSuccessAction({
           id: 'test_1', text: 'test', title: 'Test', difficulty: 100,
-          includedLetters: [{ 'a': 1 }]
+          includedLetters: { 'a': 1 }
         });
         runner.queue(new lesson.LoadAction('test_1'));
         let result = null;
@@ -115,7 +115,7 @@ describe('LessonEffects', () => {
           text: 't',
           title: 'Test',
           difficulty: 100,
-          includedLetters: [{ 'a': 1 }]
+          includedLetters: { 'a': 1 }
         }));
         store.dispatch(new player.KeyAction(new KeyboardEvent('t', { code: 'KeyT', key: 't' })));
         const expectedResult1 = new lessons.SetAvailAction('2');
@@ -145,7 +145,7 @@ describe('LessonEffects', () => {
           text: 't',
           title: 'Test',
           difficulty: 100,
-          includedLetters: [{ 'a': 1 }]
+          includedLetters: { 'a': 1 }
         }));
         store.dispatch(new lesson.EndAction());
         const expectedResult = new statistic.AddAction(new Statistic({
@@ -174,7 +174,7 @@ describe('LessonEffects', () => {
           text: 't',
           title: 'Test',
           difficulty: 100,
-          includedLetters: [{ 'a': 1 }]
+          includedLetters: { 'a': 1 }
         }));
         store.dispatch(new player.KeyAction(new KeyboardEvent('t', { code: 'KeyT', key: 't' })));
         const expectedResult = new player.ProgressAction({ id: 'player', progress: 100 });

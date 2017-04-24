@@ -5,20 +5,18 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: './progress-bar.component.html',
   styleUrls: ['./progress-bar.component.scss']
 })
-export class ProgressBarComponent implements OnInit {
-
+export class ProgressBarComponent {
+  private _value;
   @Input('value')
-  value = 0;
+  set value(value: string) {
+    this._value = value;
+  };
 
-  get _value() {
-    return `${this.value}%`;
+  get value(): string {
+    return `${this._value}%`;
   }
   @Input('color')
   color = 'red';
 
   constructor() { }
-
-  ngOnInit() {
-  }
-
 }

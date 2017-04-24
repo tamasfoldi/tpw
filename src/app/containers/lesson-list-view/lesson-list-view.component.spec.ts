@@ -8,6 +8,7 @@ import { of } from 'rxjs/observable/of';
 
 import { LessonListViewComponent } from './lesson-list-view.component';
 import { LessonListElementComponent } from '../../components/lesson-list-element/lesson-list-element.component';
+import * as fromRoot from '../../reducers';
 
 describe('LessonListViewComponent', () => {
   let component: LessonListViewComponent;
@@ -24,7 +25,6 @@ describe('LessonListViewComponent', () => {
           provide: Store,
           useClass: class {
             select = jasmine.createSpy('select').and.returnValue(of());
-            dispatch = jasmine.createSpy('dispatch');
           }
         }
       ],
@@ -42,7 +42,8 @@ describe('LessonListViewComponent', () => {
   });
 
   describe('ngOnInit', () => {
-    it('should initialize datas from Store', () => {
+    it('should initialize datas from Store', inject([Store], (store: Store<any>) => {
+      store.select = jasmine.createSpy('select').and.returnValue(of());
       const specFixture = TestBed.createComponent(LessonListViewComponent);
       const specComponent = specFixture.componentInstance;
       expect(specComponent.lessons$).toBeUndefined();
@@ -52,7 +53,8 @@ describe('LessonListViewComponent', () => {
 
       expect(specComponent.lessons$).toBeDefined();
       expect(specComponent.isLoading$).toBeDefined();
-    });
+      expect(store.select).toHaveBeenCalledTimes(2);
+    }));
   });
 
   describe('handleLessonSelect', () => {
@@ -67,7 +69,7 @@ describe('LessonListViewComponent', () => {
     }));
 
     it('should be called when list element onSelect emits', () => {
-      component.lessons$ = of([{ id: '1', title: 'test', isAvailable: true }]);
+      component.lessons$ = of([{ id: '1', title: 'test', isAvailable: true }, { id: '2', title: 'test', isAvailable: true }]);
       component.isLoading$ = of(false);
       fixture.detectChanges();
       spyOn(component, 'handleLessonSelect');
@@ -80,6 +82,16 @@ describe('LessonListViewComponent', () => {
       expect(component.handleLessonSelect).toHaveBeenCalledTimes(1);
       expect(component.handleLessonSelect).toHaveBeenCalledWith('1');
     });
+  });
+
+  it('should display as many list element es lessons$.length', () => {
+    component.lessons$ = of([{ id: '1', title: 'test', isAvailable: true }, { id: '2', title: 'test', isAvailable: true }]);
+    component.isLoading$ = of(false);
+    fixture.detectChanges();
+
+    const displayedListElements = fixture.debugElement.nativeElement.querySelectorAll('tpw-lesson-list-element');
+
+    expect(displayedListElements.length).toEqual(2);
   });
 
   it('should display isLoading, when isLoading$ is false', () => {
