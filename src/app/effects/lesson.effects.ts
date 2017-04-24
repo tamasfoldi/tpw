@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 
 import { LessonService } from '../services/lesson/lesson.service';
 import * as lessons from '../actions/lessons.actions';

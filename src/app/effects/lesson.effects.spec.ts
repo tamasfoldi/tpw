@@ -37,9 +37,9 @@ describe('LessonEffects', () => {
       {
         provide: Http, useFactory: (backend: ConnectionBackend,
           defaultOptions: BaseRequestOptions) => {
-          return new MockHttp(backend, defaultOptions);
+          return new Http(backend, defaultOptions);
 
-        }, deps: [MockBackend, BaseRequestOptions, LESSON_BASE_URL]
+        }, deps: [MockBackend, BaseRequestOptions]
       }
     ]
   }));

@@ -27,7 +27,7 @@ describe('StatisticEffects', () => {
       {
         provide: Http, useFactory: (backend: ConnectionBackend,
           defaultOptions: BaseRequestOptions) => {
-          return new MockHttp(backend, defaultOptions);
+          return new Http(backend, defaultOptions);
 
         }, deps: [MockBackend, BaseRequestOptions]
       }
