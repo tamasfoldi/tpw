@@ -1,6 +1,7 @@
 import { By } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs/observable/of';
 
@@ -11,7 +12,6 @@ import { LessonStatisticComponent } from '../../components/lesson-statistic/less
 import { ComputerEnemy } from '../../computer-enemy/computer-enemy';
 import { MyDomRenderer } from '../../services/renderer/my-dom-renderer';
 import * as player from '../../actions/player.actions';
-import { RouterTestingModule } from "@angular/router/testing";
 
 describe('LessonViewComponent', () => {
   let component: LessonViewComponent;
