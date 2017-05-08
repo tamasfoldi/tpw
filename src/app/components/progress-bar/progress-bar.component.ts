@@ -13,7 +13,7 @@ export class ProgressBarComponent {
   };
 
   get value(): string {
-    return `${this._value}%`;
+    return `calc(${this._value}% - 125px)`;
   }
   @Input('color')
   color = 'red';
