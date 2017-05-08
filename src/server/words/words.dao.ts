@@ -20,7 +20,8 @@ class WordsDAO {
         llllllll llll lljj lllljjjj kkll kkkkllll llff llllffff ddll lllldddd lklk ljlj flfl dldl
         ssssssss ssss ssjj jjjjssss kkss sssskkkk ssll llllssss ssff ffffssss ssdd ddddssss sjsj sksk slsl sfsf sdsd
         aaaaaaaa aaaa aajj jjjjaaaa aakk kkkkaaaa aall llllaaaa aaff ffffaaaa aadd ddddaaaa aass ssssaaaa ajaj akak alal asas adad afaf
-        ;;;;;;;; ;;;; ;;jj jjjj;;;; ;;kk kkkk;;;; ;;ll llll;;;; ;;ff ffff;;;; ;;dd dddd;;;; ;;ss ssss;;;; ;;aa aaaa;;;; ;j;j ;k;k ;l;l ;a;a ;s;s ;d;d ;f;frs `)
+        ;;;;;;;; ;;;; ;;jj jjjj;;;; ;;kk kkkk;;;; ;;ll llll;;;; ;;ff ffff;;;; ;;dd dddd;;;; ;;ss ssss;;;; ;;aa aaaa;;;; ;j;j ;k;k ;l;l
+        ;a;a ;s;s ;d;d ;f;frs `)
           .reduce((prev, curr) => _.mergeWith(prev, this.wordParser(curr), this.unionIfArray)
           , {}));
       }

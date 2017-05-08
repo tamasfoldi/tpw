@@ -11,6 +11,7 @@ import { LessonStatisticComponent } from '../../components/lesson-statistic/less
 import { ComputerEnemy } from '../../computer-enemy/computer-enemy';
 import { MyDomRenderer } from '../../services/renderer/my-dom-renderer';
 import * as player from '../../actions/player.actions';
+import { RouterTestingModule } from "@angular/router/testing";
 
 describe('LessonViewComponent', () => {
   let component: LessonViewComponent;
@@ -23,6 +24,9 @@ describe('LessonViewComponent', () => {
         LessonComponent,
         ProgressBarComponent,
         LessonStatisticComponent
+      ],
+      imports: [
+        RouterTestingModule
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
