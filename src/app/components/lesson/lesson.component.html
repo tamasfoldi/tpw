@@ -1,9 +1,9 @@
 <h1>{{lesson?.title}}</h1>
-<div>
+<div class="lesson-text">
   <span class="typedText">{{typedText?.split(' ').join('_')}}</span><span>{{lesson?.text | slice:typedText?.length:lesson?.text.length}}</span>
 </div>
 
-<md-input-container class="example-full-width">
+<md-input-container class="full-width">
   <input tabindex="1" [disabled]="disableInput" (keydown)="$event.preventDefault()" (keyup)="handleKeyup($event)" [value]="typedText"
     mdInput #lessonInput/>
 </md-input-container>

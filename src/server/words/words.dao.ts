@@ -12,8 +12,15 @@ class WordsDAO {
       instance.WORDS_DB = DB.getCollection('words');
       if (!instance.WORDS_DB) {
         instance.WORDS_DB = DB.addCollection('words');
-        instance.WORDS_DB.insert(_.words(`jjjjjjjj jjjj ffffffff ffff
-        dddddddd dddd kkkkkkkk kkkk llllllll llll ssssssss ssss aaaaaaaa aaaa éééééééé éééé`)
+        instance.WORDS_DB.insert(_.words(`
+        jjjjjjjj jjjj
+        ffffffff ffff ffjj jjjjffff jfjf fjfj
+        dddddddd dddd ddjj jjjjdddd ffdd ffffdddd jdjd fdfd
+        kkkkkkkk kkkk kkff kkkkffff kkjj jjjjkkkk kkdd ddddkkkk kjkj fkfk kdkd
+        llllllll llll lljj lllljjjj kkll kkkkllll llff llllffff ddll lllldddd lklk ljlj flfl dldl
+        ssssssss ssss ssjj jjjjssss kkss sssskkkk ssll llllssss ssff ffffssss ssdd ddddssss sjsj sksk slsl sfsf sdsd
+        aaaaaaaa aaaa aajj jjjjaaaa aakk kkkkaaaa aall llllaaaa aaff ffffaaaa aadd ddddaaaa aass ssssaaaa ajaj akak alal asas adad afaf
+        ;;;;;;;; ;;;; ;;jj jjjj;;;; ;;kk kkkk;;;; ;;ll llll;;;; ;;ff ffff;;;; ;;dd dddd;;;; ;;ss ssss;;;; ;;aa aaaa;;;; ;j;j ;k;k ;l;l ;a;a ;s;s ;d;d ;f;frs `)
           .reduce((prev, curr) => _.mergeWith(prev, this.wordParser(curr), this.unionIfArray)
           , {}));
       }

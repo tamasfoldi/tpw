@@ -5,3 +5,4 @@
 <tpw-lesson-statistic *ngIf="isLessonEnded$ | async" [data]="statistic$ | async "></tpw-lesson-statistic>
 <button *ngIf="!(isStarting$ | async)" md-raised-button (click)="handleReady()">READY</button>
 <tpw-start-counter *ngIf="(isStarting$ | async) && !(isLessonStarted$ | async)"></tpw-start-counter>
+<button *ngIf="isLessonEnded$ | async" md-raised-button [routerLink]="['/']">Back</button>

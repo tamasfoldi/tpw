@@ -9,28 +9,52 @@ export const LESSONS: Lesson[] = [
     title: 'Lesson 1',
     text: 'Lesson one text',
     difficulty: 100,
-    includedLetters: { 'j': 100 }
+    includedLetters: {
+      'j': 50,
+      'f': 50
+    }
   },
   {
     id: '2',
     title: 'Lesson 2',
     text: 'Lesson two text',
-    difficulty: 200,
-    includedLetters: { 'j': 50, 'f': 50 }
+    difficulty: 120,
+    includedLetters: {
+      'j': 25,
+      'f': 25,
+      'd': 25,
+      'k': 25
+    }
   },
   {
     id: '3',
     title: 'Lesson 3',
     text: 'Lesson three text',
-    difficulty: 300,
-    includedLetters: { 'j': 33, 'f': 33, 'd': 34 }
+    difficulty: 140,
+    includedLetters: {
+      'j': 16,
+      'f': 16,
+      'd': 16,
+      'k': 16,
+      'l': 16,
+      's': 16
+    }
   },
   {
     id: '4',
     title: 'Lesson 4',
     text: 'Lesson four text',
-    difficulty: 400,
-    includedLetters: { 'j': 25, 'f': 25, 'd': 25, 'k': 25 }
+    difficulty: 160,
+    includedLetters: {
+      'j': 12,
+      'f': 12,
+      'd': 12,
+      'k': 12,
+      'l': 12,
+      's': 12,
+      'a': 12,
+      ';': 12
+    }
   }
 ];
 
